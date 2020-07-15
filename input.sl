@@ -18,7 +18,7 @@
 
 ;; Define the semantic constraints on the function based on input-output examples
 (constraint (= (max2 (- 1) (- 2)) (- 1)))
-(constraint (= (max2 1 2) 2))
+(constraint (= (max2 1 2.1) 2.1))
 (constraint (= (max2 4 10) 10))
 
 (check-synth)
