@@ -1,7 +1,0 @@
-bin
-lib
-obj
-
-src/SynthLib2Lexer.cpp
-src/*.output
-src/*.tab*
