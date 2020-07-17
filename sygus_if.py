@@ -73,21 +73,31 @@ class SyGuS_IF():
 
     def _add_context_free_grammar(self):
         s = """
-            (( y_term Real ) ( y_cons Real ) ( y_pred Bool ))
-            (( y_term Real ( y_cons
-                ( Variable Real )
-                (- y_term )
-                (+ y_term y_term )
-                (- y_term y_term )
-                (* y_cons y_term )
-                (* y_term y_cons )
-                ( ite y_pred y_term y_term )))
-            ( y_cons Real (( Constant Real )))
-            ( y_pred Bool ((= y_term y_term )
-                ( > y_term y_term )
-                ( >= y_term y_term )
-                ( < y_term y_term )
-                ( <= y_term y_term ))))
+            ((T Real) (C Real) (B Bool))
+                ((T Real 
+                   (C
+                    (Variable Real)
+                    (- T)
+                    (+ T C)
+                    (- T C)
+                    (* C T)
+                    (* T C)
+                    (ite B T T))
+                )
+                (C Real 
+                   ((Constant Real))
+                )
+                (B Bool 
+                   ((and B B) 
+                    (or B B) 
+                    (not B)
+                    (= T C)
+                    (> T C)
+                    (>= T C)
+                    (< T C)
+                    (<= T C))
+                )
+            )
         """
 
         return s + "\n\n"
