@@ -1,5 +1,7 @@
 import subprocess
 import os
+import pandas as pd
+
 
 class SyGuS_IF():
 
@@ -14,6 +16,7 @@ class SyGuS_IF():
         self._sygus_if_prediction = None
         self.solver_output = None
         self.synthesized_function = None
+        self._feature_names = None
         
 
     def _invoke_cvc4(self, is_train = True, filename = "input.sl"):
@@ -39,7 +42,7 @@ class SyGuS_IF():
         # os.system("rm " + filename)
 
     def _add_constraint(self, X_i, y_i):
-        assert y_i == 1 or  y_i == 0, "Error: cannot handle non-binary class labels"  
+        assert y_i == 1 or  y_i == 0, "Error: cannot handle non-binary class labels"
         s = "(constraint (= (" + self._synth_func_name +" "
         for attribute_value in X_i:
             if(attribute_value > 0):
@@ -57,7 +60,12 @@ class SyGuS_IF():
     def _add_signature_of_function(self):
         s = "(synth-fun " + self._synth_func_name + " ("
         for idx in range(self._num_features):
-            s += "(x_" + str(idx) + " " + self._feature_data_type +") "
+            if(self._feature_names is None):
+                s += "(x_" + str(idx) + " " + self._feature_data_type +") "
+            else:
+                _feature = self._feature_names[idx].strip().replace(" ", "_")
+                s += "(" + _feature + " " + self._feature_data_type +") "
+            
         s += ") " 
         s += self._return_type + "\n\n"
 
@@ -73,7 +81,11 @@ class SyGuS_IF():
             """
         s += "\t\t"
         for idx in range(self._num_features):
-            s += "x_" + str(idx) +" "
+            if(self._feature_names is None):
+                s += "x_" + str(idx) + " "
+            else:
+                _feature = self._feature_names[idx].strip().replace(" ", "_")
+                s += _feature + " " 
         s  +=  """\n\t\t        0 1
                     (+ I I) (- I I) (* I I) (/ I I)
                     (ite B I I)))
@@ -99,6 +111,17 @@ class SyGuS_IF():
             raise ValueError
 
     def fit(self, X,y):
+        """
+        Learns a first order logic formula from given dataset
+        """
+        # if dataframe objects is passed, convert it to 2d matrix
+        if(isinstance(X, pd.DataFrame)):
+            self._feature_names = X.columns.to_list()
+            X = X.values
+            y = y.tolist()
+        else:
+            self._feature_names = None
+        
         assert len(X) >= 0, "Error: required at least one example"
         assert len(X[0]) >=0, "Error: required at least one feature"
         assert len(X) == len(y), "Error dimension of X and y"
@@ -129,6 +152,17 @@ class SyGuS_IF():
         """
         Returns y_predict: a 1D list
         """
+
+        # if dataframe objects is passed, convert it to 2d matrix
+        if(isinstance(X, pd.DataFrame)):
+            self._feature_names = X.columns.to_list()
+            X = X.values
+            y = y.tolist()
+        else:
+            self._feature_names = None
+        
+
+        
         assert len(X) >= 0, "Error: required at least one example"
         assert len(X[0]) >=0, "Error: required at least one feature"
         assert len(X) == len(y), "Error dimension of X and y"
@@ -139,6 +173,7 @@ class SyGuS_IF():
 
         y_predict = []
         for idx in range(self._num_examples):
+            
             self._sygus_if_prediction = ""
             self._sygus_if_prediction += self._add_bachground_theory()
             self._sygus_if_prediction += self._add_synthesized_function()
@@ -152,7 +187,7 @@ class SyGuS_IF():
 
             if(self.solver_output == "unsat"):
                 y_predict.append(y[idx])
-            elif(self.solver_output == "sat"):
+            elif(self.solver_output == "sat"):  
                 y_predict.append(1 - y[idx])
             else:
                 raise ValueError
