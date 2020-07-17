@@ -73,24 +73,21 @@ class SyGuS_IF():
 
     def _add_context_free_grammar(self):
         s = """
-            ;; Declare the non-terminals that would be used in the grammar
-            ((I Real) (B Bool))
-
-            ;; Define the grammar for allowed implementations of func
-            ((I Real ( 
-            """
-        s += "\t\t"
-        for idx in range(self._num_features):
-            if(self._feature_names is None):
-                s += "x_" + str(idx) + " "
-            else:
-                _feature = self._feature_names[idx].strip().replace(" ", "_")
-                s += _feature + " " 
-        s  +=  """\n\t\t        0 1
-                    (+ I I) (- I I) (* I I) (/ I I)
-                    (ite B I I)))
-            (B Bool ((and B B) (or B B) (not B)
-                    (= I I) (<= I I) (>= I I))))
+            (( y_term Real ) ( y_cons Real ) ( y_pred Bool ))
+            (( y_term Real ( y_cons
+                ( Variable Real )
+                (- y_term )
+                (+ y_term y_term )
+                (- y_term y_term )
+                (* y_cons y_term )
+                (* y_term y_cons )
+                ( ite y_pred y_term y_term )))
+            ( y_cons Real (( Constant Real )))
+            ( y_pred Bool ((= y_term y_term )
+                ( > y_term y_term )
+                ( >= y_term y_term )
+                ( < y_term y_term )
+                ( <= y_term y_term ))))
         """
 
         return s + "\n\n"
