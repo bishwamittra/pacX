@@ -51,7 +51,7 @@ class SyGuS_IF():
         assert self.solver_output == "sat" or self.solver_output == "unsat", "Error in parsing solver output"
 
         # remove aux files
-        # os.system("rm " + filename)
+        os.system("rm " + filename)
 
     def _add_constraint(self, X_i, y_i):
         assert y_i == 1 or  y_i == 0, "Error: cannot handle non-binary class labels"
@@ -283,6 +283,9 @@ class SyGuS_IF():
                     y_pred.append(int(float(self._eval(lines[1]))))
                 except:
                     raise ArithmeticError
+
+
+        os.system("rm "+ filename)
                     
 
         return y_pred
