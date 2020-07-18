@@ -1,41 +1,7 @@
 (set-logic LRA)
 
-(synth-fun func ((sepal_length Real) (sepal_width Real) (petal_length Real) (petal_width Real) ) Real
-
-
-            ((T Real) (C Real) (B Bool))
-                ((T Real 
-                   (C
-                    (Variable Real)
-                    (- T)
-                    (+ T C)
-                    (- T C)
-                    (* C T)
-                    (* T C)
-                    (ite B T T))
-                )
-                (C Real 
-                   ((Constant Real))
-                )
-                (B Bool 
-                   ((and B B) 
-                    (or B B) 
-                    (not B)
-                    (= T C)
-                    (> T C)
-                    (>= T C)
-                    (< T C)
-                    (<= T C))
-                )
-            )
-        
-
-)
-
-(constraint (= (func 6.4 2.8 5.6 2.2 ) 0))
-(constraint (= (func 5.6 2.9 3.6 1.3 ) 1))
-(constraint (= (func 5.0 3.4 1.6 0.4 ) 0))
-(constraint (= (func 6.4 3.2 4.5 1.5 ) 1))
+(define-fun func ((sepal_length Real) (sepal_width Real) (petal_length Real) (petal_width Real)) Real (ite (> sepal_width 2) (ite (not (= petal_width (/ 1 2))) (ite (> petal_length 1) (ite (<= sepal_width 4) (ite (< sepal_width 4) (ite (>= petal_length (/ 4 3)) (ite (>= sepal_length 5) (ite (not (= petal_width 1)) (ite (>= sepal_width (/ 5 2)) (ite (> sepal_length 5) (ite (>= petal_length (/ 3 2)) (ite (> petal_length (/ 3 2)) (ite (>= petal_width (/ 1 3)) (ite (>= petal_width (/ 1 2)) (ite (>= petal_length 4) (ite (> petal_length 4) (ite (>= sepal_length 6) (ite (>= petal_width (/ 3 2)) (ite (not (= petal_width 2)) (ite (<= petal_length 6) (ite (< petal_length 6) (ite (> sepal_length 6) (ite (>= petal_length 5) (ite (<= petal_width 2) (ite (<= sepal_width 3) (ite (< sepal_width 3) (ite (<= sepal_width (/ 5 2)) 0 0) (ite (= petal_length 5) (- sepal_width 2) 0)) 0) 0) (ite (<= sepal_width 3) (ite (< sepal_width 3) (ite (<= sepal_width (/ 5 2)) (- petal_width (/ 1 2)) (ite (= petal_width (/ 3 2)) (- petal_width (/ 1 2)) 0)) 0) (ite (= petal_width (/ 3 2)) (- petal_width (/ 1 2)) 1))) (ite (>= petal_length 5) 1 (ite (<= sepal_width 3) (- petal_width (/ 1 2)) 1))) (ite (<= petal_width 2) (ite (<= sepal_width 3) (ite (< sepal_width 3) (ite (<= sepal_width (/ 5 2)) 0 0) (ite (= petal_length 5) (- sepal_width 2) 0)) 0) 0)) (ite (<= petal_width 2) (ite (<= sepal_width 3) (ite (< sepal_width 3) (ite (<= sepal_width (/ 5 2)) 0 0) (ite (= petal_length 5) (- sepal_width 2) 0)) 0) 0)) (- petal_width 2)) (ite (<= sepal_width 3) (ite (< sepal_width 3) 1 (- sepal_width 2)) 1)) (ite (not (= petal_width 2)) (ite (>= petal_length 5) (ite (= sepal_width 3) 0 (ite (<= petal_width 2) 0 0)) (ite (<= sepal_width 3) (ite (< sepal_width 3) 1 (- sepal_width 2)) 1)) (- petal_width 2))) (* (/ 1 4) petal_length)) (ite (<= sepal_width (/ 5 2)) 1 1)) 0) 0) (ite (>= sepal_length 5) (ite (> sepal_length 5) 0 0) (ite (not (= petal_width 1)) (ite (>= petal_width (/ 1 2)) 0 0) petal_width))) 0) (ite (>= petal_length (/ 3 2)) (ite (> petal_length (/ 3 2)) (ite (>= petal_width (/ 1 3)) (ite (>= petal_width (/ 1 2)) 0 0) 0) (ite (>= sepal_length 5) (ite (> sepal_length 5) 0 0) (ite (not (= petal_width 1)) (ite (>= petal_width (/ 1 2)) 0 0) petal_width))) 0)) (ite (>= petal_width (/ 3 2)) (ite (> sepal_length 6) (- petal_width (/ 1 2)) 0) 1)) petal_width) (ite (not (= petal_width 1)) (ite (>= petal_width (/ 1 2)) 0 0) petal_width)) (ite (>= sepal_length 5) (ite (> sepal_length 5) 0 0) (ite (not (= petal_width 1)) (ite (>= petal_width (/ 1 2)) 0 0) petal_width))) 0) 0) (- petal_length 1)) (- petal_width (/ 1 2))) petal_width))
+(constraint (= (func 4.9 3.1 1.5 0.2 ) 0))
 
 
 (check-synth)

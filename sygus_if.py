@@ -1,6 +1,7 @@
 import subprocess
 import os
 import pandas as pd
+import regex
 
 
 class SyGuS_IF():
@@ -17,6 +18,17 @@ class SyGuS_IF():
         self.solver_output = None
         self.synthesized_function = None
         self._feature_names = None
+
+
+    def _eval(self, exp):
+        m = regex.match(r'\(([-+\/\*]) ((?R)) ((?R))\)|([0-9]+\.?[0-9]+?)', exp)
+        if m.group(1) and m.group(2) and m.group(3):  # exp is a procedure call
+            return eval('%s %s %s' % (self._eval(m.group(2)),
+                                    m.group(1),
+                                    self._eval(m.group(3))))
+        if m.group(4):  # exp is a number
+            return str(eval(m.group(4)))
+
         
 
     def _invoke_cvc4(self, is_train = True, filename = "input.sl"):
@@ -68,6 +80,20 @@ class SyGuS_IF():
             
         s += ") " 
         s += self._return_type + "\n\n"
+
+        return s
+
+    def get_function_signature(self):
+        s = "(define-fun " + self._synth_func_name + " ("
+        for idx in range(self._num_features):
+            if(self._feature_names is None):
+                s += "(x_" + str(idx) + " " + self._feature_data_type +") "
+            else:
+                _feature = self._feature_names[idx].strip().replace(" ", "_")
+                s += "(" + _feature + " " + self._feature_data_type +") "
+        s = s[:-1]    
+        s += ") " 
+        s += self._return_type
 
         return s
 
@@ -200,6 +226,68 @@ class SyGuS_IF():
                 raise ValueError
 
         return y_predict
+
+
+    def predict_z3(self, X, filename = "test_z3.sl"):
+        # if dataframe objects is passed, convert it to 2d matrix
+        if(isinstance(X, pd.DataFrame)):
+            self._feature_names = [ _feature_name.strip().replace(" ", "_") for _feature_name in X.columns.to_list()]
+            X = X.values
+        assert len(X) >= 0, "Error: required at least one example"
+        assert len(X[0]) >=0, "Error: required at least one feature"
+        
+
+        self._num_features = len(X[0])
+        self._num_examples = len(X)
+
+        if(self._feature_names is None):
+            self._feature_names = ["x_" + str(idx) for idx in range(self._num_features) ]
+
+
+
+
+        _function_snippet = self.synthesized_function[:-1].replace(self.get_function_signature(),"")
+        _z3_expression = "(set-option :smt.mbqi true)\n(set-logic QF_LRA)\n"
+        for _feature in self._feature_names:
+            _z3_expression += "(declare-const " + _feature + " " + self._feature_data_type +")\n"
+
+        y_pred = []
+        for i in range(self._num_examples):
+            _example_specific_ = _z3_expression
+            for j in range(self._num_features):
+                _example_specific_ += "(assert (= " + self._feature_names[j] + " " + str(X[i][j]) + "))\n"
+
+            # _example_specific_ += "(rmodel->model-converter-wrapper\n"
+            # for j in range(self._num_features):
+            #     _example_specific_ += self._feature_names[j] + " -> " + str(X[i][j]) + "\n"
+            # _example_specific_ += ")\n"
+
+
+            f = open(filename, 'w')
+            f.write(_example_specific_ + "(check-sat)\n" + "(eval " + _function_snippet + ")\n")
+            f.close()
+
+
+            cmd = "z3 " + filename
+            cmd_output = subprocess.check_output(
+                cmd, shell=True, stderr=subprocess.STDOUT)
+            lines = cmd_output.decode('utf-8').split("\n")
+            assert len(lines) >= 2, "Unknown error in z3 output"
+            assert lines[0] == "sat", "Error in z3 formula"
+
+            try:
+                y_pred.append(int(float(lines[1])))
+            except:
+                try:
+                    # print(lines[1])
+                    y_pred.append(int(float(self._eval(lines[1]))))
+                except:
+                    raise ArithmeticError
+                    
+
+        return y_pred
+
+        
 
 
 
