@@ -31,6 +31,7 @@ class Verifier():
 
             self.number_of_examples_checked += 1
             if(learner_verdict != (blackbox_verdict and query_verdict)):
+                print(learner_verdict, blackbox_verdict, query_verdict, 1 - learner_verdict)
                 return example, 1 - learner_verdict
 
         return None, None

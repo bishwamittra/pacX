@@ -244,6 +244,9 @@ class SyGuS_IF():
             self._feature_names = ["x_" + str(idx) for idx in range(self._num_features) ]
 
 
+        if(self.synthesized_function is None):
+            # cannot predict before training
+            return [1 for _ in X]
 
 
         _function_snippet = self.synthesized_function[:-1].replace(self.get_function_signature(),"")
@@ -257,11 +260,7 @@ class SyGuS_IF():
             for j in range(self._num_features):
                 _example_specific_ += "(assert (= " + self._feature_names[j] + " " + str(X[i][j]) + "))\n"
 
-            # _example_specific_ += "(rmodel->model-converter-wrapper\n"
-            # for j in range(self._num_features):
-            #     _example_specific_ += self._feature_names[j] + " -> " + str(X[i][j]) + "\n"
-            # _example_specific_ += ")\n"
-
+            
 
             f = open(filename, 'w')
             f.write(_example_specific_ + "(check-sat)\n" + "(eval " + _function_snippet + ")\n")
@@ -279,9 +278,14 @@ class SyGuS_IF():
                 y_pred.append(int(float(lines[1])))
             except:
                 try:
-                    # print(lines[1])
-                    y_pred.append(int(float(self._eval(lines[1]))))
+                    if(lines[1][1] == "-"): # a negative number
+                        y_pred.append(-1 * int(float(self._eval(lines[1][3:-1]))))
+                    else:
+                        y_pred.append(int(float(self._eval(lines[1]))))
                 except:
+                    print(_function_snippet)
+                    print(X[i])
+                    print(lines[1], "can not be processed")
                     raise ArithmeticError
 
 
