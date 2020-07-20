@@ -4,7 +4,7 @@ import math
 
 class Verifier():
 
-    def __init__(self, random_example_generator, epsilon=0.05, delta=0.05):
+    def __init__(self, random_example_generator, params_generator,  epsilon=0.05, delta=0.05):
         assert((epsilon <= 1) & (delta <= 1))
         self.epsilon = epsilon
         self.delta = delta
@@ -16,6 +16,7 @@ class Verifier():
         self._number_of_samples = None
         self.number_of_examples_checked = 0
         self._get_random_example = random_example_generator
+        self._params_generator = params_generator
 
     def equivalence_check(self, blackbox, learner, query):
 
@@ -23,14 +24,13 @@ class Verifier():
         self._number_of_samples = int(
             math.ceil((self._num_equivalence_asked*0.693147-self._log_delta)/self.epsilon))
         for i in range(self._number_of_samples):
-            example = self._get_random_example()
-
+            example = self._get_random_example(self._params_generator)
             blackbox_verdict = blackbox.classify_example(example)
             learner_verdict = learner.classify_example(example)
             query_verdict = query.classify_example(example)
 
             self.number_of_examples_checked += 1
             if(learner_verdict != (blackbox_verdict and query_verdict)):
-                return example, not learner_verdict
+                return example, 1 - learner_verdict
 
-        return None
+        return None, None

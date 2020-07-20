@@ -54,7 +54,7 @@ class SyGuS_IF():
         os.system("rm " + filename)
 
     def _add_constraint(self, X_i, y_i):
-        assert y_i == 1 or  y_i == 0, "Error: cannot handle non-binary class labels"
+        # assert y_i == 1 or  y_i == 0, "Error: cannot handle non-binary class labels"
         s = "(constraint (= (" + self._synth_func_name +" "
         for attribute_value in X_i:
             if(attribute_value > 0):

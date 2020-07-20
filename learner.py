@@ -1,16 +1,28 @@
 class Learner():
 
-    def __init__(self, model, prediction_function, train_function, X,y):
+    def __init__(self, model, prediction_function, train_function, X, y, predict_2d = True):
         self.model = model
-        self.classify_example=prediction_function
+        self._predict_function = prediction_function
         self.X = X
         self.y= y
-        self.fit = train_function
+        self._train_function = train_function
+        self._predict_2d = predict_2d
 
-    def add_example_to_training(self, example, label):
+    def add_example(self, example, label):
         self.X.append(example)
-        if(label):
-            self.y.append(1)
+        self.y.append(label)
+
+
+    def classify_example(self, example):
+        # not multidimensional
+        if(self._predict_2d):
+            return self._predict_function([example])[0] == 1
         else:
-            self.y.append(0)
+            return self._predict_function(example) == 1
+
+    def fit(self):
+        self._train_function(self.X, self.y)
+        # print(self.X)
+        # print(self.y)
+        # print(self.model.synthesized_function)
 
