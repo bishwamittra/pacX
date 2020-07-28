@@ -6,7 +6,7 @@ import regex
 
 class SyGuS_IF():
 
-    def __init__(self, feature_data_type = None, function_return_type = None):
+    def __init__(self, feature_names = None, feature_data_type = None, function_return_type = None):
         self._num_features = None
         self._num_examples = None
         self._synth_func_name = "func"
@@ -17,12 +17,19 @@ class SyGuS_IF():
             self._return_type = "Bool"
         else:
             self._return_type = function_return_type
+        if(feature_names is None):
+            self._feature_names = None
+        else:
+            self._feature_names = feature_names
+
+
         self.sygus_if_learn = None
         self._sygus_if_prediction = None
         self.solver_output = None
         self.synthesized_function = None
-        self._feature_names = None
+    
 
+        
 
     def _eval(self, exp):
         m = regex.match(r'\(([-+\/\*]) ((?R)) ((?R))\)|([0-9]+\.?[0-9]+?)', exp)
@@ -51,11 +58,13 @@ class SyGuS_IF():
             self.solver_output = lines[0]
         if(len(lines)>1 and is_train):
             self.synthesized_function =  lines[1]
+            self._function_snippet = self.synthesized_function[:-1].replace(self.get_function_signature(),"")
+        
 
         assert self.solver_output == "sat" or self.solver_output == "unsat", "Error in parsing solver output"
 
         # remove aux files
-        os.system("rm " + filename)
+        # os.system("rm " + filename)
 
     def _add_constraint(self, X_i, y_i):
         s = "(constraint (= (" + self._synth_func_name +" "
@@ -112,42 +121,55 @@ class SyGuS_IF():
         return s
 
     def _add_context_free_grammar(self):
-        s = """
-            ;; Declare the non-terminals that would be used in the grammar
-            ((B Bool) (R Real) (C Real))
+        if("Real" in list(self._feature_data_type.values())):
+            s = """
+                ;; Declare the non-terminals that would be used in the grammar
+                ((B Bool) (C Real) (R Real))
 
-            ;; Define the grammar for allowed implementations
-            (
+                ;; Define the grammar for allowed implementations
                 (
-                    B Bool (
-            			(Variable Bool)
-                        (not B)
-                        (or B B)
-                        (and B B)
-                        (= R C)
-                        (> R C)
-                        (< R C)
-                        (<= R C)
-                        (>= R C)
+                    (
+                        B Bool (
+                            true false
+                            (Variable Bool)
+                            (not B)
+                            (or B B)
+                            (and B B)
+                            (> R C)
+                            (< R C)
+                        )
+                    )
+                    (
+                        C Real (
+                            (Constant Real)
+                        )
+                    )
+                    (
+                        R Real (
+                            (Variable Real)
+                            (- R)
+                        )
                     )
                 )
+            """
+        else:
+            s = """
+                ;; Declare the non-terminals that would be used in the grammar
+                ((B Bool))
+
+                ;; Define the grammar for allowed implementations
                 (
-                    R Real (
-            	        C
-                        (Variable Real)
-                        (+ R C)
-                        (- R C)
-                        (* C R)
-                        (- R)
+                    (
+                        B Bool (
+                            true false
+                            (Variable Bool)
+                            (not B)
+                            (or B B)
+                            (and B B)
+                        )
                     )
                 )
-                (
-                    C Real (
-                        (Constant Real)
-                    )
-                )
-            )
-        """
+            """
         # no syntactic costraints added
         # s = ""
         return s + "\n\n"
@@ -190,6 +212,7 @@ class SyGuS_IF():
         
         self._num_features = len(X[0])
         self._num_examples = len(X)
+
 
         if(self._feature_names is None):
             self._feature_names = []
@@ -290,7 +313,6 @@ class SyGuS_IF():
             return [1 for _ in X]
 
 
-        _function_snippet = self.synthesized_function[:-1].replace(self.get_function_signature(),"")
         _z3_expression = "(set-option :smt.mbqi true)\n(set-logic QF_LRA)\n"
         for _feature in self._feature_names:
             _z3_expression += "(declare-const " + _feature + " " + self._feature_data_type[_feature] +")\n"
@@ -309,7 +331,7 @@ class SyGuS_IF():
             
 
             f = open(filename, 'w')
-            f.write(_example_specific_ + "(check-sat)\n" + "(eval " + _function_snippet + ")\n")
+            f.write(_example_specific_ + "(check-sat)\n" + "(eval " + self._function_snippet + ")\n")
             f.close()
 
 
@@ -330,7 +352,7 @@ class SyGuS_IF():
                         else:
                             y_pred.append(int(float(self._eval(lines[1]))))
                     except:
-                        print(_function_snippet)
+                        print(self._function_snippet)
                         print(X[i])
                         print(lines[1], "can not be processed")
                         raise ArithmeticError

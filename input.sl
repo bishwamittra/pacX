@@ -1,49 +1,52 @@
 (set-logic LRA)
 
-(synth-fun func ((sepal_length Real) (sepal_width Real) (petal_length Real) (petal_width Real) ) Bool
+(synth-fun func ((hair Bool) (feathers Bool) (eggs Bool) (milk Bool) (airborne Bool) (aquatic Bool) (predator Bool) (toothed Bool) (backbone Bool) (breathes Bool) (venomous Bool) (fins Bool) (legs Real) (tail Bool) (domestic Bool) (catsize Bool) ) Bool
 
 
-            ;; Declare the non-terminals that would be used in the grammar
-            ((B Bool) (R Real) (C Real))
+                ;; Declare the non-terminals that would be used in the grammar
+                ((B Bool) (C Real) (R Real))
 
-            ;; Define the grammar for allowed implementations
-            (
+                ;; Define the grammar for allowed implementations
                 (
-                    B Bool (
-            			(Variable Bool)
-                        (not B)
-                        (or B B)
-                        (and B B)
-                        (= R C)
-                        (> R C)
-                        (< R C)
-                        (<= R C)
-                        (>= R C)
+                    (
+                        B Bool (
+                            true false
+                            (Variable Bool)
+                            (not B)
+                            (or B B)
+                            (and B B)
+                            (> R C)
+                            (< R C)
+                        )
+                    )
+                    (
+                        C Real (
+                            (Constant Real)
+                        )
+                    )
+                    (
+                        R Real (
+                            (Variable Real)
+                            (- R)
+                        )
                     )
                 )
-                (
-                    R Real (
-            	        C
-                        (Variable Real)
-                        (+ R C)
-                        (- R C)
-                        (* C R)
-                        (- R)
-                    )
-                )
-                (
-                    C Real (
-                        (Constant Real)
-                    )
-                )
-            )
-        
+            
 
 )
 
-(constraint (= (func 0.36111111111111094 0.20833333333333326 0.49152542372881347 0.4166666666666667 ) true))
-(constraint (= (func 0.6111111111111112 0.41666666666666674 0.711864406779661 0.7916666666666667 ) false))
-(constraint (= (func 0.6666666666666667 0.5416666666666665 0.7966101694915254 0.8333333333333335 ) false))
-(constraint (= (func 0.3055555555555556 0.5833333333333333 0.0847457627118644 0.125 ) false))
+(constraint (= (func true false true true false false true true true true false false 1 true false false ) false))
+(constraint (= (func false false false true true false false true true false false true 0 false true false ) true))
+(constraint (= (func true false false true true false true false true true false true 1 true false true ) false))
+(constraint (= (func false false false true true true false false true false true true 1 false false false ) true))
+(constraint (= (func false false true false true false true false false true false false 0 true true true ) false))
+(constraint (= (func false true false true false true true true true false false true 1 false true true ) true))
+(constraint (= (func true true true false true false false false false false false true 1 true true false ) false))
+(constraint (= (func true false true false false true true false false true false true 0 false true true ) false))
+(constraint (= (func true true false true false true true true true false false false 1 false false true ) true))
+(constraint (= (func false true false true true false true true true false false false 0 true false false ) false))
+(constraint (= (func false true false true false true true false false false true true 1 false false false ) false))
+(constraint (= (func true true true true false true false true true true false false 0 false false false ) false))
+
 
 (check-synth)

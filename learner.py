@@ -24,5 +24,6 @@ class Learner():
         self._train_function(self.X, self.y)
         # print(self.X)
         # print(self.y)
-        # print(self.model.synthesized_function)
+        # print()
+        # print(self.model._function_snippet)
 

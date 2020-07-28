@@ -23,6 +23,8 @@ class Verifier():
         self._num_equivalence_asked += 1
         self._number_of_samples = int(
             math.ceil((self._num_equivalence_asked*0.693147-self._log_delta)/self.epsilon))
+        
+        _found_a_counterexample = None
         for i in range(self._number_of_samples):
             example = self._get_random_example(self._params_generator)
             blackbox_verdict = blackbox.classify_example(example)
@@ -31,7 +33,26 @@ class Verifier():
 
             self.number_of_examples_checked += 1
             if(learner_verdict != (blackbox_verdict and query_verdict)):
-                print(learner_verdict, blackbox_verdict, query_verdict, 1 - learner_verdict)
+
+                _found_a_counterexample = True
+
+                # toggle between positive and negative counterexamples
+                if(learner_verdict == self._last_counterexample_positive):
+                    self._last_counterexample_positive =  not self._last_counterexample_positive
+                else:
+                    # store one counterexample in case toggle does not work
+                    _found_a_counterexample = (example, learner_verdict)
+                    continue
+
+
+                print("-found", not learner_verdict, "counterexample")
+
+                # print(learner_verdict, blackbox_verdict, query_verdict, 1 - learner_verdict)
                 return example, 1 - learner_verdict
+        
+        if(_found_a_counterexample is not None):
+            example, learner_verdict = _found_a_counterexample
+            print("-could not find", not self._last_counterexample_positive, "counterexample. Only found", not learner_verdict)
+            return example, 1 - learner_verdict
 
         return None, None

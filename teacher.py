@@ -13,18 +13,19 @@ class Teacher():
         
         self.verifier = verifier.Verifier(random_example_generator, params_generator, self.epsilon, self.delta) 
 
-        for i in  tqdm(range(self.max_iterations)):
-            
+        for i in  range(self.max_iterations):
+            print("\n-iteration:", i + 1)
             counterexample, label = self.verifier.equivalence_check(blackbox,learner,query)
             if(counterexample == None):
-
-                print("Total examples checked:", self.verifier.number_of_examples_checked)
+                print("-no counterexample returned")
+                print("\nLearning complete\n-total examples checked:", self.verifier.number_of_examples_checked)
                 return learner, True
             else:
                 learner.add_example(counterexample, label)
                 learner.fit() 
+                
 
-        print("Total examples checked:", self.verifier.number_of_examples_checked)
+        print("\nLearning complete\n-Total examples checked:", self.verifier.number_of_examples_checked)
         return learner, False
         
 

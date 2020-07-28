@@ -17,14 +17,14 @@ class Zoo():
         
         df = pd.read_csv(self.filename)
         df = df.drop(self.ignore_attributes, axis = 1)
-        df.to_csv("data/raw/reduced_zoo.csv", index=False)
-
+        
         # one-hot-encode categorical features:
         df = helper_functions.get_one_hot_encoded_df(df, columns_to_one_hot=self.categorical_attributes, verbose = True)
-
+        
         # scale dataset
-        scaler = MinMaxScaler()
-        df[self.continuous_attributes] = scaler.fit_transform(df[self.continuous_attributes])
+        if(len(self.continuous_attributes)>0):
+            scaler = MinMaxScaler()
+            df[self.continuous_attributes] = scaler.fit_transform(df[self.continuous_attributes])
 
 
 
@@ -50,7 +50,10 @@ class Zoo():
         df = df.dropna()
         if(self.verbose):
             print("-number of samples: (after dropping nan rows)", len(df))
-            
+        
+        self.attributes = df.columns.tolist()
+        self.attributes.remove(self.target)
+        df.to_csv("data/raw/reduced_zoo.csv", index=False)
         return df
 
 
