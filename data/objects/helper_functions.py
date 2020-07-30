@@ -6,6 +6,23 @@ from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_iris 
 from feature_engine import discretisers as dsc
 from sklearn.preprocessing import StandardScaler
+import random
+
+def random_generator(X, feature_type):
+    """
+    X is the dataframe (original)
+    feature_type is a python dictionary where the key is the feature and the value is the data-type (real, int, bool) of the feature.
+    """
+    x=[]
+    for _feature in X.columns.tolist():
+        if(feature_type[_feature] == "Bool"):
+            x.append(random.randint(0,1))
+        elif(feature_type[_feature] == "Real"):
+            x.append(random.uniform(X[_feature].min(),X[_feature].max()))
+        else:
+            print("Error: feature type is either Bool or Real")
+            raise ValueError
+    return x
 
 def get_scaled_df(X):
     # scale the feature values 

@@ -18,7 +18,7 @@ class Verifier():
         self._get_random_example = random_example_generator
         self._params_generator = params_generator
 
-    def equivalence_check(self, blackbox, learner, query):
+    def equivalence_check(self, blackbox, learner, query, verbose = False):
 
         self._num_equivalence_asked += 1
         self._number_of_samples = int(
@@ -26,7 +26,7 @@ class Verifier():
         
         _found_a_counterexample = None
         for i in range(self._number_of_samples):
-            example = self._get_random_example(self._params_generator)
+            example = self._get_random_example(X=self._params_generator[0], feature_type=self._params_generator[1])
             blackbox_verdict = blackbox.classify_example(example)
             learner_verdict = learner.classify_example(example)
             query_verdict = query.classify_example(example)
@@ -44,15 +44,16 @@ class Verifier():
                     _found_a_counterexample = (example, learner_verdict)
                     continue
 
-
-                print("-found", not learner_verdict, "counterexample")
+                if(verbose):
+                    print("-found", not learner_verdict, "counterexample")
 
                 # print(learner_verdict, blackbox_verdict, query_verdict, 1 - learner_verdict)
                 return example, 1 - learner_verdict
         
         if(_found_a_counterexample is not None):
             example, learner_verdict = _found_a_counterexample
-            print("-could not find", not self._last_counterexample_positive, "counterexample. Only found", not learner_verdict)
+            if(verbose):
+                print("-could not find", not self._last_counterexample_positive, "counterexample. Only found", not learner_verdict)
             return example, 1 - learner_verdict
 
         return None, None

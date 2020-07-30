@@ -1,0 +1,141 @@
+Learned tree -->
+
+def tree(hair, feathers, eggs, milk, airborne, aquatic, predator, toothed, backbone, breathes, venomous, fins, legs, tail, domestic, catsize):
+    if backbone <= 0.5:
+        return 0
+    else:
+        if breathes <= 0.5:
+            if fins <= 0.5:
+                return 1
+            else:
+                return 0
+        else:
+            if tail <= 0.5:
+                if hair <= 0.5:
+                    return 0
+                else:
+                    return 1
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    return 1
+
+					
+
+=================================================
+Query is -->
+	backbone = 0
+
+
+Explanation is -->
+ false
+
+-did teacher terminate? True
+
+=================================================
+Query is -->
+	breathes = 0
+
+
+Explanation is -->
+ (and backbone (not (or breathes fins)))
+
+-did teacher terminate? True
+
+=================================================
+Query is -->
+	backbone = 0
+	legs >= 0.35
+
+
+Explanation is -->
+ false
+
+-did teacher terminate? True
+
+=================================================
+Query is -->
+	backbone = 1
+	hair = 1
+
+
+Explanation is -->
+ (and hair (and backbone (or milk (or breathes catsize))))
+
+-did teacher terminate? False
+
+=================================================
+Query is -->
+	backbone = 1
+	hair = 1
+	tail = 0
+
+
+Explanation is -->
+ (and hair (not (or tail (and venomous (not predator)))))
+
+-did teacher terminate? False
+
+=================================================
+Query is -->
+	backbone = 1
+	hair = 1
+	tail = 0
+	breathes = 1
+
+
+Explanation is -->
+ (and hair (and backbone (and breathes (not tail))))
+
+-did teacher terminate? True
+
+=================================================
+Query is -->
+	fins = 0
+	breathes = 0
+
+
+Explanation is -->
+ (and backbone (not (or breathes fins)))
+
+-did teacher terminate? True
+
+=================================================
+Query is -->
+	backbone = 1
+	breathes = 1
+	aquatic = 1
+
+
+Explanation is -->
+ (and aquatic (and backbone (and breathes (or hair milk))))
+
+-did teacher terminate? False
+
+=================================================
+Query is -->
+	backbone = 1
+	breathes = 1
+	aquatic = 1
+	tail = 1
+
+
+Explanation is -->
+ (and aquatic (and backbone (and breathes tail)))
+
+-did teacher terminate? True
+
+=================================================
+Query is -->
+	backbone = 1
+	breathes = 1
+	aquatic = 0
+	tail = 1
+
+
+Explanation is -->
+ (and backbone (and breathes (and tail (not aquatic))))
+
+-did teacher terminate? True
+

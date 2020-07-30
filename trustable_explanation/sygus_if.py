@@ -147,7 +147,6 @@ class SyGuS_IF():
                     (
                         R Real (
                             (Variable Real)
-                            (- R)
                         )
                     )
                 )
