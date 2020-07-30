@@ -13,12 +13,17 @@ class Learner():
         self.y.append(label)
 
 
+
     def classify_example(self, example):
-        # not multidimensional
-        if(self._predict_2d):
-            return self._predict_function([example])[0] == 1
-        else:
-            return self._predict_function(example) == 1
+        try:
+            # not multidimensional
+            if(self._predict_2d):
+                return self._predict_function([example])[0] == 1
+            else:
+                return self._predict_function(example) == 1
+        except:
+            # print("When the model is not fitted return True as the default prediction")
+            return True
 
     def fit(self):
         self._train_function(self.X, self.y)
