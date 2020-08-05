@@ -85,7 +85,7 @@ class SyGuS_IF():
                 raise ValueError
         
         s += ") "
-        if(self._return_type is "Bool"):
+        if(self._return_type == "Bool"):
             if(y_i == 1):
                 s += "true" + "))\n"  
             else:

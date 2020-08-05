@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
-from data.objects import helper_functions
+from  trustable_explanation import helper_functions
 
 class Zoo():
 

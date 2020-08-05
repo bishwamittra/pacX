@@ -25,10 +25,10 @@ class Learner():
             # print("When the model is not fitted return True as the default prediction")
             return True
 
-    def fit(self):
+    def fit(self, queue):
         self._train_function(self.X, self.y)
         # print(self.X)
         # print(self.y)
         # print()
         # print(self.model._function_snippet)
-
+        queue.put([self])

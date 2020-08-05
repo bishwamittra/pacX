@@ -27,8 +27,6 @@ class DecisionTree():
                 operator.ge : ">=",
                 operator.le : "<=",
         }
-        s = "Query is -->\n"
-        for key in self._dict_query:
-                s += "\t" + str(key) + " " +  str(ops[self._dict_query[key][0]]) + " " + str(self._dict_query[key][1]) + "\n"
+        return (" And ").join([str(key) + " " +  str(ops[self._dict_query[key][0]]) + " " + str(self._dict_query[key][1]) for key in self._dict_query])
+                
             
-        return s

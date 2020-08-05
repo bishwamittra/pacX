@@ -7,6 +7,8 @@ from sklearn.datasets import load_iris
 from feature_engine import discretisers as dsc
 from sklearn.preprocessing import StandardScaler
 import random
+from sklearn.tree import _tree
+
 
 def random_generator(X, feature_type):
     """
@@ -18,7 +20,7 @@ def random_generator(X, feature_type):
         if(feature_type[_feature] == "Bool"):
             x.append(random.randint(0,1))
         elif(feature_type[_feature] == "Real"):
-            x.append(random.uniform(X[_feature].min(),X[_feature].max()))
+            x.append(round(random.uniform(X[_feature].min(),X[_feature].max()),3))
         else:
             print("Error: feature type is either Bool or Real")
             raise ValueError
@@ -29,6 +31,40 @@ def get_scaled_df(X):
     sc = StandardScaler()
     X = sc.fit_transform(X)
     return X
+
+
+def tree_to_code( tree, feature_names):
+
+        
+    tree_ = tree.tree_
+    feature_name = [
+        feature_names[i] if i != _tree.TREE_UNDEFINED else "undefined!"
+        for i in tree_.feature
+    ]
+    s = "def tree({}):".format(", ".join(feature_names)) + "\n\n"
+    # print("\nLearned tree -->\n")
+    # print("def tree({}):".format(", ".join(feature_names)))
+
+    def recurse(node, depth, s):
+        indent = "    " * depth
+        if tree_.feature[node] != _tree.TREE_UNDEFINED:
+            name = feature_name[node]
+            threshold = tree_.threshold[node]
+            s = s + "{}if {} <= {}:".format(indent, name, threshold) + "\n"
+            # print("{}if {} <= {}:".format(indent, name, threshold))
+            s = recurse(tree_.children_left[node], depth + 1, s)
+            s = s + "{}else:".format(indent) + "\n"
+            # print("{}else:".format(indent))
+            s = recurse(tree_.children_right[node], depth + 1, s)
+        else:
+            s = s + "{}return {}".format(indent, np.argmax(tree_.value[node][0])) + "\n"
+            # print("{}return {}".format(indent, np.argmax(tree_.value[node][0])))
+        
+        return s
+
+
+    s = recurse(0, 1, s)
+    return s
 
 
 def sklearn_to_df(sklearn_dataset):
