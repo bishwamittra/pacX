@@ -105,3 +105,70 @@ Explanation is -->
 -learner  time: 35.40710425376892
 -verifier time: 17.369837522506714
 -accuracy: 0.9090909090909091
+=================================================
+Query is -->
+	breathes = 1
+	aquatic = 1
+	legs <= 0.2
+
+
+Explanation is -->
+ false
+
+-did teacher terminate? False
+
+-learner  time: 0.7845766544342041
+-verifier time: 61.765483140945435
+-accuracy: 0.0
+=================================================
+Query is -->
+	backbone = 0
+
+
+Explanation is -->
+ false
+
+-did teacher terminate? False
+
+-learner  time: 0.3144545555114746
+-verifier time: 19.89110231399536
+-accuracy: 0.0
+=================================================
+Query is -->
+	backbone = 0
+
+
+Explanation is -->
+ false
+
+-did teacher terminate? False
+
+-learner  time: 0.32251930236816406
+-verifier time: 21.02467370033264
+-accuracy: 0.0
+=================================================
+Query is -->
+	breathes = 1
+
+
+Explanation is -->
+ false
+
+-did teacher terminate? False
+
+-learner  time: 0.3263270854949951
+-verifier time: 21.524169921875
+-accuracy: 0.5454545454545454
+=================================================
+Query is -->
+	breathes = 0
+
+
+Explanation is -->
+ false
+
+-did teacher terminate? False
+
+-learner  time: 0.32823657989501953
+-verifier time: 21.57686758041382
+-accuracy: 0.0
