@@ -64,7 +64,10 @@ class Teacher():
                 p = Process(target=learner.fit, args=(q,))
                 p.start()
                 p.join(timeout=max(0.5, self.timeout - (_start_time_learner - _start_time)))
+                _end_time_learner = time.time()
+                self.time_learner += _end_time_learner - _start_time_learner
                 p.terminate()
+
                 while p.exitcode == None:
                     time.sleep(1)
                 if p.exitcode == 0:
@@ -76,9 +79,7 @@ class Teacher():
                     return learner, False
 
 
-                _end_time_learner = time.time()
-                # _past_learner_time = _end_time_learner - _start_time_learner 
-                self.time_learner += _end_time_learner - _start_time_learner
+                
                 
         if(verbose):
             print("\nLearning complete\n-Total examples checked:", self.verifier.number_of_examples_checked)

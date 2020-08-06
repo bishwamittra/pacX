@@ -4,7 +4,7 @@ from  trustable_explanation import helper_functions
 
 class Zoo():
 
-    def __init__(self, verbose=True):
+    def __init__(self, verbose=False):
         self.filename = "data/raw/zoo.csv"
         self.categorical_attributes = [ 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins',  'tail', 'domestic', 'catsize']
         self.continuous_attributes = ['legs']

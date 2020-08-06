@@ -6,7 +6,7 @@ import regex
 
 class SyGuS_IF():
 
-    def __init__(self, feature_names = None, feature_data_type = None, function_return_type = None):
+    def __init__(self, feature_names = None, feature_data_type = None, function_return_type = None, workdir = None):
         self._num_features = None
         self._num_examples = None
         self._synth_func_name = "func"
@@ -27,6 +27,11 @@ class SyGuS_IF():
         self._sygus_if_prediction = None
         self.solver_output = None
         self.synthesized_function = None
+        if(workdir is None):
+            self._workdir = os.getcwd()
+        else:
+            self._workdir = workdir
+            
     
 
         
@@ -43,14 +48,14 @@ class SyGuS_IF():
         
 
     def _invoke_cvc4(self, is_train = True, filename = "input.sl"):
-        f = open(filename, "w")
+        f = open(self._workdir + "/" + filename, "w")
         if(is_train):
             f.write(self.sygus_if_learn)
         else:
             f.write(self._sygus_if_prediction)
         f.close()
 
-        cmd = "cvc4 --lang=sygus2 " + filename
+        cmd = "cvc4 --lang=sygus2 " + self._workdir + "/" + filename
         cmd_output = subprocess.check_output(
             cmd, shell=True, stderr=subprocess.STDOUT)
         lines = cmd_output.decode('utf-8').split("\n")
@@ -64,7 +69,7 @@ class SyGuS_IF():
         assert self.solver_output == "sat" or self.solver_output == "unsat", "Error in parsing solver output"
 
         # remove aux files
-        # os.system("rm " + filename)
+        os.system("rm " + self._workdir + "/" +  filename)
 
     def _add_constraint(self, X_i, y_i):
         s = "(constraint (= (" + self._synth_func_name +" "
@@ -329,12 +334,12 @@ class SyGuS_IF():
                         _example_specific_ += "(assert (= " + self._feature_names[j] + " false))\n"
             
 
-            f = open(filename, 'w')
+            f = open(self._workdir + "/" + filename, 'w')
             f.write(_example_specific_ + "(check-sat)\n" + "(eval " + self._function_snippet + ")\n")
             f.close()
 
 
-            cmd = "z3 " + filename
+            cmd = "z3 " + self._workdir + "/" + filename
             cmd_output = subprocess.check_output(
                 cmd, shell=True, stderr=subprocess.STDOUT)
             lines = cmd_output.decode('utf-8').split("\n")
@@ -367,7 +372,7 @@ class SyGuS_IF():
                 print(self._return_type, "is not recognized")
                 raise ValueError
 
-        os.system("rm "+ filename)
+        os.system("rm "+ self._workdir + "/" + filename)
                     
 
         return y_pred
