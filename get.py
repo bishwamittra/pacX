@@ -11,7 +11,7 @@ path="bghosh@contact.mpi-sws.org:/home/bghosh/Desktop/trustable_explanation/data
 os.system("mkdir -p backup_output")
 if(os.path.isdir("backup_output.mpi")):
     os.system("rm backup_output/mpi" +args.token+"/")
-os.system("mkdir backup_output/mpi" +args.token+"/" )
+os.system("mkdir -p backup_output/mpi" +args.token+"/" )
 os.system("rsync -vaP "+path+"/output.tar.gz backup_output/mpi" +args.token+"/")
 os.system("tar -xvf backup_output/mpi" +args.token+"/output.tar.gz -C backup_output/mpi" +args.token+"/")
     # os.system("mv backup_output/mpi" +args.token+"/output/* backup_output/mpi" +args.token+"/")

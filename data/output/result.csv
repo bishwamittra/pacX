@@ -1,48 +1,1236 @@
-1.0, (not (or eggs breathes)),0.4,breathes = 0,234.0,1.0,29.15804672241211,1.5534474849700928,27.60164213180542,5.0
-1.0, (not (or eggs breathes)),0.5,breathes = 0,240.0,1.0,30.232830286026,1.738492727279663,28.49078059196472,6.0
-1.0, (not (or eggs breathes)),0.5,breathes = 0,249.0,1.0,31.42343235015869,1.7634391784667969,29.656553745269775,6.0
-1.0, (not (or eggs breathes)),0.5,breathes = 0,266.0,1.0,33.85003399848938,1.8011388778686523,32.04546785354614,6.0
-1.0, (not (or eggs breathes)),0.42857142857142855,breathes = 0,268.0,1.0,34.315430879592896,2.108705759048462,32.20270824432373,7.0
-1.0, (not (or eggs breathes)),0.5,breathes = 0,276.0,1.0,35.25416326522827,1.854527235031128,33.39651346206665,6.0
-1.0, (not (or eggs breathes)),0.5,breathes = 0,290.0,1.0,36.238107204437256,1.7114391326904297,34.523632287979126,6.0
-1.0, (not (or eggs breathes)),0.5,breathes = 0,300.0,1.0,37.36314845085144,2.482340097427368,34.87648367881775,8.0
-0.7272727272727273, (or (and tail catsize) (not (or eggs catsize))),0.4666666666666667,legs >= 0.4 And milk = 1,127.0,0.0,121.04059600830078,111.60660362243652,8.425533056259155,15.0
-0.8181818181818182, (or milk (and backbone (not (or hair (and eggs venomous))))),0.4666666666666667,backbone = 1,184.0,0.0,121.00823783874512,101.14530730247498,18.855403661727905,15.0
-0.09090909090909091, (not (and venomous (and (or hair fins) (or eggs toothed)))),0.5,legs >= 0.4 And milk = 1,254.0,0.0,121.04211640357971,90.24997091293335,29.784931182861328,14.0
-1.0, (and backbone (or (not eggs) (and breathes tail))),0.4666666666666667,backbone = 1,170.0,0.0,121.07702422142029,104.73088240623474,15.338412284851074,15.0
-0.7272727272727273, (and backbone (and (or hair domestic) (or milk airborne))),0.4444444444444444,backbone = 1,350.0,0.0,121.0203537940979,83.97973012924194,36.031745195388794,18.0
-0.9090909090909091, (and milk (not (and tail (or toothed fins)))),0.4666666666666667,legs >= 0.4 And milk = 1,187.0,0.0,121.07884168624878,101.53521418571472,18.535545110702515,15.0
-0.6363636363636364, (or (and breathes fins) (and catsize (not predator))),0.4666666666666667,backbone = 1,249.0,0.0,121.00737261772156,93.27098822593689,26.728742837905884,15.0
-0.8181818181818182, (and backbone (or milk (< legs (/ 1 3)))),0.4666666666666667,backbone = 1,162.0,0.0,121.02064228057861,104.78133702278137,15.231226921081543,15.0
-1.0, (and milk (or catsize (and feathers (or toothed tail)))),0.4666666666666667,legs >= 0.4 And milk = 1,401.0,0.0,121.06289219856262,83.40447807312012,36.65089440345764,15.0
-0.9090909090909091, (and milk (not (and domestic (or predator (not hair))))),0.42857142857142855,legs >= 0.4 And milk = 1,412.0,0.0,121.01671481132507,85.51786661148071,34.491602659225464,14.0
-0.7272727272727273, (and backbone (or milk (and catsize (or hair airborne)))),0.47058823529411764,backbone = 1,253.0,0.0,121.05418729782104,92.65525722503662,27.390084981918335,17.0
-0.5454545454545454, (and backbone (not (or (and feathers eggs) (and aquatic catsize)))),0.42857142857142855,backbone = 1,445.0,0.0,121.01452851295471,84.7581901550293,35.24948787689209,14.0
-0.2727272727272727, (not (or (and eggs fins) (and domestic (or hair toothed)))),0.46153846153846156,legs >= 0.4 And milk = 1,224.0,0.0,121.03402376174927,95.405757188797,24.620892763137817,13.0
-0.5454545454545454, (or (and backbone breathes) (not (or eggs tail))),0.4666666666666667,legs >= 0.4 And milk = 1,208.0,0.0,121.05370116233826,97.46411371231079,22.581642627716064,15.0
-0.7272727272727273, (and backbone (not (or (and hair eggs) (and airborne aquatic)))),0.46153846153846156,backbone = 1,244.0,0.0,121.0470244884491,93.72365164756775,26.31672477722168,13.0
-0.9090909090909091, (and milk (not (and venomous (or aquatic toothed)))),0.47058823529411764,legs >= 0.4 And milk = 1,166.0,0.0,121.06395101547241,105.36421704292297,14.690825700759888,17.0
-0.45454545454545453, (and (or hair airborne) (or feathers (and predator venomous))),0.5333333333333333,eggs = 0,312.0,0.0,121.04472422599792,85.2421281337738,34.795005559921265,15.0
-0.2727272727272727, (and (not (and airborne venomous)) (or hair (or backbone venomous))),0.4166666666666667,legs <= 0.2,371.0,0.0,121.03648948669434,82.33860516548157,37.69132733345032,12.0
-0.7272727272727273, (not (or aquatic (and tail (not backbone)))),0.4666666666666667,aquatic = 0,393.0,0.0,121.06143283843994,80.93490982055664,39.119046211242676,15.0
-0.9090909090909091, (or (and hair catsize) (not (or eggs tail))),0.4666666666666667,eggs = 0,196.0,0.0,121.0389711856842,100.55158638954163,19.479212045669556,15.0
-0.6363636363636364, (not (or aquatic (and (not feathers) (or hair predator)))),0.46153846153846156,aquatic = 0,152.0,0.0,121.04393982887268,107.51536917686462,12.52099061012268,13.0
-0.6363636363636364, (or (and predator backbone) (not (or eggs breathes))),0.42857142857142855,legs <= 0.2,304.0,0.0,121.04121828079224,85.0807101726532,34.95351457595825,14.0
-0.6363636363636364, (and (or hair aquatic) (< legs (/ 1 3))),0.46153846153846156,legs <= 0.2,458.0,0.0,121.01926469802856,79.37704920768738,40.63582444190979,13.0
-0.7272727272727273, (and backbone (and (not aquatic) (or hair venomous))),0.4666666666666667,aquatic = 0,193.0,0.0,121.0684769153595,100.99345445632935,19.067373991012573,15.0
-0.18181818181818182, (not (or (and feathers venomous) (> legs (/ 1 2)))),0.46153846153846156,legs <= 0.2,328.0,0.0,121.01991844177246,84.20000314712524,35.81276273727417,13.0
-1.0, (not (or eggs (and breathes (or aquatic (not backbone))))),0.4666666666666667,eggs = 0,357.0,0.0,121.0213942527771,86.177987575531,33.836084842681885,15.0
-0.36363636363636365, (or (and backbone fins) (not (or eggs breathes))),0.42857142857142855,aquatic = 0,400.0,0.0,121.03415870666504,86.23695707321167,33.78994154930115,14.0
-0.9090909090909091, (not (or eggs (and (or milk aquatic) (or airborne domestic)))),0.5,eggs = 0,362.0,0.0,121.0209903717041,87.55042791366577,32.46307611465454,14.0
-1.0, (not (or aquatic (and eggs (not (and backbone breathes))))),0.42857142857142855,aquatic = 0,497.0,0.0,121.018559217453,83.84053421020508,36.1711642742157,14.0
-0.8181818181818182, (not (or eggs (and breathes (not (and hair aquatic))))),0.46153846153846156,eggs = 0,374.0,0.0,121.03871703147888,86.40406847000122,33.62804889678955,13.0
-0.18181818181818182, (not (or (and milk backbone) (and hair (or eggs aquatic)))),0.46153846153846156,legs <= 0.2,491.0,0.0,121.04051613807678,79.46926236152649,40.5646185874939,13.0
-0.5454545454545454, (or (and toothed fins) (not (or airborne (and feathers aquatic)))),0.46153846153846156,legs <= 0.2,330.0,0.0,121.02531266212463,84.50412607192993,35.51493978500366,13.0
-0.7272727272727273, (and backbone (not (or aquatic (and eggs tail)))),0.4666666666666667,aquatic = 0,339.0,0.0,121.06011509895325,85.61227488517761,34.44065713882446,15.0
-1.0, (not (or eggs (and airborne (not (or hair milk))))),0.5,eggs = 0,280.0,0.0,122.22321009635925,94.9355537891388,26.280205249786377,14.0
-0.8181818181818182, (or (and milk domestic) (not (or eggs breathes))),0.42857142857142855,eggs = 0,598.0,0.0,121.05029439926147,75.61639475822449,44.42726755142212,14.0
-0.45454545454545453, (and backbone (and (or feathers breathes) (not (and hair predator)))),0.46153846153846156,legs <= 0.2,299.0,0.0,121.0529637336731,88.35500073432922,31.6915385723114,13.0
-1.0, (and (or hair milk) (< legs (/ 1 4))),0.46153846153846156,legs <= 0.2,280.0,0.0,121.01139330863953,93.08399963378906,26.91683578491211,13.0
-1.0, (or (and milk backbone) (not (or eggs breathes))),0.46153846153846156,eggs = 0,422.0,0.0,121.05650877952576,83.9840087890625,36.06517767906189,13.0
-0.45454545454545453, (not (or aquatic (or (and feathers eggs) (and airborne venomous)))),0.46153846153846156,aquatic = 0,316.0,0.0,121.0275046825409,85.89274311065674,34.12744665145874,13.0
-0.9090909090909091, (or (and backbone breathes) (not (or eggs breathes))),0.4,aquatic = 0,617.0,0.0,128.16659879684448,80.82569003105164,46.33266758918762,15.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            return 0
+    else:
+        return 0
+",0.4444444444444444,breathes = 0,340.0,1.0,0.19550585746765137,0.09889817237854004,0.09228348731994629,9.0
+1.0,"    if breathes <= 0.5:
+        if eggs <= 0.5:
+            return 1
+        else:
+            return 0
+    else:
+        return 0
+",0.42857142857142855,breathes = 0,264.0,1.0,0.14381003379821777,0.07093501091003418,0.06983017921447754,7.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            return 0
+    else:
+        return 0
+",0.4,breathes = 0,236.0,1.0,0.11491847038269043,0.05226635932922363,0.06025123596191406,5.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            return 0
+    else:
+        return 0
+",0.4,breathes = 0,225.0,1.0,0.1107785701751709,0.05249285697937012,0.055866241455078125,5.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            return 0
+    else:
+        return 0
+",0.4,breathes = 0,242.0,1.0,0.11370277404785156,0.05187416076660156,0.0594940185546875,5.0
+1.0,"    if breathes <= 0.5:
+        if eggs <= 0.5:
+            return 1
+        else:
+            return 0
+    else:
+        return 0
+",0.5,breathes = 0,214.0,1.0,0.11401772499084473,0.04610896110534668,0.06566667556762695,4.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            return 0
+    else:
+        return 0
+",0.3333333333333333,breathes = 0,370.0,1.0,0.17163968086242676,0.06962442398071289,0.09894609451293945,6.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            return 0
+    else:
+        return 0
+",0.42857142857142855,breathes = 0,298.0,1.0,0.15406107902526855,0.07306241989135742,0.07789921760559082,7.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            return 0
+    else:
+        return 0
+",0.3333333333333333,breathes = 0,358.0,1.0,0.15507841110229492,0.06101226806640625,0.09139442443847656,6.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            return 0
+    else:
+        return 0
+",0.4,breathes = 0,237.0,1.0,0.12944841384887695,0.057764530181884766,0.06897258758544922,5.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if legs <= 0.3799999952316284:
+                        return 1
+                    else:
+                        if milk <= 0.5:
+                            return 0
+                        else:
+                            return 1
+    else:
+        return 0
+",0.4838709677419355,eggs = 0,2128.0,1.0,1.0169920921325684,0.39208197593688965,0.6070709228515625,31.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if legs <= 0.4104999899864197:
+                        return 1
+                    else:
+                        if milk <= 0.5:
+                            return 0
+                        else:
+                            return 1
+    else:
+        return 0
+",0.5,eggs = 0,1052.0,1.0,0.5897068977355957,0.2912938594818115,0.285297155380249,24.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if milk <= 0.5:
+                        if legs <= 0.3405000064522028:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+    else:
+        return 0
+",0.5,eggs = 0,1802.0,1.0,0.7199187278747559,0.25199007987976074,0.4569742679595947,24.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if milk <= 0.5:
+                        if legs <= 0.23549999855458736:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+    else:
+        return 0
+",0.48148148148148145,eggs = 0,1725.0,1.0,0.7710859775543213,0.3002641201019287,0.4579479694366455,27.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if milk <= 0.5:
+                        if legs <= 0.2420000061392784:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+    else:
+        return 0
+",0.5,eggs = 0,1533.0,1.0,0.7231400012969971,0.3037080764770508,0.40587544441223145,28.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if milk <= 0.5:
+                        if legs <= 0.3789999932050705:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+    else:
+        return 0
+",0.5,eggs = 0,1933.0,1.0,0.8519201278686523,0.32305192947387695,0.5145742893218994,30.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if milk <= 0.5:
+                    if legs <= 0.38100000470876694:
+                        return 1
+                    else:
+                        if aquatic <= 0.5:
+                            return 1
+                        else:
+                            return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.45454545454545453,eggs = 0,1036.0,1.0,0.5421142578125,0.247391939163208,0.28354740142822266,22.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if legs <= 0.35849998891353607:
+                        return 1
+                    else:
+                        if milk <= 0.5:
+                            return 0
+                        else:
+                            return 1
+    else:
+        return 0
+",0.5151515151515151,eggs = 0,2352.0,1.0,1.0702755451202393,0.37865233421325684,0.6741049289703369,33.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if milk <= 0.5:
+                    if legs <= 0.3700000047683716:
+                        return 1
+                    else:
+                        if aquatic <= 0.5:
+                            return 1
+                        else:
+                            return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.4838709677419355,eggs = 0,1470.0,1.0,0.8595471382141113,0.39792871475219727,0.4446563720703125,31.0
+1.0,"    if eggs <= 0.5:
+        if breathes <= 0.5:
+            return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if legs <= 0.37150000035762787:
+                        return 1
+                    else:
+                        if milk <= 0.5:
+                            return 0
+                        else:
+                            return 1
+    else:
+        return 0
+",0.5,eggs = 0,2919.0,1.0,1.108015537261963,0.32332706451416016,0.7709240913391113,30.0
+1.0,"    if backbone <= 0.5:
+        return 0
+    else:
+        if milk <= 0.5:
+            if aquatic <= 0.5:
+                if breathes <= 0.5:
+                    if eggs <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 1
+            else:
+                if legs <= 0.3799999952316284:
+                    if breathes <= 0.5:
+                        if eggs <= 0.5:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+                else:
+                    if breathes <= 0.5:
+                        if eggs <= 0.5:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 0
+        else:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 1
+",0.5223880597014925,backbone = 1,7327.0,1.0,2.6305603981018066,0.7238576412200928,1.8741087913513184,67.0
+1.0,"    if backbone <= 0.5:
+        return 0
+    else:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if milk <= 0.5:
+                    if legs <= 0.37849999964237213:
+                        return 1
+                    else:
+                        if aquatic <= 0.5:
+                            return 1
+                        else:
+                            return 0
+                else:
+                    return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if legs <= 0.3830000013113022:
+                        return 1
+                    else:
+                        if milk <= 0.5:
+                            return 0
+                        else:
+                            return 1
+",0.47368421052631576,backbone = 1,3693.0,1.0,1.7663838863372803,0.7203130722045898,1.0139875411987305,57.0
+1.0,"    if backbone <= 0.5:
+        return 0
+    else:
+        if milk <= 0.5:
+            if aquatic <= 0.5:
+                if breathes <= 0.5:
+                    if eggs <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 1
+            else:
+                if legs <= 0.375:
+                    if breathes <= 0.5:
+                        if eggs <= 0.5:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+                else:
+                    if breathes <= 0.5:
+                        if eggs <= 0.5:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 0
+        else:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 1
+",0.509090909090909,backbone = 1,3639.0,1.0,1.5287654399871826,0.5830562114715576,0.9198160171508789,55.0
+1.0,"    if backbone <= 0.5:
+        return 0
+    else:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if legs <= 0.3799999952316284:
+                    return 1
+                else:
+                    if milk <= 0.5:
+                        if aquatic <= 0.5:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if legs <= 0.3604999929666519:
+                        return 1
+                    else:
+                        if milk <= 0.5:
+                            return 0
+                        else:
+                            return 1
+",0.5172413793103449,backbone = 1,3860.0,1.0,1.7000129222869873,0.6537978649139404,1.016636610031128,58.0
+1.0,"    if backbone <= 0.5:
+        return 0
+    else:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if milk <= 0.5:
+                        if legs <= 0.41450000554323196:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if legs <= 0.37049999833106995:
+                    return 1
+                else:
+                    if aquatic <= 0.5:
+                        return 1
+                    else:
+                        if milk <= 0.5:
+                            return 0
+                        else:
+                            return 1
+",0.4666666666666667,backbone = 1,2416.0,1.0,1.137164831161499,0.49190640449523926,0.6236650943756104,45.0
+1.0,"    if backbone <= 0.5:
+        return 0
+    else:
+        if milk <= 0.5:
+            if legs <= 0.380500003695488:
+                if breathes <= 0.5:
+                    if eggs <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 1
+            else:
+                if aquatic <= 0.5:
+                    if breathes <= 0.5:
+                        if eggs <= 0.5:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+                else:
+                    if breathes <= 0.5:
+                        if eggs <= 0.5:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 0
+        else:
+            if eggs <= 0.5:
+                return 1
+            else:
+                if breathes <= 0.5:
+                    return 0
+                else:
+                    return 1
+",0.4791666666666667,backbone = 1,1617.0,1.0,0.9726922512054443,0.5181012153625488,0.4317662715911865,48.0
+1.0,"    if backbone <= 0.5:
+        return 0
+    else:
+        if breathes <= 0.5:
+            if eggs <= 0.5:
+                return 1
+            else:
+                return 0
+        else:
+            if legs <= 0.37550000846385956:
+                return 1
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if milk <= 0.5:
+                        return 0
+                    else:
+                        return 1
+",0.4878048780487805,backbone = 1,2755.0,1.0,1.1474440097808838,0.4433767795562744,0.6849100589752197,41.0
+1.0,"    if backbone <= 0.5:
+        return 0
+    else:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if legs <= 0.3739999979734421:
+                    return 1
+                else:
+                    if milk <= 0.5:
+                        if aquatic <= 0.5:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if milk <= 0.5:
+                        if legs <= 0.3645000010728836:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+",0.4915254237288136,backbone = 1,3562.0,1.0,1.5678749084472656,0.6282007694244385,0.9108760356903076,59.0
+1.0,"    if eggs <= 0.5:
+        if backbone <= 0.5:
+            return 0
+        else:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if legs <= 0.3564999997615814:
+                        return 1
+                    else:
+                        if milk <= 0.5:
+                            return 0
+                        else:
+                            return 1
+    else:
+        if breathes <= 0.5:
+            return 0
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if legs <= 0.3739999979734421:
+                        return 1
+                    else:
+                        if milk <= 0.5:
+                            return 0
+                        else:
+                            return 1
+",0.5,backbone = 1,5416.0,1.0,2.0086700916290283,0.6263432502746582,1.3550796508789062,60.0
+1.0,"    if backbone <= 0.5:
+        return 0
+    else:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if milk <= 0.5:
+                    if aquatic <= 0.5:
+                        return 1
+                    else:
+                        if legs <= 0.3909999877214432:
+                            return 1
+                        else:
+                            return 0
+                else:
+                    return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if aquatic <= 0.5:
+                    return 1
+                else:
+                    if milk <= 0.5:
+                        if legs <= 0.37450000643730164:
+                            return 1
+                        else:
+                            return 0
+                    else:
+                        return 1
+",0.4909090909090909,backbone = 1,6268.0,1.0,2.1286613941192627,0.5753068923950195,1.528184175491333,55.0
+1.0,"    if legs <= 0.20000000298023224:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if breathes <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.45454545454545453,legs <= 0.2,2322.0,1.0,0.9567759037017822,0.3487694263458252,0.5932056903839111,33.0
+1.0,"    if legs <= 0.20000000298023224:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.4827586206896552,legs <= 0.2,1391.0,1.0,0.675896406173706,0.3018929958343506,0.36086106300354004,29.0
+1.0,"    if legs <= 0.2005000039935112:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.48484848484848486,legs <= 0.2,1798.0,1.0,0.8199477195739746,0.3439922332763672,0.4608612060546875,33.0
+1.0,"    if legs <= 0.20900000631809235:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.4666666666666667,legs <= 0.2,1907.0,1.0,0.8001708984375,0.30609750747680664,0.48101234436035156,30.0
+1.0,"    if legs <= 0.20000000298023224:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.4666666666666667,legs <= 0.2,1805.0,1.0,0.8884215354919434,0.33740878105163574,0.5366272926330566,30.0
+1.0,"    if legs <= 0.20149999856948853:
+        if eggs <= 0.5:
+            if backbone <= 0.5:
+                if breathes <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.4642857142857143,legs <= 0.2,1974.0,1.0,0.8437802791595459,0.30138087272644043,0.5293540954589844,28.0
+1.0,"    if legs <= 0.19900000095367432:
+        if backbone <= 0.5:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 0
+        else:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 1
+    else:
+        return 0
+",0.48148148148148145,legs <= 0.2,1090.0,1.0,0.6244239807128906,0.3080906867980957,0.30301809310913086,27.0
+1.0,"    if legs <= 0.18550000339746475:
+        if breathes <= 0.5:
+            if eggs <= 0.5:
+                return 1
+            else:
+                return 0
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                return 1
+    else:
+        return 0
+",0.4583333333333333,legs <= 0.2,1016.0,1.0,0.5391614437103271,0.25702857971191406,0.2711830139160156,24.0
+1.0,"    if legs <= 0.20099999755620956:
+        if backbone <= 0.5:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 0
+        else:
+            if eggs <= 0.5:
+                return 1
+            else:
+                if breathes <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.45161290322580644,legs <= 0.2,2196.0,1.0,0.96744704246521,0.3585696220397949,0.5939154624938965,31.0
+1.0,"    if legs <= 0.19749999791383743:
+        if eggs <= 0.5:
+            if backbone <= 0.5:
+                if breathes <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.5,legs <= 0.2,1857.0,1.0,0.8341081142425537,0.31780290603637695,0.5029573440551758,28.0
+1.0,"    if milk <= 0.5:
+        return 0
+    else:
+        if legs <= 0.39750000834465027:
+            return 0
+        else:
+            if eggs <= 0.5:
+                if breathes <= 0.5:
+                    return 1
+                else:
+                    if backbone <= 0.5:
+                        return 0
+                    else:
+                        return 1
+            else:
+                if breathes <= 0.5:
+                    return 0
+                else:
+                    if backbone <= 0.5:
+                        return 0
+                    else:
+                        return 1
+",0.4444444444444444,legs >= 0.4 And milk = 1,3791.0,1.0,1.5693509578704834,0.47287416458129883,1.0768365859985352,36.0
+1.0,"    if legs <= 0.3985000103712082:
+        return 0
+    else:
+        if milk <= 0.5:
+            return 0
+        else:
+            if eggs <= 0.5:
+                if breathes <= 0.5:
+                    return 1
+                else:
+                    if backbone <= 0.5:
+                        return 0
+                    else:
+                        return 1
+            else:
+                if breathes <= 0.5:
+                    return 0
+                else:
+                    if backbone <= 0.5:
+                        return 0
+                    else:
+                        return 1
+",0.4716981132075472,legs >= 0.4 And milk = 1,3340.0,1.0,1.574596881866455,0.6155753135681152,0.9320228099822998,53.0
+1.0,"    if milk <= 0.5:
+        return 0
+    else:
+        if legs <= 0.39900000393390656:
+            return 0
+        else:
+            if eggs <= 0.5:
+                if backbone <= 0.5:
+                    if breathes <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 1
+            else:
+                if breathes <= 0.5:
+                    return 0
+                else:
+                    if backbone <= 0.5:
+                        return 0
+                    else:
+                        return 1
+",0.5,legs >= 0.4 And milk = 1,1590.0,1.0,0.7504398822784424,0.32201218605041504,0.41464972496032715,30.0
+1.0,"    if legs <= 0.3994999974966049:
+        return 0
+    else:
+        if milk <= 0.5:
+            return 0
+        else:
+            if backbone <= 0.5:
+                if breathes <= 0.5:
+                    if eggs <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 0
+            else:
+                if breathes <= 0.5:
+                    if eggs <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 1
+",0.4666666666666667,legs >= 0.4 And milk = 1,2735.0,1.0,1.2158384323120117,0.4827404022216797,0.7117557525634766,45.0
+1.0,"    if legs <= 0.40049999952316284:
+        return 0
+    else:
+        if milk <= 0.5:
+            return 0
+        else:
+            if eggs <= 0.5:
+                if breathes <= 0.5:
+                    return 1
+                else:
+                    if backbone <= 0.5:
+                        return 0
+                    else:
+                        return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    if breathes <= 0.5:
+                        return 0
+                    else:
+                        return 1
+",0.46153846153846156,legs >= 0.4 And milk = 1,2671.0,1.0,1.1000237464904785,0.4055216312408447,0.6768777370452881,39.0
+1.0,"    if milk <= 0.5:
+        return 0
+    else:
+        if legs <= 0.39499999582767487:
+            return 0
+        else:
+            if backbone <= 0.5:
+                if breathes <= 0.5:
+                    if eggs <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 0
+            else:
+                if breathes <= 0.5:
+                    if eggs <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 1
+",0.4838709677419355,legs >= 0.4 And milk = 1,1388.0,1.0,0.7208194732666016,0.33605504035949707,0.3699662685394287,31.0
+1.0,"    if milk <= 0.5:
+        return 0
+    else:
+        if legs <= 0.40049999952316284:
+            return 0
+        else:
+            if backbone <= 0.5:
+                if breathes <= 0.5:
+                    if eggs <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 0
+            else:
+                if breathes <= 0.5:
+                    if eggs <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 1
+",0.4883720930232558,legs >= 0.4 And milk = 1,1723.0,1.0,0.9414033889770508,0.46508169174194336,0.4554610252380371,43.0
+1.0,"    if milk <= 0.5:
+        return 0
+    else:
+        if legs <= 0.3969999998807907:
+            return 0
+        else:
+            if backbone <= 0.5:
+                if eggs <= 0.5:
+                    if breathes <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 0
+            else:
+                if breathes <= 0.5:
+                    if eggs <= 0.5:
+                        return 1
+                    else:
+                        return 0
+                else:
+                    return 1
+",0.5,legs >= 0.4 And milk = 1,1918.0,1.0,0.8707666397094727,0.35692858695983887,0.49837279319763184,34.0
+1.0,"    if milk <= 0.5:
+        return 0
+    else:
+        if legs <= 0.403999999165535:
+            return 0
+        else:
+            if eggs <= 0.5:
+                if breathes <= 0.5:
+                    return 1
+                else:
+                    if backbone <= 0.5:
+                        return 0
+                    else:
+                        return 1
+            else:
+                if breathes <= 0.5:
+                    return 0
+                else:
+                    if backbone <= 0.5:
+                        return 0
+                    else:
+                        return 1
+",0.47619047619047616,legs >= 0.4 And milk = 1,622.0,1.0,0.45276904106140137,0.24532413482666016,0.19703054428100586,21.0
+1.0,"    if legs <= 0.40150000154972076:
+        return 0
+    else:
+        if milk <= 0.5:
+            return 0
+        else:
+            if eggs <= 0.5:
+                if breathes <= 0.5:
+                    return 1
+                else:
+                    if backbone <= 0.5:
+                        return 0
+                    else:
+                        return 1
+            else:
+                if breathes <= 0.5:
+                    return 0
+                else:
+                    if backbone <= 0.5:
+                        return 0
+                    else:
+                        return 1
+",0.5,legs >= 0.4 And milk = 1,1173.0,1.0,0.868678092956543,0.46767687797546387,0.3809773921966553,34.0
+1.0,"    if aquatic <= 0.5:
+        if backbone <= 0.5:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 0
+        else:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 1
+    else:
+        return 0
+",0.48484848484848486,aquatic = 0,996.0,1.0,0.8444316387176514,0.47565317153930664,0.34723615646362305,33.0
+1.0,"    if aquatic <= 0.5:
+        if backbone <= 0.5:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 0
+        else:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 1
+    else:
+        return 0
+",0.4642857142857143,aquatic = 0,1085.0,1.0,0.7560391426086426,0.39369678497314453,0.346524715423584,28.0
+1.0,"    if backbone <= 0.5:
+        if breathes <= 0.5:
+            if aquatic <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 0
+        else:
+            return 0
+    else:
+        if aquatic <= 0.5:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 1
+        else:
+            return 0
+",0.5,aquatic = 0,637.0,1.0,0.5495059490203857,0.3387470245361328,0.19599175453186035,24.0
+1.0,"    if aquatic <= 0.5:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.46153846153846156,aquatic = 0,912.0,1.0,0.5982694625854492,0.3195631504058838,0.26493287086486816,26.0
+1.0,"    if aquatic <= 0.5:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.46153846153846156,aquatic = 0,795.0,1.0,0.640925407409668,0.35558128356933594,0.27078866958618164,26.0
+1.0,"    if aquatic <= 0.5:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.48148148148148145,aquatic = 0,722.0,1.0,0.5748090744018555,0.3377254009246826,0.221207857131958,27.0
+1.0,"    if aquatic <= 0.5:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if breathes <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.5,aquatic = 0,602.0,1.0,0.40540289878845215,0.22803258895874023,0.16769838333129883,20.0
+1.0,"    if aquatic <= 0.5:
+        if backbone <= 0.5:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 0
+        else:
+            if breathes <= 0.5:
+                if eggs <= 0.5:
+                    return 1
+                else:
+                    return 0
+            else:
+                return 1
+    else:
+        return 0
+",0.4838709677419355,aquatic = 0,987.0,1.0,0.6978864669799805,0.3849623203277588,0.29683852195739746,31.0
+1.0,"    if aquatic <= 0.5:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+        else:
+            if breathes <= 0.5:
+                return 0
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.5,aquatic = 0,843.0,1.0,0.6074447631835938,0.3301432132720947,0.26323437690734863,26.0
+1.0,"    if aquatic <= 0.5:
+        if eggs <= 0.5:
+            if breathes <= 0.5:
+                return 1
+            else:
+                if backbone <= 0.5:
+                    return 0
+                else:
+                    return 1
+        else:
+            if backbone <= 0.5:
+                return 0
+            else:
+                if breathes <= 0.5:
+                    return 0
+                else:
+                    return 1
+    else:
+        return 0
+",0.4857142857142857,aquatic = 0,969.0,1.0,0.6967794895172119,0.40505528450012207,0.2745351791381836,35.0

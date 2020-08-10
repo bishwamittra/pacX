@@ -42,6 +42,7 @@ def tree_to_code( tree, feature_names):
         for i in tree_.feature
     ]
     s = "def tree({}):".format(", ".join(feature_names)) + "\n\n"
+    s = ""
     # print("\nLearned tree -->\n")
     # print("def tree({}):".format(", ".join(feature_names)))
 

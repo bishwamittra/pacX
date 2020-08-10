@@ -69,7 +69,7 @@ class SyGuS_IF():
         assert self.solver_output == "sat" or self.solver_output == "unsat", "Error in parsing solver output"
 
         # remove aux files
-        os.system("rm " + self._workdir + "/" +  filename)
+        # os.system("rm " + self._workdir + "/" +  filename)
 
     def _add_constraint(self, X_i, y_i):
         s = "(constraint (= (" + self._synth_func_name +" "
@@ -129,20 +129,30 @@ class SyGuS_IF():
         if("Real" in list(self._feature_data_type.values())):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
-                ((B Bool) (C Real) (R Real))
+                ((Formula Bool) (Clause Bool) (B Bool) (C Real) (R Real))
 
                 ;; Define the grammar for allowed implementations
                 (
                     (
+                        Formula Bool (
+                            true
+                            Clause
+                            (or Clause Formula)
+                        )
+                    )
+                    (
+                        Clause Bool (
+                            B
+                            (and B Clause)
+                        )
+                    )
+                    (
                         B Bool (
-                            true false
                             (Variable Bool)
                             (not B)
-                            (or B B)
-                            (and B B)
+                            (= R C)
                             (> R C)
-                            (< R C)
-                        )
+                            )
                     )
                     (
                         C Real (
@@ -154,24 +164,36 @@ class SyGuS_IF():
                             (Variable Real)
                         )
                     )
+                    
                 )
             """
         else:
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
-                ((B Bool))
+                ((Formula Bool) (Clause Bool) (B Bool))
 
                 ;; Define the grammar for allowed implementations
                 (
                     (
-                        B Bool (
-                            true false
-                            (Variable Bool)
-                            (not B)
-                            (or B B)
-                            (and B B)
+                        Formula Bool (
+                            false true
+                            (or Clause Clause)
+                            (or Clause Formula)
                         )
                     )
+                    (
+                        Clause Bool (
+                            (and B B)
+                            (and B Clause)
+                        )
+                    )
+                    (
+                        B Bool (
+                            (Variable Bool)
+                            (not B)
+                            )
+                    )
+                    
                 )
             """
         # no syntactic costraints added
