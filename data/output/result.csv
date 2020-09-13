@@ -1,1 +1,20 @@
-0.0,neural network,sygus, (or (and hair (not feathers)) (and (not aquatic) (not venomous))),6.0,0.5,legs <= 0.2,223.0,0.0,31.01296067237854,27.988794326782227,2.018094301223755,18.0
+0.0,neural network,iris,sygus, (or (and (< sepal-width (/ 1 4)) (> petal-length (/ 1 2))) (and (> sepal-length (/ 1 4)) (and (< sepal-width (/ 1 2)) (< petal-width (/ 1 2))))),7.0,0.5333333333333333,"- threshold: 0.1
+- specific_input: [0.38888888888888884, 0.25, 0.423728813559322, 0.375]
+- detailed_input: [('sepal-length', 0.38888888888888884), ('sepal-width', 0.25), ('petal-length', 0.423728813559322), ('petal-width', 0.375)]",55.0,0.0,31.02612280845642,29.52669882774353,0.49396586418151855,15.0
+0.0,neural network,zoo,sygus, (and hair (and (not aquatic) (not domestic))),3.0,0.15,"- threshold: 0.1
+- specific_input: [1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.25, 1.0, 0.0, 0.0]
+- detailed_input: [('hair', 1.0), ('feathers', 0.0), ('eggs', 0.0), ('milk', 1.0), ('airborne', 1.0), ('aquatic', 0.0), ('predator', 0.0), ('toothed', 1.0), ('backbone', 1.0), ('breathes', 1.0), ('venomous', 0.0), ('fins', 0.0), ('legs', 0.25), ('tail', 1.0), ('domestic', 0.0), ('catsize', 0.0)]",3136.0,0.0,33.02302408218384,4.414800643920898,28.602126359939575,20.0
+0.0,neural network,zoo,sygus, (and hair (< legs (/ 1 4))),2.0,0.5,legs <= 0.2,265.0,0.0,31.030848741531372,27.47326159477234,2.5482866764068604,28.0
+0.0,neural network,zoo,sygus, (or (and hair feathers) (and (not breathes) domestic)),6.0,0.5,breathes = 0,161.0,0.0,31.00844430923462,28.48641037940979,1.5155673027038574,18.0
+0.0,neural network,zoo,sygus, (or (and hair milk) (and (not feathers) (not breathes))),6.0,0.5,breathes = 0,59.0,0.0,31.008467435836792,29.582512855529785,0.4207756519317627,18.0
+0.0,neural network,zoo,sygus, (or (and (not feathers) (not airborne)) (and milk domestic)),6.0,0.5,breathes = 0,84.0,0.0,31.00794243812561,29.369319438934326,0.6334333419799805,16.0
+0.8181818181818182,neural network,zoo,sygus, (or (and hair (not breathes)) (and milk toothed)),6.0,0.4375,breathes = 0,656.0,0.0,31.007546186447144,22.809971809387207,7.192842721939087,16.0
+0.9090909090909091,neural network,zoo,sygus, (and hair (and (not aquatic) backbone)),3.0,0.0625,"- threshold: 0.1
+- specific_input: [1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.25, 1.0, 0.0, 0.0]
+- detailed_input: [('hair', 1.0), ('feathers', 0.0), ('eggs', 0.0), ('milk', 1.0), ('airborne', 1.0), ('aquatic', 0.0), ('predator', 0.0), ('toothed', 1.0), ('backbone', 1.0), ('breathes', 1.0), ('venomous', 0.0), ('fins', 0.0), ('legs', 0.25), ('tail', 1.0), ('domestic', 0.0), ('catsize', 0.0)]",2496.0,0.0,33.227192640304565,3.2665534019470215,28.95434594154358,16.0
+0.4,neural network,iris,sygus, (or (and (> sepal-length (/ 1 4)) (> petal-length (/ 1 2))) (and (< sepal-length (/ 3 4)) (and (< sepal-width (/ 1 2)) (< petal-width (/ 1 2))))),7.0,0.5555555555555556,"- threshold: 0.1
+- specific_input: [0.38888888888888884, 0.25, 0.423728813559322, 0.375]
+- detailed_input: [('sepal-length', 0.38888888888888884), ('sepal-width', 0.25), ('petal-length', 0.423728813559322), ('petal-width', 0.375)]",71.0,0.0,31.007749319076538,29.159249305725098,0.8451848030090332,9.0
+0.6,neural network,iris,sygus, (or (and (> sepal-length (/ 3 4)) (> petal-length (/ 3 4))) (and (> sepal-length (/ 1 4)) (and (< sepal-length (/ 3 4)) (and (> petal-length (/ 1 4)) (< petal-width (/ 3 4)))))),8.0,0.5384615384615384,"- threshold: 0.1
+- specific_input: [0.38888888888888884, 0.25, 0.423728813559322, 0.375]
+- detailed_input: [('sepal-length', 0.38888888888888884), ('sepal-width', 0.25), ('petal-length', 0.423728813559322), ('petal-width', 0.375)]",155.0,0.0,31.01535177230835,27.843753337860107,2.166724443435669,13.0

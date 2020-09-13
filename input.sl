@@ -1,10 +1,10 @@
 (set-logic LRA)
 
-(synth-fun func ((hair Bool) (feathers Bool) (eggs Bool) (milk Bool) (airborne Bool) (aquatic Bool) (predator Bool) (toothed Bool) (backbone Bool) (breathes Bool) (venomous Bool) (fins Bool) (legs Real) (tail Bool) (domestic Bool) (catsize Bool) ) Bool
+(synth-fun func ((sepal-length Real) (sepal-width Real) (petal-length Real) (petal-width Real) ) Bool
 
 
                 ;; Declare the non-terminals that would be used in the grammar
-                ((Formula Bool) (Clause Bool) (B Bool) (Var_Bool Bool) (Var_Real Real) (Const_Real Real))
+                ((Formula Bool) (Clause Bool) (B Bool) (Var_Real Real) (Const_Real Real))
 
                 ;; Define the grammar for allowed implementations
                 (
@@ -23,16 +23,9 @@
                     (
                         B Bool (
                             (Constant Bool)
-                            Var_Bool
-                            (not Var_Bool)
                             (> Var_Real Const_Real)
                             (< Var_Real Const_Real)
                             )
-                    )
-                    (
-                        Var_Bool Bool (
-                            (Variable Bool)
-                        )
                     )
                     (
                         Var_Real Real (
@@ -51,24 +44,19 @@
 
 )
 
-(constraint (= (func false true true true true true true false false true false false 0.805 true false true ) false))
-(constraint (= (func true false false true true true false false false true false false 0.105 true false false ) true))
-(constraint (= (func false true false true false true true false false false true false 0.122 true false false ) false))
-(constraint (= (func true false false true false false false true true false false true 0.059 false true true ) true))
-(constraint (= (func false false true false false false false true true true true true 0.671 true false false ) false))
-(constraint (= (func false true false true false false false true true true false true 0.175 false true true ) true))
-(constraint (= (func true true false true true true true false true true true false 0.994 false true false ) false))
-(constraint (= (func true false false false false false true false true true false true 0.061 true true true ) true))
-(constraint (= (func false true false false true true true false true true false true 0.892 false false true ) false))
-(constraint (= (func true true false true false false false false false false false false 0.125 false true false ) true))
-(constraint (= (func false false false true true true true false true true true false 0.966 false false true ) false))
-(constraint (= (func true true false false true false false false true true false false 0.139 false true true ) true))
-(constraint (= (func false true false false false true true true true false true false 0.243 false false true ) false))
-(constraint (= (func true false true true false false false false true true false true 0.016 true false true ) true))
-(constraint (= (func true true true false true true true true true false false false 0.071 true true false ) false))
-(constraint (= (func true true false true true false true true false true false true 0.144 true true false ) true))
-(constraint (= (func true true false true false false false true false true true false 0.874 true true true ) false))
-(constraint (= (func true true false true false true true false true false true false 0.106 false true true ) true))
+(constraint (= (func 0.38888888888888884 0.25 0.423728813559322 0.375 ) true))
+(constraint (= (func 0.882 0.606 0.702 0.623 ) false))
+(constraint (= (func 0.574 0.313 0.938 0.404 ) true))
+(constraint (= (func 0.564 0.202 0.906 0.918 ) false))
+(constraint (= (func 0.356 0.199 0.427 0.6 ) true))
+(constraint (= (func 0.054 0.213 0.513 0.045 ) false))
+(constraint (= (func 0.934 0.049 0.806 0.429 ) true))
+(constraint (= (func 0.799 0.212 0.584 0.112 ) false))
+(constraint (= (func 0.436 0.13 0.382 0.123 ) true))
+(constraint (= (func 0.413 0.677 0.119 0.928 ) false))
+(constraint (= (func 0.651 0.258 0.592 0.164 ) true))
+(constraint (= (func 0.615 0.148 0.105 0.536 ) false))
+(constraint (= (func 0.222 0.022 0.279 0.335 ) true))
 
 
 (check-synth)

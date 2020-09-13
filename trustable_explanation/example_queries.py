@@ -74,7 +74,7 @@ class DistanceQuery():
         self.threshold = threshold
         self.specific_input = specific_input
         if(features != None):
-            self.detailed_input = list(zip(self.specific_input,features))
+            self.detailed_input = list(zip(features,self.specific_input))
         assert all(isinstance(x, (int, float)) for x in self.specific_input), "Error: expected specific_input to be an array of numbers"
     
     def __repr__(self):

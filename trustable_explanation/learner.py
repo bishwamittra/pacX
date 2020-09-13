@@ -25,6 +25,7 @@ class Learner():
             else:
                 return self._predict_function(example) == 1
         except Exception as e:
+            print(e)
             return None
 
 

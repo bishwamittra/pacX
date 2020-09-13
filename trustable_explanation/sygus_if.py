@@ -6,13 +6,14 @@ from nnf import And, Or, Var
 
 class SyGuS_IF():
 
-    def __init__(self, feature_names = None, feature_data_type = None, function_return_type = None, workdir = None):
+    def __init__(self, feature_names = None, feature_data_type = None, function_return_type = None, workdir = None, verbose = False):
         self._num_features = None
         self._num_examples = None
         self._synth_func_name = "func"
         self._logic = "LRA"
         self._feature_data_type = feature_data_type
         self._default_feature_data_type = "Real"
+        self.verbose = verbose
         if(function_return_type is None):
             self._return_type = "Bool"
         else:
@@ -78,7 +79,9 @@ class SyGuS_IF():
         formula = recurse(tokens)
         # print(formula)
         formula = formula.simplify()
-        # print(formula)
+        if(self.verbose):
+            print("Simplified formula")
+            print(formula)
         
         return formula.size()
 
@@ -106,6 +109,7 @@ class SyGuS_IF():
                             blocks.append(block)
                         block = ""
         except IndexError:
+            print(s)
             raise ValueError('Parentheses mismatch')
 
         if depth > 0:
@@ -204,7 +208,7 @@ class SyGuS_IF():
         return s
 
     def _add_context_free_grammar(self):
-        if("Real" in list(self._feature_data_type.values())):
+        if("Real" in list(self._feature_data_type.values()) and "Bool" in list(self._feature_data_type.values())):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
                 ((Formula Bool) (Clause Bool) (B Bool) (Var_Bool Bool) (Var_Real Real) (Const_Real Real))
@@ -251,7 +255,7 @@ class SyGuS_IF():
                 )
 
             """
-        else:
+        elif("Bool" in list(self._feature_data_type.values())):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
                 ((Formula Bool) (Clause Bool) (B Bool))
@@ -280,6 +284,48 @@ class SyGuS_IF():
                     
                 )
             """
+        elif("Real" in list(self._feature_data_type.values())):
+            s = """
+                ;; Declare the non-terminals that would be used in the grammar
+                ((Formula Bool) (Clause Bool) (B Bool) (Var_Real Real) (Const_Real Real))
+
+                ;; Define the grammar for allowed implementations
+                (
+                    (
+                        Formula Bool (
+                            Clause
+                            (or Clause Formula)
+                        )
+                    )
+                    (
+                        Clause Bool (
+                            B
+                            (and B Clause)
+                        )
+                    )
+                    (
+                        B Bool (
+                            (Constant Bool)
+                            (> Var_Real Const_Real)
+                            (< Var_Real Const_Real)
+                            )
+                    )
+                    (
+                        Var_Real Real (
+                            (Variable Real)
+                        )
+                    )
+                    (
+                        Const_Real Real (
+                            0 0.25 0.5 0.75 1
+                        )
+                    )
+                    
+                )
+
+            """
+        else:
+            raise ValueError("Syntactic constraint cannot be constructed")
         # no syntactic costraints added
         # s = ""
         return s + "\n\n"
