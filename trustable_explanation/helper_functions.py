@@ -8,7 +8,8 @@ from feature_engine import discretisers as dsc
 from sklearn.preprocessing import StandardScaler
 import random
 from sklearn.tree import _tree
-
+from scipy import spatial
+import math
 
 def random_generator(X, feature_type):
     """
@@ -33,6 +34,8 @@ def get_scaled_df(X):
     return X
 
 
+
+
 def tree_to_code( tree, feature_names):
 
         
@@ -42,7 +45,7 @@ def tree_to_code( tree, feature_names):
         for i in tree_.feature
     ]
     s = "def tree({}):".format(", ".join(feature_names)) + "\n\n"
-    s = ""
+    # s = ""
     # print("\nLearned tree -->\n")
     # print("def tree({}):".format(", ".join(feature_names)))
 

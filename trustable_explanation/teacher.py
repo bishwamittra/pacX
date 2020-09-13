@@ -1,4 +1,5 @@
-import verifier
+import sys
+from trustable_explanation import verifier
 from tqdm import tqdm
 import time
 from multiprocessing import Process, Queue

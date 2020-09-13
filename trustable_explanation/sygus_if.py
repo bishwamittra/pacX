@@ -2,7 +2,7 @@ import subprocess
 import os
 import pandas as pd
 import regex
-
+from nnf import And, Or, Var
 
 class SyGuS_IF():
 
@@ -33,7 +33,85 @@ class SyGuS_IF():
             self._workdir = workdir
             
     
+    def _push(self, obj, l, depth):
+        while depth:
+            l = l[-1]
+            depth -= 1
+        l.append(obj)
 
+    def get_formula_size(self):
+
+        dic_vars = {
+
+        }
+        tokens, blocks = self._parse_parentheses(self._function_snippet.strip()[1:-1])
+        # print(tokens, blocks)
+
+        for block in blocks:
+            if(block not in ['and', 'or', 'not']):
+                dic_vars[block] = Var(block)
+
+        def recurse(formula):
+            if(isinstance(formula, str)):
+                return dic_vars[formula]
+
+            len_ = len(formula)
+            if(len_ == 3):
+                op, arg1, arg2 = formula[0], formula[1], formula[2]
+                if(op == 'and'):
+                    return And({recurse(arg1), recurse(arg2)})
+                elif(op == 'or'):
+                    return Or({recurse(arg1), recurse(arg2)})
+                else:
+                    # operator is either < or >= or whatever... 
+                    new_var = str(arg1) + "_" + str(op) + "_" + str(arg2).replace(" ", "_")
+                    dic_vars[new_var] = Var(new_var)
+                    return dic_vars[new_var]
+            elif(len_ == 2):
+                op, arg = formula[0], formula[1]
+                if(op == 'not'):
+                    return ~dic_vars[arg]
+                else:
+                    raise ValueError
+            else:
+                raise ValueError
+        formula = recurse(tokens)
+        # print(formula)
+        formula = formula.simplify()
+        # print(formula)
+        
+        return formula.size()
+
+    def _parse_parentheses(self, s):
+        groups = []
+        depth = 0
+        blocks = []
+
+        try:
+            block = ""
+            for i in range(len(s)):
+                char = s[i]
+                if char == " ":
+                    continue
+                if char == '(':
+                    self._push([], groups, depth)
+                    depth += 1
+                elif char == ')':
+                    depth -= 1
+                else:
+                    block += char
+                    if(s[i+1] in ['(',')',' ']):
+                        self._push(block, groups, depth)
+                        if(block not in blocks):
+                            blocks.append(block)
+                        block = ""
+        except IndexError:
+            raise ValueError('Parentheses mismatch')
+
+        if depth > 0:
+            raise ValueError('Parentheses mismatch')
+        else:
+            return groups, blocks 
         
 
     def _eval(self, exp):
@@ -129,13 +207,12 @@ class SyGuS_IF():
         if("Real" in list(self._feature_data_type.values())):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
-                ((Formula Bool) (Clause Bool) (B Bool) (C Real) (R Real))
+                ((Formula Bool) (Clause Bool) (B Bool) (Var_Bool Bool) (Var_Real Real) (Const_Real Real))
 
                 ;; Define the grammar for allowed implementations
                 (
                     (
                         Formula Bool (
-                            true
                             Clause
                             (or Clause Formula)
                         )
@@ -148,24 +225,31 @@ class SyGuS_IF():
                     )
                     (
                         B Bool (
-                            (Variable Bool)
-                            (not B)
-                            (= R C)
-                            (> R C)
+                            (Constant Bool)
+                            Var_Bool
+                            (not Var_Bool)
+                            (> Var_Real Const_Real)
+                            (< Var_Real Const_Real)
                             )
                     )
                     (
-                        C Real (
-                            (Constant Real)
+                        Var_Bool Bool (
+                            (Variable Bool)
                         )
                     )
                     (
-                        R Real (
+                        Var_Real Real (
                             (Variable Real)
+                        )
+                    )
+                    (
+                        Const_Real Real (
+                            0 0.25 0.5 0.75 1
                         )
                     )
                     
                 )
+
             """
         else:
             s = """
@@ -336,7 +420,7 @@ class SyGuS_IF():
 
         if(self.synthesized_function is None):
             # cannot predict before training
-            return [1 for _ in X]
+            raise ValueError("SyGuS model is not fit yet")
 
 
         _z3_expression = "(set-option :smt.mbqi true)\n(set-logic QF_LRA)\n"
@@ -405,3 +489,51 @@ class SyGuS_IF():
 
 
 
+
+
+
+"""
+;; Declare the non-terminals that would be used in the grammar
+    ((Formula Bool) (Clause Bool) (B Bool) (Var_Bool Bool) (Var_Real Real) (Const_Real Real))
+
+    ;; Define the grammar for allowed implementations
+    (
+        (
+            Formula Bool (
+                Clause
+                (or Clause Formula)
+            )
+        )
+        (
+            Clause Bool (
+                B
+                (and B Clause)
+            )
+        )
+        (
+            B Bool (
+                (Constant Bool)
+                Var_Bool
+                (not Var_Bool)
+                (> Var_Real Const_Real)
+                (< Var_Real Const_Real)
+                )
+        )
+        (
+            Var_Bool Bool (
+                (Variable Bool)
+            )
+        )
+        (
+            Var_Real Real (
+                (Variable Real)
+            )
+        )
+        (
+            Const_Real Real (
+                0 0.25 0.5 0.75 1
+            )
+        )
+        
+    )
+"""
