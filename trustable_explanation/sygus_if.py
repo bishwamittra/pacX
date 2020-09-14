@@ -45,8 +45,11 @@ class SyGuS_IF():
         dic_vars = {
 
         }
-        tokens, blocks = self._parse_parentheses(self._function_snippet.strip()[1:-1])
-        # print(tokens, blocks)
+        tokens, blocks = self._parse_parentheses(self._function_snippet.strip())
+        # print(tokens[0])
+        # print(tokens[1])
+        # print(tokens[2])
+        # print(len(tokens))
 
         for block in blocks:
             if(block not in ['and', 'or', 'not']):
@@ -63,6 +66,8 @@ class SyGuS_IF():
                     return And({recurse(arg1), recurse(arg2)})
                 elif(op == 'or'):
                     return Or({recurse(arg1), recurse(arg2)})
+                elif(op == "let"):
+                    return recurse(arg2)
                 else:
                     # operator is either < or >= or whatever... 
                     new_var = str(arg1) + "_" + str(op) + "_" + str(arg2).replace(" ", "_")
@@ -115,7 +120,7 @@ class SyGuS_IF():
         if depth > 0:
             raise ValueError('Parentheses mismatch')
         else:
-            return groups, blocks 
+            return groups[0], blocks 
         
 
     def _eval(self, exp):
@@ -248,7 +253,7 @@ class SyGuS_IF():
                     )
                     (
                         Const_Real Real (
-                            0 0.25 0.5 0.75 1
+                            0.0 0.25 0.5 0.75 1.0
                         )
                     )
                     
@@ -317,7 +322,7 @@ class SyGuS_IF():
                     )
                     (
                         Const_Real Real (
-                            0 0.25 0.5 0.75 1
+                            0.0 0.25 0.5 0.75 1.0
                         )
                     )
                     
@@ -577,7 +582,7 @@ class SyGuS_IF():
         )
         (
             Const_Real Real (
-                0 0.25 0.5 0.75 1
+                0.0 0.25 0.5 0.75 1.0
             )
         )
         

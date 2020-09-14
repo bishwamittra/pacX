@@ -10,4 +10,4 @@ memlimit="16000000"
 ulimit -v $memlimit
 
 
-python3 run.py --thread=$mythread > data/output/$(date +"%d-%m-%Y-%T"-$mythread.txt)
+python3 run.py --thread=$mythread --timeout=300 --iterations=10> data/output/$(date +"%d-%m-%Y-%T"-$mythread.txt)

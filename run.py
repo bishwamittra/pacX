@@ -31,22 +31,24 @@ from trustable_explanation.example_queries import DistanceQuery
 import datetime
 import argparse
 
-
+dataset_choices = ['iris', 'adult', 'zoo']
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--thread", help="index of thread/query", default=0, type=int)
-parser.add_argument("--iterations", help="number of iterations", default=10, type=int)
-parser.add_argument("--timeout", help="timeout in seconds", default=400, type=int)
+parser.add_argument("--thread", help="index of thread/query", default=-1, type=int)
+parser.add_argument("--iterations", help="number of iterations", default=1, type=int)
+parser.add_argument("--timeout", help="timeout in seconds", default=10, type=int)
 parser.add_argument("--blackbox", help="blackbox", default="nn", type=str, choices=['nn', 'dt', 'rf'])
-parser.add_argument("--dataset", type=str, default="zoo", choices=['iris', 'adult', 'zoo'])
-# parser.add_argument("--model", type=str, default="decisionTree",choices=['decisionTree', 'logisticRegression', 'mlic'])
+parser.add_argument("--dataset", type=str, default="zoo", choices=dataset_choices)
 args = parser.parse_args()
 
 
 
 select_blackbox = args.blackbox
-
 dataset = args.dataset
+
+
+if(args.thread != -1):
+    select_blackbox = dataset_choices[args.thread % len(dataset_choices)]
 
 df = None
 
@@ -206,9 +208,9 @@ for seleceted_learner  in ["dt", "logistic regression", "sygus"][2:]:
         q = Query(model = None, prediction_function = query_class.predict_function_query)
 
 
-        iterations = 1
+        
 
-        for idx in range(iterations):
+        for idx in range(args.iterations):
 
             if(seleceted_learner == "sygus"):
                 sgf = SyGuS_IF(feature_names=dataObj.attributes, feature_data_type=dataObj.attribute_type, function_return_type= "Bool", verbose=False)
@@ -224,7 +226,7 @@ for seleceted_learner  in ["dt", "logistic regression", "sygus"][2:]:
                 raise ValueError("Learner not defined")
 
 
-            t = Teacher(max_iterations=100000,epsilon=0.05, delta=0.05, timeout=60)
+            t = Teacher(max_iterations=100000,epsilon=0.05, delta=0.05, timeout=args.timeout)
             _teach_start = time.time()
             l, flag = t.teach(blackbox = bb, learner = l, query = q, random_example_generator = helper_functions.random_generator, params_generator = (X_train,dataObj.attribute_type), verbose=False)
 
@@ -282,7 +284,7 @@ for seleceted_learner  in ["dt", "logistic regression", "sygus"][2:]:
             result.to_csv('data/output/result.csv', header=False, index=False, mode='a')
 
 
-            if(idx == iterations - 1):
+            if(idx == args.iterations - 1):
                 display(Markdown("### Result for " + seleceted_learner))
                 if(seleceted_learner == "sygus"):
                     print("Learned explanation =>", l.model._function_snippet)
