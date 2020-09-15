@@ -1,10 +1,10 @@
 (set-logic LRA)
 
-(synth-fun func ((sepal-length Real) (sepal-width Real) (petal-length Real) (petal-width Real) ) Bool
+(synth-fun func ((hair Bool) (feathers Bool) (eggs Bool) (milk Bool) (airborne Bool) (aquatic Bool) (predator Bool) (toothed Bool) (backbone Bool) (breathes Bool) (venomous Bool) (fins Bool) (legs Real) (tail Bool) (domestic Bool) (catsize Bool) ) Bool
 
 
                 ;; Declare the non-terminals that would be used in the grammar
-                ((Formula Bool) (Clause Bool) (B Bool) (Var_Real Real) (Const_Real Real))
+                ((Formula Bool) (Clause Bool) (B Bool) (Var_Bool Bool) (Var_Real Real) (Const_Real Real))
 
                 ;; Define the grammar for allowed implementations
                 (
@@ -23,9 +23,16 @@
                     (
                         B Bool (
                             (Constant Bool)
+                            Var_Bool
+                            (not Var_Bool)
                             (> Var_Real Const_Real)
                             (< Var_Real Const_Real)
                             )
+                    )
+                    (
+                        Var_Bool Bool (
+                            (Variable Bool)
+                        )
                     )
                     (
                         Var_Real Real (
@@ -44,15 +51,17 @@
 
 )
 
-(constraint (= (func 0.38888888888888884 0.25 0.423728813559322 0.375 ) true))
-(constraint (= (func 0.721 0.469 0.801 0.589 ) false))
-(constraint (= (func 0.833 0.294 0.685 0.212 ) true))
-(constraint (= (func 0.886 0.496 0.401 0.455 ) false))
-(constraint (= (func 0.818 0.192 0.475 0.339 ) true))
-(constraint (= (func 0.336 0.758 0.207 0.981 ) false))
-(constraint (= (func 0.899 0.345 0.565 0.432 ) true))
-(constraint (= (func 0.969 0.48 0.526 0.892 ) false))
-(constraint (= (func 0.709 0.335 0.36 0.231 ) true))
+(constraint (= (func true false false true true false false true true true false false 0.25 true false false ) true))
+(constraint (= (func false true false false true false false false false false false true 0.742 false false false ) false))
+(constraint (= (func true false true true true true true false true true false false 0.463 true true true ) false))
+(constraint (= (func true false true false true false true true true true true true 0.496 true true true ) false))
+(constraint (= (func true false false false true true false true false true false false 0.53 false false true ) false))
+(constraint (= (func true false false true true false false true true true false false 0.521 true false true ) true))
+(constraint (= (func false false false true false true true true true true true false 0.021 true false true ) false))
+(constraint (= (func false false true true true false true true false true false true 0.218 true true true ) false))
+(constraint (= (func true false false true false false false false false false false true 0.298 false false true ) false))
+(constraint (= (func false false false true true false true true false true false false 0.246 true true false ) false))
+(constraint (= (func false true true true false true false true true false true false 0.34 false true false ) false))
 
 
 (check-synth)

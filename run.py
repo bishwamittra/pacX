@@ -48,7 +48,7 @@ dataset = args.dataset
 
 
 if(args.thread != -1):
-    select_blackbox = dataset_choices[args.thread % len(dataset_choices)]
+    dataset = dataset_choices[args.thread % len(dataset_choices)]
 
 df = None
 
@@ -178,6 +178,9 @@ queries = [
 
 ]
 
+os.system("mkdir -p temp"+ str(args.thread))
+os.system("mkdir -p data/output")
+
 
 
 select_query = ['dt', 'specific input'][1]
@@ -208,12 +211,13 @@ for seleceted_learner  in ["dt", "logistic regression", "sygus"][2:]:
         q = Query(model = None, prediction_function = query_class.predict_function_query)
 
 
+
         
 
         for idx in range(args.iterations):
 
             if(seleceted_learner == "sygus"):
-                sgf = SyGuS_IF(feature_names=dataObj.attributes, feature_data_type=dataObj.attribute_type, function_return_type= "Bool", verbose=False)
+                sgf = SyGuS_IF(feature_names=dataObj.attributes, feature_data_type=dataObj.attribute_type, function_return_type= "Bool", verbose=False, workdir="temp"+ str(args.thread))
                 l = Learner(model = sgf, prediction_function = sgf.predict_z3, train_function = sgf.fit, X = X, y=y )
             elif(seleceted_learner == "dt"):
                 dt_classifier = tree.DecisionTreeClassifier()
@@ -320,3 +324,4 @@ for seleceted_learner  in ["dt", "logistic regression", "sygus"][2:]:
             break
             
 
+os.system("rm -r temp"+ str(args.thread))
