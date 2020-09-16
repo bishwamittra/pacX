@@ -238,20 +238,23 @@ for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
 
 
                 
+                acc = None
 
+                try:
+                    cnt = 0
+                    learner_verdicts = l.classify_examples(X_test.values.tolist())
+                    blackbox_verdicts = bb.classify_examples(X_test.values.tolist())
+                    for i in range(len(X_test.values.tolist())):
 
-
-                cnt = 0
-                learner_verdicts = l.classify_examples(X_test.values.tolist())
-                blackbox_verdicts = bb.classify_examples(X_test.values.tolist())
-                for i in range(len(X_test.values.tolist())):
-
-                    blackbox_verdict = blackbox_verdicts[i]
-                    learner_verdict = learner_verdicts[i]
-                    query_verdict = q.classify_example(X_test.values.tolist()[i])
-                    if(learner_verdict == (blackbox_verdict and query_verdict)):
-                        cnt += 1
-
+                        blackbox_verdict = blackbox_verdicts[i]
+                        learner_verdict = learner_verdicts[i]
+                        query_verdict = q.classify_example(X_test.values.tolist()[i])
+                        if(learner_verdict == (blackbox_verdict and query_verdict)):
+                            cnt += 1
+                    acc = cnt/len(y_test)
+                except:
+                    cnt = None
+                    acc = None
 
 
                 # result
@@ -279,7 +282,7 @@ for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
                 entry['time learner'] = t.time_learner
                 entry['time verifier'] = t.time_verifier
                 entry['time'] = _teach_end - _teach_start
-                entry['accuracy'] = cnt/len(y_test)
+                entry['accuracy'] = acc
                 entry['terminate'] = flag
                 entry['random words checked'] = t.verifier.number_of_examples_checked
                 entry['total counterexamples'] = len(l.y)
@@ -319,7 +322,7 @@ for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
                     print("-it took", _teach_end - _teach_start, "seconds")
                     print("-learner time:", t.time_learner)
                     print("-verifier time:", t.time_verifier)
-                    print("correct: ", cnt, "out of ", len(y_test), "examples. Percentage: ", cnt/len(y_test))
+                    print("correct: ", cnt, "out of ", len(y_test), "examples. Percentage: ", acc)
                     print('random words checked', t.verifier.number_of_examples_checked)
                     print("Total counterexamples:", len(l.y))
                     print("percentage of positive counterexamples for the learner:", np.array(l.y).mean())

@@ -1,0 +1,34 @@
+<IPython.core.display.Markdown object>
+Loding model
+Class (black-box) [1]
+<IPython.core.display.Markdown object>
+- threshold: 0.1
+- specific_input: [0.38888888888888884, 0.25, 0.423728813559322, 0.375]
+- detailed_input: [('sepal-length', 0.38888888888888884), ('sepal-width', 0.25), ('petal-length', 0.423728813559322), ('petal-width', 0.375)]
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+<IPython.core.display.Markdown object>
+Learned explanation =>  (or (and (> sepal-length (/ 3 4)) (> petal-length (/ 1 2))) (and (> sepal-length (/ 1 4)) (and (< sepal-length (/ 1 2)) (and (> petal-length (/ 1 4)) (< petal-length (/ 1 2))))))
+-explanation size: 8
+
+
+
+-is learning complete? False
+-it took 301.09487676620483 seconds
+-learner time: 297.3410451412201
+-verifier time: 2.750363349914551
+correct:  12 out of  15 examples. Percentage:  0.8
+random words checked 45
+Total counterexamples: 16
+percentage of positive counterexamples for the learner: 0.25
+
+'accuracy', 'blackbox', 'dataset', 'explainer', 'explanation', 'explanation size', 'positive counterexamples', 'query', 'random words checked', 'syntactic grammar', 'terminate', 'time', 'time learner', 'time verifier', 'total counterexamples'
+SyGuS model is not fit yet

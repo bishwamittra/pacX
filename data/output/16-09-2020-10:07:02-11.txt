@@ -1,0 +1,37 @@
+<IPython.core.display.Markdown object>
+Loding model
+Class (black-box) [1]
+<IPython.core.display.Markdown object>
+- threshold: 0.1
+- specific_input: [1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.25, 1.0, 0.0, 0.0]
+- detailed_input: [('hair', 1.0), ('feathers', 0.0), ('eggs', 0.0), ('milk', 1.0), ('airborne', 1.0), ('aquatic', 0.0), ('predator', 0.0), ('toothed', 1.0), ('backbone', 1.0), ('breathes', 1.0), ('venomous', 0.0), ('fins', 0.0), ('legs', 0.25), ('tail', 1.0), ('domestic', 0.0), ('catsize', 0.0)]
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+<IPython.core.display.Markdown object>
+Learned explanation =>  (and milk (and (not aquatic) (and tail (not domestic))))
+-explanation size: 4
+
+
+
+-is learning complete? False
+-it took 301.0487732887268 seconds
+-learner time: 291.8277771472931
+-verifier time: 8.21195101737976
+correct:  10 out of  11 examples. Percentage:  0.9090909090909091
+random words checked 3456
+Total counterexamples: 30
+percentage of positive counterexamples for the learner: 0.06666666666666667
+
+'accuracy', 'blackbox', 'dataset', 'explainer', 'explanation', 'explanation size', 'positive counterexamples', 'query', 'random words checked', 'syntactic grammar', 'terminate', 'time', 'time learner', 'time verifier', 'total counterexamples'
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet
+SyGuS model is not fit yet

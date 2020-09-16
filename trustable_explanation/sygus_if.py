@@ -43,7 +43,7 @@ class SyGuS_IF():
 
     def get_formula_size(self):
 
-        if(self._function_snippet.strip() == "false"):
+        if(self._function_snippet.strip() == "false" or self._function_snippet.strip() == "true"):
             return 1 
 
             
