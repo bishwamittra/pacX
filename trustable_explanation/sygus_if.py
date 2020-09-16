@@ -43,6 +43,10 @@ class SyGuS_IF():
 
     def get_formula_size(self):
 
+        if(self._function_snippet.strip() == "false"):
+            return 1 
+
+            
         dic_vars = {
 
         }

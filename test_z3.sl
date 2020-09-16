@@ -16,7 +16,7 @@
 (declare-const tail Bool)
 (declare-const domestic Bool)
 (declare-const catsize Bool)
-(assert (=  (or (and feathers (> legs (/ 3 4))) (and (not milk) toothed)) true) )
+(assert (=  (or (and (not predator) (> legs (/ 1 4))) (and (not catsize) (> legs (/ 1 2)))) true) )
 (push)
 (assert (= hair false))
 (assert (= feathers false))
