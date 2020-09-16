@@ -28,6 +28,14 @@ class Learner():
             print(e)
             return None
 
+    def classify_examples(self, examples):
+        try:
+            return self._predict_function(examples)
+        except Exception as e:
+            print(e)
+            return None
+
+
 
     def fit(self, queue):
         try:

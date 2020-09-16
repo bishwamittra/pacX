@@ -6,7 +6,7 @@ from nnf import And, Or, Var
 
 class SyGuS_IF():
 
-    def __init__(self, feature_names = None, feature_data_type = None, function_return_type = None, workdir = None, verbose = False):
+    def __init__(self, feature_names = None, feature_data_type = None, function_return_type = None, workdir = None, verbose = False, syntactic_grammar = True):
         self._num_features = None
         self._num_examples = None
         self._synth_func_name = "func"
@@ -14,6 +14,7 @@ class SyGuS_IF():
         self._feature_data_type = feature_data_type
         self._default_feature_data_type = "Real"
         self.verbose = verbose
+        self.syntactic_grammar = syntactic_grammar
         if(function_return_type is None):
             self._return_type = "Bool"
         else:
@@ -60,19 +61,8 @@ class SyGuS_IF():
                 return dic_vars[formula]
 
             len_ = len(formula)
-            if(len_ == 3):
-                op, arg1, arg2 = formula[0], formula[1], formula[2]
-                if(op == 'and'):
-                    return And({recurse(arg1), recurse(arg2)})
-                elif(op == 'or'):
-                    return Or({recurse(arg1), recurse(arg2)})
-                elif(op == "let"):
-                    return recurse(arg2)
-                else:
-                    # operator is either < or >= or whatever... 
-                    new_var = str(arg1) + "_" + str(op) + "_" + str(arg2).replace(" ", "_")
-                    dic_vars[new_var] = Var(new_var)
-                    return dic_vars[new_var]
+            if(len_ == 1):
+                return dic_vars[formula[0]]
             elif(len_ == 2):
                 op, arg = formula[0], formula[1]
                 if(op == 'not'):
@@ -80,10 +70,46 @@ class SyGuS_IF():
                 else:
                     raise ValueError
             else:
-                raise ValueError
+                op, args = formula[0], formula[1:]
+                if(op == 'and'):
+                    return And({*[ recurse(arg) for arg in args]})
+                elif(op == 'or'):
+                    return Or({*[ recurse(arg) for arg in args]})
+                elif(op == "let"):
+                    if(len_ == 3):
+                        return recurse(args[1])
+                    else:
+                        print(formula)
+                        print(len_)
+                        raise ValueError
+                else:
+                    if(len_ == 3):
+                    # operator is either < or >= or whatever... 
+                        new_var = str(args[0]) + "_" + str(op) + "_" + str(args[1]).replace(" ", "_")
+                        dic_vars[new_var] = Var(new_var)
+                        return dic_vars[new_var]
+                    else:
+                        print(formula)
+                        print(len_)
+
+                        raise ValueError
+            
+            # elif(len_ == 2):
+            #     op, arg = formula[0], formula[1]
+            #     if(op == 'not'):
+            #         return ~dic_vars[arg]
+            #     else:
+            #         raise ValueError
+            # else:
+            #     raise ValueError
+
+
         formula = recurse(tokens)
-        # print(formula)
         formula = formula.simplify()
+        # print(dic_vars)
+        # print(formula)
+
+
         if(self.verbose):
             print("Simplified formula")
             print(formula)
@@ -331,8 +357,10 @@ class SyGuS_IF():
             """
         else:
             raise ValueError("Syntactic constraint cannot be constructed")
+        
         # no syntactic costraints added
-        # s = ""
+        if(not self.syntactic_grammar):
+            s = ""
         return s + "\n\n"
     
     def _add_function_closing(self):
@@ -466,9 +494,8 @@ class SyGuS_IF():
         return y_predict
 
 
-    def predict_z3(self, X, filename = "test_z3.sl"):
+    def predict_z3_old(self, X, filename = "test_z3.sl"):
         X = self._preprocess_X(X)
-
         if(self.synthesized_function is None):
             # cannot predict before training
             raise ValueError("SyGuS model is not fit yet")
@@ -490,7 +517,7 @@ class SyGuS_IF():
                     else:
                         _example_specific_ += "(assert (= " + self._feature_names[j] + " false))\n"
             
-
+            
             f = open(self._workdir + "/" + filename, 'w')
             f.write(_example_specific_ + "(check-sat)\n" + "(eval " + self._function_snippet + ")\n")
             f.close()
@@ -529,12 +556,60 @@ class SyGuS_IF():
                 print(self._return_type, "is not recognized")
                 raise ValueError
 
-        os.system("rm "+ self._workdir + "/" + filename)
+        # os.system("rm "+ self._workdir + "/" + filename)
                     
 
         return y_pred
 
-        
+    def predict_z3(self, X, filename = "test_z3.sl"):
+        X = self._preprocess_X(X)
+
+        if(self.synthesized_function is None):
+            # cannot predict before training
+            raise ValueError("SyGuS model is not fit yet")
+
+
+        _z3_expression = "(set-option :smt.mbqi true)\n(set-logic QF_LRA)\n"
+        for _feature in self._feature_names:
+            _z3_expression += "(declare-const " + _feature + " " + self._feature_data_type[_feature] +")\n"
+
+        y_pred = []
+        _example_specific_ = _z3_expression
+        _example_specific_ += "(assert (= " + self._function_snippet + " true) )\n"
+        for i in range(self._num_examples):
+            _example_specific_ += "(push)\n"
+            for j in range(self._num_features):
+                if(self._feature_data_type[self._feature_names[j]] == "Real"):
+                    _example_specific_ += "(assert (= " + self._feature_names[j] + " " + str(X[i][j]) + "))\n"
+                elif(self._feature_data_type[self._feature_names[j]] == "Bool"):
+                    if(X[i][j] > 0 ):
+                        _example_specific_ += "(assert (= " + self._feature_names[j] + " true))\n"
+                    else:
+                        _example_specific_ += "(assert (= " + self._feature_names[j] + " false))\n"
+            _example_specific_ += "(check-sat)\n(pop)\n"
+
+        f = open(self._workdir + "/" + filename, 'w')
+        f.write(_example_specific_)
+        f.close()
+
+
+        cmd = "z3 " + self._workdir + "/" + filename
+        cmd_output = subprocess.check_output(
+            cmd, shell=True, stderr=subprocess.STDOUT)
+        lines = cmd_output.decode('utf-8').split("\n")
+
+
+        assert len(lines) == self._num_examples + 1, "Unknown error in z3 output"
+        for i in range(self._num_examples):
+            if(lines[i] == 'unsat'):
+                y_pred.append(0)
+            elif(lines[i] == 'sat'):
+                y_pred.append(1)
+            else:
+                raise ValueError(lines[i] + " is not defined output")        
+
+        return y_pred
+    
 
 
 

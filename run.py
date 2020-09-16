@@ -185,7 +185,7 @@ os.system("mkdir -p data/output")
 
 select_query = ['dt', 'specific input'][1]
 
-for seleceted_learner  in ["dt", "logistic regression", "sygus"][2:]:
+for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
     for _query in queries[:1]:
             
         query_class = None
@@ -212,113 +212,119 @@ for seleceted_learner  in ["dt", "logistic regression", "sygus"][2:]:
 
 
 
-        
+        for syntactic_grammar in [True, False]:
 
-        for idx in range(args.iterations):
+            for idx in range(args.iterations):
 
-            if(seleceted_learner == "sygus"):
-                sgf = SyGuS_IF(feature_names=dataObj.attributes, feature_data_type=dataObj.attribute_type, function_return_type= "Bool", verbose=False, workdir="temp"+ str(args.thread))
-                l = Learner(model = sgf, prediction_function = sgf.predict_z3, train_function = sgf.fit, X = X, y=y )
-            elif(seleceted_learner == "dt"):
-                dt_classifier = tree.DecisionTreeClassifier()
-                l = Learner(model = dt_classifier, prediction_function = dt_classifier.predict, train_function = dt_classifier.fit, X = X, y=y )
-            elif(seleceted_learner == "logistic regression"):
-                clf_lr = LogisticRegression()
-                l = Learner(model = clf_lr, prediction_function = clf_lr.predict, train_function = clf_lr.fit, X = X, y=y )
+                if(selected_learner == "sygus"):
+                    sgf = SyGuS_IF(feature_names=dataObj.attributes, feature_data_type=dataObj.attribute_type, function_return_type= "Bool", verbose=False, workdir="temp"+ str(args.thread), syntactic_grammar = syntactic_grammar)
+                    l = Learner(model = sgf, prediction_function = sgf.predict_z3, train_function = sgf.fit, X = X, y=y )
+                elif(selected_learner == "dt"):
+                    dt_classifier = tree.DecisionTreeClassifier()
+                    l = Learner(model = dt_classifier, prediction_function = dt_classifier.predict, train_function = dt_classifier.fit, X = X, y=y )
+                elif(selected_learner == "logistic regression"):
+                    clf_lr = LogisticRegression()
+                    l = Learner(model = clf_lr, prediction_function = clf_lr.predict, train_function = clf_lr.fit, X = X, y=y )
 
-            else:
-                raise ValueError("Learner not defined")
-
-
-            t = Teacher(max_iterations=100000,epsilon=0.05, delta=0.05, timeout=args.timeout)
-            _teach_start = time.time()
-            l, flag = t.teach(blackbox = bb, learner = l, query = q, random_example_generator = helper_functions.random_generator, params_generator = (X_train,dataObj.attribute_type), verbose=False)
-
-            _teach_end = time.time()
+                else:
+                    raise ValueError("Learner not defined")
 
 
-            
+                t = Teacher(max_iterations=100000,epsilon=0.05, delta=0.05, timeout=args.timeout)
+                _teach_start = time.time()
+                l, flag = t.teach(blackbox = bb, learner = l, query = q, random_example_generator = helper_functions.random_generator, params_generator = (X_train,dataObj.attribute_type), verbose=False)
+
+                _teach_end = time.time()
 
 
-
-            cnt = 0
-            for example in X_test.values.tolist():
-
-                blackbox_verdict = bb.classify_example(example)
-                learner_verdict = l.classify_example(example)
-                query_verdict = q.classify_example(example)
-                if(learner_verdict == (blackbox_verdict and query_verdict)):
-                    cnt += 1
+                
 
 
 
-            # result
-            entry = {}
-            entry['dataset'] = dataset
-            entry['blackbox'] = select_blackbox
-            entry['query'] = str(query_class)
-            if(seleceted_learner == "sygus"):
-                entry['explanation'] = l.model._function_snippet
-                entry['explanation size'] = l.model.get_formula_size()
-            elif(seleceted_learner == "dt"):
-                os.system("mkdir -p data/output/dt")
-                _dt_explanation_file = "data/output/dt/" + str(datetime.datetime.now()) + ".pkl"
-                with open(_dt_explanation_file, 'wb') as fid:
-                    pickle.dump(l.model, fid)
-                entry['explanation'] = _dt_explanation_file
-                entry['explanation size'] = None
-            elif(seleceted_learner == "logistic regression"):
-                entry['explanation'] = l.model.coef_[0]
-                entry['explanation size'] = None
-            else:
-                raise ValueError
-            entry['explainer'] = seleceted_learner
-            entry['time learner'] = t.time_learner
-            entry['time verifier'] = t.time_verifier
-            entry['time'] = _teach_end - _teach_start
-            entry['accuracy'] = cnt/len(y_test)
-            entry['terminate'] = flag
-            entry['random words checked'] = t.verifier.number_of_examples_checked
-            entry['total counterexamples'] = len(l.y)
-            entry['positive counterexamples'] = np.array(l.y).mean()
+                cnt = 0
+                learner_verdicts = l.classify_examples(X_test.values.tolist())
+                blackbox_verdicts = bb.classify_examples(X_test.values.tolist())
+                for i in range(len(X_test.values.tolist())):
 
-            
-            result = pd.DataFrame()
-            result = result.append(entry, ignore_index=True)
-            result.to_csv('data/output/result.csv', header=False, index=False, mode='a')
+                    blackbox_verdict = blackbox_verdicts[i]
+                    learner_verdict = learner_verdicts[i]
+                    query_verdict = q.classify_example(X_test.values.tolist()[i])
+                    if(learner_verdict == (blackbox_verdict and query_verdict)):
+                        cnt += 1
 
 
-            if(idx == args.iterations - 1):
-                display(Markdown("### Result for " + seleceted_learner))
-                if(seleceted_learner == "sygus"):
-                    print("Learned explanation =>", l.model._function_snippet)
-                elif(seleceted_learner == "dt"):
-                    print("Learned explanation =>", helper_functions.tree_to_code(l.model,X_train.columns.to_list()), "\n\n")
-                elif(seleceted_learner == "logistic regression"):
-                    feature_importance = l.model.coef_[0]
-                    feature_importance = 100.0 * (feature_importance / (abs(feature_importance).max()))
-                    sorted_idx = np.argsort(abs(feature_importance))
-                    pos = np.arange(sorted_idx.shape[0]) + .5
-                    featfig = plt.figure()
-                    featax = featfig.add_subplot(1, 1, 1)
-                    featax.barh(pos, feature_importance[sorted_idx], align='center')
-                    featax.set_yticks(pos)
-                    featax.set_yticklabels(np.array(X_train.columns.to_list())[sorted_idx])
-                    featax.set_xlabel('Relative Feature Importance')
-                    plt.tight_layout()   
-                    plt.show()
+
+                # result
+                entry = {}
+                entry['dataset'] = dataset
+                entry['blackbox'] = select_blackbox
+                entry['query'] = str(query_class)
+                if(selected_learner == "sygus"):
+                    entry['explanation'] = l.model._function_snippet
+                    entry['explanation size'] = l.model.get_formula_size()
+                elif(selected_learner == "dt"):
+                    os.system("mkdir -p data/output/dt")
+                    _dt_explanation_file = "data/output/dt/" + str(datetime.datetime.now()) + ".pkl"
+                    with open(_dt_explanation_file, 'wb') as fid:
+                        pickle.dump(l.model, fid)
+                    entry['explanation'] = _dt_explanation_file
+                    entry['explanation size'] = None
+                elif(selected_learner == "logistic regression"):
+                    entry['explanation'] = l.model.coef_[0]
+                    entry['explanation size'] = None
                 else:
                     raise ValueError
+                entry['explainer'] = selected_learner
+                entry['syntactic grammar'] = syntactic_grammar
+                entry['time learner'] = t.time_learner
+                entry['time verifier'] = t.time_verifier
+                entry['time'] = _teach_end - _teach_start
+                entry['accuracy'] = cnt/len(y_test)
+                entry['terminate'] = flag
+                entry['random words checked'] = t.verifier.number_of_examples_checked
+                entry['total counterexamples'] = len(l.y)
+                entry['positive counterexamples'] = np.array(l.y).mean()
+
+                
+                result = pd.DataFrame()
+                result = result.append(entry, ignore_index=True)
+                result.to_csv('data/output/result.csv', header=False, index=False, mode='a')
 
 
-                print("\n\n\n-is learning complete?", flag)
-                print("-it took", _teach_end - _teach_start, "seconds")
-                print("correct: ", cnt, "out of ", len(y_test), "examples. Percentage: ", cnt/len(y_test))
-                print('random words checked', t.verifier.number_of_examples_checked)
-                print("Total counterexamples:", len(l.y))
-                print("percentage of positive counterexamples for the learner:", np.array(l.y).mean())
-                print()
-                print(", ".join(["\'" + column + "\'" for column in result.columns.tolist()]))
+                if(idx == args.iterations - 1):
+                    display(Markdown("### Result for " + selected_learner))
+                    if(selected_learner == "sygus"):
+                        print("Learned explanation =>", l.model._function_snippet)
+                        print("-explanation size:", l.model.get_formula_size())
+                    elif(selected_learner == "decision tree"):
+                        print("Learned explanation =>", helper_functions.tree_to_code(l.model,X_train.columns.to_list()), "\n\n")
+                    elif(selected_learner == "logistic regression"):
+                        feature_importance = l.model.coef_[0]
+                        feature_importance = 100.0 * (feature_importance / (abs(feature_importance).max()))
+                        sorted_idx = np.argsort(abs(feature_importance))
+                        pos = np.arange(sorted_idx.shape[0]) + .5
+                        featfig = plt.figure()
+                        featax = featfig.add_subplot(1, 1, 1)
+                        featax.barh(pos, feature_importance[sorted_idx], align='center')
+                        featax.set_yticks(pos)
+                        featax.set_yticklabels(np.array(X_train.columns.to_list())[sorted_idx])
+                        featax.set_xlabel('Relative Feature Importance')
+                        plt.tight_layout()   
+                        plt.show()
+                    else:
+                        raise ValueError
+
+
+                    print("\n\n\n-is learning complete?", flag)
+                    print("-it took", _teach_end - _teach_start, "seconds")
+                    print("-learner time:", t.time_learner)
+                    print("-verifier time:", t.time_verifier)
+                    print("correct: ", cnt, "out of ", len(y_test), "examples. Percentage: ", cnt/len(y_test))
+                    print('random words checked', t.verifier.number_of_examples_checked)
+                    print("Total counterexamples:", len(l.y))
+                    print("percentage of positive counterexamples for the learner:", np.array(l.y).mean())
+                    print()
+                    print(", ".join(["\'" + column + "\'" for column in result.columns.tolist()]))
 
         if(select_query == "specific input"):
             break
