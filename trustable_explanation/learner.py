@@ -32,7 +32,7 @@ class Learner():
         try:
             return self._predict_function(examples)
         except Exception as e:
-            print(e)
+            # print(e)
             return None
 
 

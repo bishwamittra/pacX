@@ -29,6 +29,7 @@ class SyGuS_IF():
         self._sygus_if_prediction = None
         self.solver_output = None
         self.synthesized_function = None
+        self._function_snippet = None
         if(workdir is None):
             self._workdir = os.getcwd()
         else:
@@ -43,9 +44,12 @@ class SyGuS_IF():
 
     def get_formula_size(self):
 
-        if(self._function_snippet.strip() == "false" or self._function_snippet.strip() == "true"):
-            return 1 
+        if(self._function_snippet is None):
+            return 0
 
+        if(self._function_snippet.strip() == "false" or self._function_snippet.strip() == "true" or self._function_snippet.strip()[0] != "("):
+            return 1 
+        
             
         dic_vars = {
 
@@ -145,6 +149,7 @@ class SyGuS_IF():
                         block = ""
         except IndexError:
             print(s)
+            print(self.synthesized_function)
             raise ValueError('Parentheses mismatch')
 
         if depth > 0:

@@ -197,7 +197,7 @@ for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
             y = []
         elif(select_query == "specific input"):        
             specific_input = X_test.iloc[0].tolist()
-            query_class = example_queries.DistanceQuery(specific_input=specific_input, threshold=0.1, features = X_train.columns.tolist())
+            query_class = example_queries.DistanceQuery(specific_input=specific_input, threshold=0.5, features = X_train.columns.tolist())
             X = [specific_input]
             y = [clf.predict([specific_input])[0]]
             print("Class (black-box)", y)
@@ -229,6 +229,8 @@ for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
                 else:
                     raise ValueError("Learner not defined")
 
+                print("starting teaching")
+
 
                 t = Teacher(max_iterations=100000,epsilon=0.05, delta=0.05, timeout=args.timeout)
                 _teach_start = time.time()
@@ -236,10 +238,10 @@ for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
 
                 _teach_end = time.time()
 
-
+                print("finishing teaching")
                 
                 acc = None
-
+                total = 0
                 try:
                     cnt = 0
                     learner_verdicts = l.classify_examples(X_test.values.tolist())
@@ -249,12 +251,20 @@ for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
                         blackbox_verdict = blackbox_verdicts[i]
                         learner_verdict = learner_verdicts[i]
                         query_verdict = q.classify_example(X_test.values.tolist()[i])
-                        if(learner_verdict == (blackbox_verdict and query_verdict)):
+                        if(not query_verdict):
                             cnt += 1
-                    acc = cnt/len(y_test)
+                        elif(learner_verdict == blackbox_verdict):
+                            cnt += 1
+                        total += 1
+                    if(total == 0):
+                        acc = None
+                    else:
+                        acc = cnt/total
                 except:
                     cnt = None
                     acc = None
+
+                print("finishing accuracy measure")
 
 
                 # result
@@ -322,7 +332,7 @@ for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
                     print("-it took", _teach_end - _teach_start, "seconds")
                     print("-learner time:", t.time_learner)
                     print("-verifier time:", t.time_verifier)
-                    print("correct: ", cnt, "out of ", len(y_test), "examples. Percentage: ", acc)
+                    print("correct: ", cnt, "out of ", total, "examples. Percentage: ", acc)
                     print('random words checked', t.verifier.number_of_examples_checked)
                     print("Total counterexamples:", len(l.y))
                     print("percentage of positive counterexamples for the learner:", np.array(l.y).mean())
