@@ -196,7 +196,7 @@ for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
             X = []
             y = []
         elif(select_query == "specific input"):        
-            specific_input = X_train.iloc[0].tolist()
+            specific_input = X_test.iloc[0].tolist()
             query_class = example_queries.DistanceQuery(specific_input=specific_input, threshold=0.1, features = X_train.columns.tolist())
             X = [specific_input]
             y = [clf.predict([specific_input])[0]]
