@@ -17,6 +17,7 @@ class Verifier():
         self.number_of_examples_checked = 0
         self._get_random_example = random_example_generator
         self._params_generator = params_generator
+        self.filtered_by_query = 0
 
     def equivalence_check(self, blackbox, learner, query, verbose = False):
 
@@ -47,8 +48,9 @@ class Verifier():
             
             self.number_of_examples_checked += 1
 
-            query_verdict = query.classify_example(example)
+            query_verdict = query.classify_example(examples[i])
             if(not query_verdict):
+                self.filtered_by_query += 1
                 continue
             
             

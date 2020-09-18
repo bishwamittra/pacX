@@ -1,0 +1,101 @@
+<IPython.core.display.Markdown object>
+Loding model
+Class (black-box) [0]
+<IPython.core.display.Markdown object>
+- threshold: 0.5
+- specific_input: [0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.25, 1.0, 0.0, 0.0]
+- detailed_input: [('hair', 0.0), ('feathers', 1.0), ('eggs', 1.0), ('milk', 0.0), ('airborne', 1.0), ('aquatic', 1.0), ('predator', 1.0), ('toothed', 0.0), ('backbone', 1.0), ('breathes', 1.0), ('venomous', 0.0), ('fins', 0.0), ('legs', 0.25), ('tail', 1.0), ('domestic', 0.0), ('catsize', 0.0)]
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+<IPython.core.display.Markdown object>
+Learned explanation =>  (and (not eggs) (and milk (and backbone (< legs (/ 3 4)))))
+-explanation size: 4
+
+
+
+-is learning complete? False
+-it took 301.1293902397156 seconds
+-learner time: 297.2232446670532
+-verifier time: 2.9017679691314697
+correct:  11 out of  11 examples. Percentage:  1.0
+random words checked 125
+Filtered by querys: 46
+Total counterexamples: 19
+percentage of positive counterexamples for the learner: 0.21052631578947367
+
+'accuracy', 'blackbox', 'dataset', 'explainer', 'explanation', 'explanation size', 'positive counterexamples', 'query', 'random words checked', 'syntactic grammar', 'terminate', 'time', 'time learner', 'time verifier', 'total counterexamples'
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+<IPython.core.display.Markdown object>
+Learned explanation =>  (let ((_let_0 (= legs (/ 387 1000)))) (let ((_let_1 (= legs (/ 127 200)))) (let ((_let_2 (= legs (/ 489 1000)))) (let ((_let_3 (= legs (/ 909 1000)))) (let ((_let_4 (= legs (/ 711 1000)))) (let ((_let_5 (= legs (/ 71 250)))) (let ((_let_6 (= legs (/ 287 1000)))) (let ((_let_7 (= legs (/ 223 250)))) (let ((_let_8 (= legs (/ 791 1000)))) (let ((_let_9 (= legs (/ 77 500)))) (or (and (not venomous) (or (and hair (or (and milk (or (and predator (or (and tail (or (and catsize (or (and aquatic (or (and (not feathers) (or (and airborne (or (and toothed (or (and (not backbone) (or (and eggs (or (and breathes domestic (not fins) (= legs (/ 159 500))) (and fins (not breathes) (or (and (not domestic) (= legs (/ 243 1000))) (and domestic (or (= legs (/ 801 1000)) (= legs (/ 163 1000)))))))) (and breathes (not eggs) (or (and (not domestic) (not fins) (= legs (/ 59 200))) (and fins domestic (= legs (/ 107 250))))))) (and backbone (not domestic) (or (and eggs (not breathes) (not fins) _let_3) (and breathes fins (not eggs) (= legs (/ 291 500))))))) (and (not breathes) (not toothed) (not eggs) (or (and backbone fins domestic (= legs (/ 741 1000))) (and (not backbone) (not domestic) (not fins) (= legs (/ 207 1000))))))) (and backbone (not airborne) (not domestic) (or (and eggs toothed breathes (not fins) (= legs (/ 139 1000))) (and (not breathes) (or (and eggs toothed (not fins) (= legs (/ 279 500))) (and (not toothed) (or (and fins (not eggs) (= legs (/ 37 200))) (and (not fins) (or (and (not eggs) (= legs (/ 131 200))) (and eggs (= legs (/ 67 1000))))))))))))) (and feathers (or (and eggs toothed backbone breathes fins (not airborne) (not domestic) (= legs (/ 26 125))) (and (not eggs) (or (and backbone (not fins) (or (and breathes (not airborne) (not domestic) (not toothed) (= legs (/ 271 500))) (and domestic (or (and (not airborne) (not breathes) (not toothed) (= legs (/ 117 500))) (and toothed (or (and airborne breathes _let_7) (and (not airborne) (not breathes) (= legs (/ 937 1000))))))))) (and airborne fins (not backbone) (not toothed) (or (and domestic (not breathes) _let_6) (and breathes (not domestic) (= legs (/ 39 1000))))))))))) (and (not aquatic) (or (and eggs toothed backbone (not airborne) (not breathes) (not domestic) (not feathers) (not fins) (= legs (/ 307 500))) (and breathes (or (and backbone domestic (not airborne) (not feathers) (not toothed) (not fins) (not eggs) (= legs (/ 73 100))) (and feathers (or (and (not airborne) (or (and eggs toothed fins domestic (not backbone) (= legs (/ 989 1000))) (and (not eggs) (or (and toothed backbone domestic (not fins) _let_5) (and (not domestic) (or (and toothed backbone (or (and (not fins) (= legs (/ 347 500))) (and fins (= legs (/ 187 500))))) (and (not backbone) (not toothed) (or (and fins (= legs (/ 389 1000))) (and (not fins) (= legs (/ 167 250))))))))))) (and airborne (not fins) (or (and backbone (not domestic) (not toothed) (not eggs) (= legs (/ 31 40))) (and eggs toothed domestic (not backbone) (= legs (/ 39 50))))))))))))) (and (not catsize) (or (and feathers aquatic fins domestic (not airborne) (not backbone) (not breathes) (not toothed) (not eggs) _let_1) (and (not fins) (or (and feathers airborne aquatic toothed backbone breathes domestic (not eggs) (= legs (/ 91 250))) (and (not feathers) (or (and toothed (or (and eggs (or (and airborne breathes domestic (not backbone) (not aquatic) (= legs (/ 461 1000))) (and backbone (not airborne) (or (and (not breathes) (not domestic) (not aquatic) (= legs (/ 507 1000))) (and aquatic breathes (or (and domestic (= legs (/ 381 1000))) (and (not domestic) (= legs (/ 671 1000))))))))) (and airborne aquatic (not breathes) (not domestic) (not eggs) (or (and backbone _let_0) (and (not backbone) (= legs (/ 67 500))))))) (and (not toothed) (or (and eggs backbone breathes (not airborne) (not domestic) (not aquatic) (= legs (/ 107 200))) (and airborne (not eggs) (or (and backbone domestic (not breathes) (not aquatic) (= legs (/ 89 250))) (and aquatic breathes (not backbone) (not domestic) (= legs (/ 749 1000))))))))))))))) (and (not tail) (or (and breathes (or (and aquatic (or (and catsize (or (and eggs (not fins) (or (and (not airborne) (not backbone) (not domestic) (not feathers) (not toothed) _let_8) (and backbone (or (and domestic (not airborne) (not feathers) (not toothed) (= legs (/ 141 500))) (and toothed (or (and feathers (not airborne) (not domestic) _let_4) (and airborne domestic (not feathers) (or _let_6 (= legs (/ 283 1000)))))))))) (and feathers airborne fins (not backbone) (not domestic) (not toothed) (not eggs) (or (= legs (/ 49 250)) (= legs (/ 38 125)))))) (and (not airborne) (not catsize) (or (and eggs toothed backbone fins (not domestic) (not feathers) (= legs (/ 191 500))) (and feathers domestic (not eggs) (or (and toothed backbone (not fins) (= legs (/ 89 125))) (and fins (not backbone) (not toothed) (= legs (/ 851 1000))))))))) (and (not aquatic) (or (and feathers eggs backbone fins domestic catsize (not airborne) (not toothed) (= legs (/ 19 100))) (and airborne (or (and feathers eggs toothed domestic catsize (not backbone) (not fins) (= legs (/ 343 1000))) (and (not domestic) (not eggs) (or (and feathers toothed (not backbone) (not catsize) (not fins) (= legs (/ 127 1000))) (and backbone (not feathers) (not toothed) (or (and fins (not catsize) (= legs (/ 23 100))) (and catsize (not fins) _let_9))))))))))) (and aquatic backbone (not breathes) (not catsize) (not toothed) (not eggs) (or (and airborne fins domestic (not feathers) (= legs (/ 149 200))) (and feathers (not airborne) (not domestic) (not fins) (= legs (/ 29 500))))))))) (and (not predator) (or (and backbone (or (and aquatic (or (and tail (or (and (not eggs) (or (and airborne fins (or (and breathes domestic (or (and feathers catsize (not toothed) _let_2) (and (not feathers) (or (and catsize (not toothed) _let_0) (and toothed (not catsize) (or (= legs (/ 61 125)) (= legs (/ 57 125)))))))) (and (not breathes) (not domestic) (not catsize) (or (and (not feathers) (not toothed) (= legs (/ 689 1000))) (and feathers toothed (= legs (/ 17 125))))))) (and feathers (not airborne) (not breathes) (not fins) (or (and toothed domestic (not catsize) (= legs (/ 199 250))) (and catsize (not domestic) (not toothed) (= legs (/ 77 125))))))) (and eggs toothed (not airborne) (or (and (not breathes) (not domestic) (not catsize) (not feathers) (not fins) (= legs (/ 11 40))) (and feathers catsize (or (and (not breathes) (not domestic) (not fins) _let_1) (and breathes fins domestic _let_8))))))) (and (not tail) (or (and eggs airborne toothed breathes domestic catsize (not feathers) (not fins) (= legs (/ 177 1000))) (and feathers (not domestic) (or (and eggs toothed breathes fins catsize (not airborne) (= legs (/ 313 500))) (and airborne (not eggs) (or (and toothed breathes fins (not catsize) (= legs (/ 33 200))) (and catsize (not breathes) (not toothed) (not fins) (= legs (/ 927 1000))))))))))) (and (not aquatic) (not eggs) (or (and feathers toothed breathes tail (not airborne) (not domestic) (not catsize) (not fins) (= legs (/ 117 1000))) (and airborne (or (and feathers toothed tail catsize (not breathes) (not domestic) (not fins) (= legs (/ 543 1000))) (and breathes (not toothed) (or (and feathers catsize (not tail) (not domestic) (not fins) (= legs (/ 869 1000))) (and tail domestic (not feathers) (or (and catsize (= legs (/ 5 8)) (not fins)) (and fins (not catsize) (= legs (/ 377 1000))))))))))))) (and eggs airborne breathes tail domestic (not backbone) (not feathers) (or (and aquatic fins catsize (not toothed) (= legs (/ 559 1000))) (and toothed (not catsize) (not aquatic) (not fins) (= legs (/ 231 250))))))))) (and (not milk) (or (and catsize (or (and predator (or (and breathes (or (and (not airborne) (or (and (not eggs) (or (and (not domestic) (or (and aquatic (or (and fins tail (not backbone) (not feathers) (not toothed) (= legs (/ 117 125))) (and backbone (not tail) (or (and (not feathers) (not toothed) (not fins) (= legs (/ 953 1000))) (and toothed (or (and (not feathers) (not fins) (= legs (/ 29 100))) (and feathers fins (= legs (/ 118 125))))))))) (and feathers (not aquatic) (or (and tail (not backbone) (not toothed) (not fins) _let_0) (and toothed backbone fins (not tail) _let_2))))) (and fins tail domestic (not toothed) (or (and backbone (not feathers) (not aquatic) (= legs (/ 503 1000))) (and feathers aquatic (not backbone) (= legs (/ 19 125))))))) (and eggs domestic (not feathers) (or (and backbone (not tail) (not aquatic) (not toothed) (not fins) (= legs (/ 141 250))) (and aquatic toothed tail (or (and fins (not backbone) (= legs (/ 41 1000))) (and backbone (not fins) (= legs (/ 143 1000))))))))) (and airborne domestic (not fins) (or (and aquatic tail (not backbone) (not feathers) (not toothed) (not eggs) (= legs (/ 13 125))) (and toothed (not aquatic) (or (and eggs tail (not backbone) (not feathers) (= legs (/ 59 1000))) (and feathers (not tail) (not eggs) (or (and backbone (= legs (/ 723 1000))) (and (not backbone) (= legs (/ 957 1000))))))))))) (and (not breathes) (not eggs) (or (and feathers backbone fins tail domestic (not airborne) (not aquatic) (not toothed) (= legs (/ 58 125))) (and aquatic (or (and feathers toothed fins tail (not airborne) (not backbone) (not domestic) _let_5) (and airborne backbone (not feathers) (not toothed) (or (and tail (not domestic) (not fins) (= legs (/ 259 1000))) (and fins domestic (not tail) (= legs (/ 1 8))))))))))) (and airborne toothed breathes tail (not predator) (not eggs) (or (and feathers domestic (not backbone) (not aquatic) (not fins) (= legs (/ 399 1000))) (and aquatic (not domestic) (not feathers) (or (and fins (not backbone) (= legs (/ 653 1000))) (and backbone (not fins) (= legs (/ 3 200))))))))) (and airborne aquatic toothed domestic (not catsize) (not feathers) (not predator) (not fins) (not eggs) (or (and breathes tail (not backbone) (= legs (/ 117 250))) (and backbone (or (and tail (not breathes) (= legs (/ 209 250))) (and breathes (not tail) _let_9))))))))) (and milk (not hair) (or (and breathes (or (and (not eggs) (or (and catsize (or (and predator (or (and airborne (or (and toothed (or (and backbone (or (and feathers domestic (not tail) (not aquatic) (not fins) (= legs (/ 23 250))) (and aquatic (not feathers) (or (and tail (not domestic) (not fins) (= legs (/ 993 1000))) (and fins (or (and tail domestic (= legs (/ 104 125))) (and (not tail) (not domestic) (= legs (/ 291 1000))))))))) (and (not backbone) (not aquatic) (or (and tail domestic (not feathers) (not fins) (= legs (/ 303 500))) (and feathers (not domestic) (or (and (not tail) (= legs (/ 13 50)) (not fins)) (and fins tail (= legs (/ 47 250))))))))) (and aquatic (not feathers) (not toothed) (or (and (not backbone) (not tail) (not domestic) (not fins) (= legs (/ 79 250))) (and backbone (or (and tail (not domestic) (not fins) (= legs (/ 116 125))) (and fins domestic (not tail) (= legs (/ 11 125))))))))) (and backbone domestic (not airborne) (not toothed) (or (and fins tail (not feathers) (not aquatic) (= legs (/ 293 500))) (and feathers (or (and fins (not tail) (not aquatic) (= legs (/ 611 1000))) (and aquatic tail (not fins) (= legs (/ 513 1000))))))))) (and aquatic backbone (not predator) (or (and airborne toothed fins (not tail) (not domestic) (not feathers) (= legs (/ 573 1000))) (and feathers (not airborne) (not fins) (or (and toothed domestic (not tail) (= legs (/ 379 500))) (and tail (not domestic) (not toothed) (= legs (/ 29 1000))))))))) (and backbone (not airborne) (not catsize) (not feathers) (not toothed) (or (and aquatic fins tail domestic (not predator) (= legs (/ 403 1000))) (and predator (not domestic) (not aquatic) (not fins) (or (and (not tail) (= legs (/ 167 200))) (and tail (= legs (/ 979 1000))))))))) (and eggs aquatic predator toothed backbone catsize (not airborne) (not tail) (not feathers) (not fins) (or (and (not domestic) (= legs (/ 123 1000))) (and domestic (= legs (/ 61 200))))))) (and feathers predator backbone tail (not airborne) (not breathes) (not aquatic) (not fins) (not eggs) (or (and toothed (not domestic) (not catsize) (= legs (/ 191 1000))) (and domestic catsize (not toothed) (= legs (/ 153 500))))))))) (and venomous (or (and milk predator toothed backbone breathes tail catsize (not hair) (not airborne) (not domestic) (not feathers) (not aquatic) (not fins) (not eggs) (= legs (/ 949 1000))) (and hair (or (and aquatic predator toothed backbone breathes tail catsize (not milk) (not airborne) (not domestic) (not feathers) (not fins) (not eggs) _let_3) (and milk (or (and airborne predator toothed backbone tail (not breathes) (not domestic) (not catsize) (not feathers) (not aquatic) (not fins) (not eggs) (= legs (/ 187 250))) (and breathes catsize (or (and feathers airborne backbone tail domestic (not aquatic) (not toothed) (not predator) (not fins) (not eggs) (= legs (/ 613 1000))) (and aquatic (or (and predator (not feathers) (or (and airborne backbone fins domestic (not tail) (not toothed) (not eggs) (= legs (/ 129 1000))) (and (not airborne) (or (and tail (not backbone) (not domestic) (not toothed) (not fins) (not eggs) _let_7) (and eggs toothed (or (and tail (not backbone) (not domestic) (not fins) _let_4) (and backbone fins domestic (or (and (not tail) (= legs (/ 237 500))) (and tail (= legs (/ 62 125))))))))))) (and feathers airborne toothed backbone domestic (not tail) (not predator) (not eggs) (or (and (= legs (/ 761 1000)) (not fins)) (and fins (= legs (/ 69 1000))))))))))))))))))))))))))
+-explanation size: 1326
+
+
+
+-is learning complete? False
+-it took 303.58431124687195 seconds
+-learner time: 60.510077238082886
+-verifier time: 241.99741959571838
+correct:  10 out of  11 examples. Percentage:  0.9090909090909091
+random words checked 151221
+Filtered by querys: 63418
+Total counterexamples: 163
+percentage of positive counterexamples for the learner: 0.8711656441717791
+
+'accuracy', 'blackbox', 'dataset', 'explainer', 'explanation', 'explanation size', 'positive counterexamples', 'query', 'random words checked', 'syntactic grammar', 'terminate', 'time', 'time learner', 'time verifier', 'total counterexamples'

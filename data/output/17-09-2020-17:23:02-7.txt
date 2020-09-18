@@ -1,0 +1,125 @@
+workclass  is not considered in classification
+education  is not considered in classification
+marital-status  is not considered in classification
+occupation  is not considered in classification
+relationship  is not considered in classification
+native-country  is not considered in classification
+<IPython.core.display.Markdown object>
+Loding model
+Class (black-box) [1]
+<IPython.core.display.Markdown object>
+- threshold: 0.5
+- specific_input: [0.0, 0.136986301369863, 0.5333333333333333, 0.0, 0.3659320477502296, 0.24489795918367346, 0.0, 0.0, 0.0, 0.0, 1.0]
+- detailed_input: [('sex', 0.0), ('age', 0.136986301369863), ('education-num', 0.5333333333333333), ('capital-gain', 0.0), ('capital-loss', 0.3659320477502296), ('hours-per-week', 0.24489795918367346), ('race_0', 0.0), ('race_1', 0.0), ('race_2', 0.0), ('race_3', 0.0), ('race_4', 1.0)]
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+<IPython.core.display.Markdown object>
+Learned explanation =>  (or (and (not race_0) (< age (/ 1 4))) (and race_3 (< capital-gain (/ 1 4))))
+-explanation size: 6
+
+
+
+-is learning complete? False
+-it took 301.13099241256714 seconds
+-learner time: 277.8830940723419
+-verifier time: 22.240931034088135
+correct:  2398 out of  4195 examples. Percentage:  0.5716328963051251
+random words checked 95
+Total counterexamples: 17
+percentage of positive counterexamples for the learner: 0.23529411764705882
+
+'accuracy', 'blackbox', 'dataset', 'explainer', 'explanation', 'explanation size', 'positive counterexamples', 'query', 'random words checked', 'syntactic grammar', 'terminate', 'time', 'time learner', 'time verifier', 'total counterexamples'
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+starting teaching
+SyGuS model is not fit yet
+finishing teaching
+finishing accuracy measure
+<IPython.core.display.Markdown object>
+Learned explanation =>  (let ((_let_0 (= capital-gain (/ 9 500)))) (let ((_let_1 (= education-num (/ 337 500)))) (let ((_let_2 (= hours-per-week (/ 261 1000)))) (let ((_let_3 (= capital-gain (/ 269 1000)))) (let ((_let_4 (= capital-gain (/ 403 1000)))) (let ((_let_5 (= age (/ 379 1000)))) (let ((_let_6 (= capital-loss (/ 849 1000)))) (let ((_let_7 (= hours-per-week (/ 11 50)))) (let ((_let_8 (= capital-gain (/ 89 500)))) (let ((_let_9 (= capital-gain (/ 63 500)))) (and race_4 (or (and race_3 (or (and (not sex) (or (and (not race_0) (or (and race_2 (or (and race_1 (or (and _let_1 (= age (/ 603 1000)) (= capital-gain (/ 109 1000)) (= capital-loss (/ 122 125)) (= hours-per-week (/ 83 500))) (and (= age (/ 8 25)) (= education-num (/ 627 1000)) (= capital-gain (/ 31 250)) (= capital-loss (/ 449 1000)) (= hours-per-week (/ 219 250))) (and (= age (/ 557 1000)) (= education-num (/ 77 100)) (= capital-gain (/ 77 500)) (= capital-loss (/ 209 1000)) (= hours-per-week (/ 443 500))) (and _let_8 (= age (/ 41 100)) (= education-num (/ 791 1000)) (= capital-loss (/ 43 200)) (= hours-per-week (/ 29 40))) (and (= age (/ 57 1000)) (= education-num (/ 467 1000)) (= capital-gain (/ 557 1000)) (= capital-loss (/ 969 1000)) (= hours-per-week (/ 3 1000))))) (and (not race_1) (or (and (= age (/ 541 1000)) (= education-num (/ 44 125)) (= capital-gain (/ 27 500)) (= capital-loss (/ 881 1000)) (= hours-per-week (/ 7 50))) (and (= age (/ 123 125)) _let_1 (= capital-gain (/ 11 250)) (= capital-loss (/ 697 1000)) (= hours-per-week (/ 201 500))) (and (= age (/ 61 1000)) (= education-num (/ 359 1000)) (= capital-gain (/ 179 1000)) (= capital-loss (/ 21 40)) (= hours-per-week (/ 33 200))) (and _let_5 (= education-num (/ 149 500)) _let_9 (= capital-loss (/ 127 250)) (= hours-per-week (/ 137 200))))))) (and (not race_2) (or (and race_1 (or (and _let_2 (= age (/ 703 1000)) (= education-num (/ 227 500)) (= capital-gain (/ 7 1000)) (= capital-loss (/ 199 200))) (and (= age (/ 371 1000)) (= education-num (/ 79 1000)) _let_3 (= capital-loss (/ 169 250)) (= hours-per-week (/ 303 1000))) (and _let_9 (= age (/ 801 1000)) (= education-num (/ 137 250)) (= capital-loss (/ 403 1000)) (= hours-per-week (/ 229 1000))))) (and (not race_1) (or (and (= age (/ 113 250)) (= education-num (/ 427 1000)) (= capital-gain (/ 7 200)) (= capital-loss (/ 13 1000)) (= hours-per-week (/ 219 1000))) (and (= age (/ 77 500)) (= education-num (/ 79 250)) (= capital-gain (/ 3 250)) (= capital-loss (/ 149 1000)) (= hours-per-week (/ 929 1000))))))))) (and race_0 (or (and (not race_2) (or (and (not race_1) (or (and (= age (/ 769 1000)) (= education-num (/ 33 50)) (= capital-gain (/ 3 50)) (= capital-loss (/ 323 1000)) (= hours-per-week (/ 3 250))) (and (= age (/ 107 250)) (= education-num (/ 131 500)) (= capital-gain (/ 237 1000)) (= capital-loss (/ 29 50)) (= hours-per-week (/ 67 250))) (and (= age (/ 17 25)) (= education-num (/ 167 500)) (= capital-gain (/ 41 500)) (= capital-loss (/ 447 1000)) (= hours-per-week (/ 41 50))) (and (= age (/ 99 200)) (= education-num (/ 181 1000)) (= capital-gain (/ 271 1000)) (= capital-loss (/ 29 200)) (= hours-per-week (/ 9 40))))) (and race_1 (or (and (= age (/ 49 50)) (= education-num (/ 743 1000)) (= capital-gain (/ 3 20)) (= capital-loss (/ 923 1000)) (= hours-per-week (/ 1 200))) (and (= age (/ 179 250)) (= education-num (/ 116 125)) (= capital-gain (/ 17 1000)) (= capital-loss (/ 713 1000)) (= hours-per-week (/ 451 500))) (and (= age (/ 39 100)) (= education-num (/ 129 1000)) (= capital-gain (/ 279 1000)) (= capital-loss (/ 443 500)) (= hours-per-week (/ 9 500))))))) (and race_2 (or (and race_1 (or (and (= age (/ 897 1000)) (= education-num (/ 159 200)) (= capital-gain (/ 6 125)) (= capital-loss (/ 587 1000)) (= hours-per-week (/ 239 1000))) (and (= age (/ 103 500)) (= education-num (/ 649 1000)) (= capital-gain (/ 39 50)) (= capital-loss (/ 3 8)) (= hours-per-week (/ 253 500))))) (and (not race_1) (or (and _let_3 (= age (/ 83 1000)) (= education-num (/ 17 20)) (= capital-loss (/ 837 1000)) (= hours-per-week (/ 42 125))) (and _let_7 (= age (/ 533 1000)) (= education-num (/ 201 1000)) (= capital-gain (/ 13 200)) (= capital-loss (/ 131 200))))))))))) (and sex (or (and race_1 (or (and (not race_0) (or (and (not race_2) (or (and (= age (/ 1 100)) (= education-num (/ 149 1000)) (= capital-gain (/ 143 1000)) (= capital-loss (/ 363 1000)) (= hours-per-week (/ 28 125))) (and (= age (/ 43 500)) (= education-num (/ 61 125)) _let_4 (= capital-loss (/ 207 250)) (= hours-per-week (/ 39 1000))) (and _let_6 (= age (/ 329 1000)) (= education-num (/ 201 250)) (= capital-gain (/ 71 500)) (= hours-per-week (/ 67 1000))) (and (= age (/ 21 125)) (= education-num (/ 489 500)) (= capital-gain (/ 27 1000)) (= capital-loss (/ 959 1000)) (= hours-per-week (/ 147 250))))) (and race_2 (or (and (= age (/ 761 1000)) (= education-num (/ 52 125)) (= capital-gain (/ 13 100)) (= capital-loss (/ 9 20)) (= hours-per-week (/ 157 200))) (and (= age (/ 383 1000)) (= education-num (/ 707 1000)) (= capital-gain (/ 219 1000)) (= capital-loss (/ 449 500)) (= hours-per-week (/ 1 250))))))) (and race_0 (or (and (not race_2) _let_4 (= age (/ 9 500)) (= education-num (/ 409 1000)) (= capital-loss (/ 191 500)) (= hours-per-week (/ 449 1000))) (and race_2 (or (and (= age (/ 931 1000)) (= education-num (/ 519 1000)) (= capital-gain (/ 51 1000)) (= capital-loss (/ 543 1000)) (= hours-per-week (/ 239 500))) (and (= age (/ 913 1000)) (= education-num (/ 579 1000)) (= capital-gain (/ 21 125)) (= capital-loss (/ 173 200)) (= hours-per-week (/ 21 50))))))))) (and (not race_1) (or (and race_0 (or (and race_2 (or (and (= age (/ 6 25)) (= education-num (/ 379 500)) (= capital-gain (/ 21 50)) (= capital-loss (/ 441 500)) (= hours-per-week (/ 39 125))) (and _let_0 (= age (/ 311 500)) (= education-num (/ 401 500)) (= capital-loss (/ 341 1000)) (= hours-per-week (/ 787 1000))) (and (= age (/ 19 125)) (= education-num (/ 379 1000)) (= capital-gain (/ 159 500)) (= capital-loss (/ 411 500)) (= hours-per-week (/ 41 1000))))) (and (not race_2) (or (and (= age (/ 3 500)) (= education-num (/ 129 500)) _let_0 (= capital-loss (/ 159 200)) (= hours-per-week (/ 197 1000))) (and (= age (/ 149 200)) (= education-num (/ 549 1000)) _let_8 (= capital-loss (/ 349 500)) (= hours-per-week (/ 33 100))))))) (and (not race_0) (or (and (not race_2) (= age (/ 477 500)) (= education-num (/ 209 500)) (= capital-gain (/ 67 1000)) (= capital-loss (/ 259 500)) (= hours-per-week (/ 779 1000))) (and race_2 (or (and (= age (/ 49 1000)) (= education-num (/ 14 125)) (= capital-gain (/ 69 500)) (= capital-loss (/ 421 500)) (= hours-per-week (/ 1 4))) (and (= age (/ 667 1000)) (= education-num (/ 661 1000)) (= capital-gain (/ 31 1000)) (= capital-loss (/ 121 250)) (= hours-per-week (/ 31 50))))))))))))) (and (not race_3) (or (and race_0 (or (and race_1 (or (and race_2 (or (and sex (= age (/ 37 1000)) (= education-num (/ 18 125)) (= capital-gain (/ 591 1000)) (= capital-loss (/ 971 1000)) (= hours-per-week (/ 391 500))) (and (not sex) (or (and (= age (/ 9 100)) (= education-num (/ 671 1000)) (= capital-gain (/ 231 500)) (= capital-loss (/ 327 1000)) (= hours-per-week (/ 161 1000))) (and (= age (/ 43 100)) (= education-num (/ 251 1000)) (= capital-gain (/ 313 1000)) (= capital-loss (/ 189 500)) (= hours-per-week (/ 29 500))) (and (= age (/ 27 250)) (= education-num (/ 243 1000)) (= capital-gain (/ 183 250)) (= capital-loss (/ 573 1000)) (= hours-per-week (/ 333 1000))) (and (= age (/ 29 100)) (= education-num (/ 117 250)) (= capital-gain (/ 351 1000)) (= capital-loss (/ 21 200)) (= hours-per-week (/ 29 200))))))) (and sex (not race_2) (or (and (= age (/ 187 500)) (= education-num (/ 99 200)) (= capital-gain (/ 11 1000)) (= capital-loss (/ 691 1000)) (= hours-per-week (/ 601 1000))) (and (= age (/ 89 1000)) (= education-num (/ 199 250)) (= capital-gain (/ 273 1000)) (= capital-loss (/ 439 500)) (= hours-per-week (/ 13 1000))))))) (and (not race_1) (or (and race_2 (not sex) (= age (/ 81 250)) (= education-num (/ 137 500)) (= capital-gain (/ 257 1000)) (= capital-loss (/ 481 1000)) (= hours-per-week (/ 673 1000))) (and sex (or (and race_2 (= age (/ 137 1000)) (= education-num (/ 57 250)) (= capital-gain (/ 69 1000)) (= capital-loss (/ 31 200)) (= hours-per-week (/ 243 500))) (and (not race_2) (= age (/ 23 250)) (= education-num (/ 87 1000)) (= capital-gain (/ 103 1000)) (= capital-loss (/ 467 1000)) _let_2))))))) (and (not race_0) (or (and sex (or (and race_1 race_2 (or (and (= age (/ 53 200)) (= education-num (/ 957 1000)) (= capital-gain (/ 18 125)) (= capital-loss (/ 78 125)) (= hours-per-week (/ 31 100))) (and _let_5 (= education-num (/ 187 500)) (= capital-gain (/ 9 100)) _let_6 (= hours-per-week (/ 463 500))))) (and (not race_2) (not race_1) (or (and (= age (/ 217 1000)) (= education-num (/ 199 500)) (= capital-gain (/ 12 125)) (= capital-loss (/ 81 500)) (= hours-per-week (/ 27 200))) (and (= age (/ 38 125)) (= education-num (/ 151 200)) (= capital-gain (/ 1 125)) (= capital-loss (/ 143 1000)) (= hours-per-week (/ 113 1000))))))) (and (not race_2) (not sex) (or (and (= age (/ 136986301369863 1000000000000000)) (= education-num (/ 5333333333333333 10000000000000000)) (= capital-gain 0.0) (= capital-loss (/ 457415059687787 1250000000000000)) (= hours-per-week (/ 12244897959183673 50000000000000000)) (not race_1)) (and race_1 (= age (/ 549 1000)) (= education-num (/ 359 500)) (= capital-gain (/ 53 1000)) (= capital-loss (/ 103 1000)) _let_7)))))))))))))))))))
+-explanation size: 489
+
+
+
+-is learning complete? False
+-it took 305.48319005966187 seconds
+-learner time: 20.123717784881592
+-verifier time: 285.32378458976746
+correct:  701 out of  4195 examples. Percentage:  0.16710369487485102
+random words checked 27066
+Total counterexamples: 78
+percentage of positive counterexamples for the learner: 0.7435897435897436
+
+'accuracy', 'blackbox', 'dataset', 'explainer', 'explanation', 'explanation size', 'positive counterexamples', 'query', 'random words checked', 'syntactic grammar', 'terminate', 'time', 'time learner', 'time verifier', 'total counterexamples'

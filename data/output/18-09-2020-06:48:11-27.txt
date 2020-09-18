@@ -1,0 +1,101 @@
+<IPython.core.display.Markdown object>
+Loding model
+Class (black-box) [0]
+<IPython.core.display.Markdown object>
+- threshold: 0.5
+- specific_input: [0.4722222222222223, 0.29166666666666674, 0.6949152542372881, 0.6250000000000001]
+- detailed_input: [('sepal-length', 0.4722222222222223), ('sepal-width', 0.29166666666666674), ('petal-length', 0.6949152542372881), ('petal-width', 0.6250000000000001)]
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+<IPython.core.display.Markdown object>
+Learned explanation =>  (or (and (< sepal-width (/ 1 4)) (< petal-width (/ 3 4))) (and (> sepal-length (/ 1 4)) (and (< sepal-width (/ 1 2)) (< petal-width (/ 1 4)))))
+-explanation size: 7
+
+
+
+-is learning complete? False
+-it took 301.11299228668213 seconds
+-learner time: 294.6169807910919
+-verifier time: 5.491211891174316
+correct:  14 out of  15 examples. Percentage:  0.9333333333333333
+random words checked 90
+Filtered by querys: 0
+Total counterexamples: 19
+percentage of positive counterexamples for the learner: 0.21052631578947367
+
+'accuracy', 'blackbox', 'dataset', 'explainer', 'explanation', 'explanation size', 'positive counterexamples', 'query', 'random words checked', 'syntactic grammar', 'terminate', 'time', 'time learner', 'time verifier', 'total counterexamples'
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+starting teaching
+finishing teaching
+finishing accuracy measure
+<IPython.core.display.Markdown object>
+Learned explanation =>  (let ((_let_0 (= sepal-length (/ 671 1000)))) (let ((_let_1 (= sepal-width (/ 109 1000)))) (let ((_let_2 (= petal-length (/ 33 40)))) (let ((_let_3 (= petal-width (/ 161 500)))) (let ((_let_4 (= sepal-length (/ 963 1000)))) (let ((_let_5 (= petal-length (/ 36 125)))) (let ((_let_6 (= petal-length (/ 949 1000)))) (let ((_let_7 (= petal-width (/ 217 1000)))) (let ((_let_8 (= sepal-length (/ 801 1000)))) (or (and (= sepal-length (/ 359 500)) (= sepal-width (/ 461 1000)) (= petal-length (/ 73 125)) (= petal-width (/ 77 250))) (and (= sepal-length (/ 9 25)) (= sepal-width (/ 281 500)) (= petal-length (/ 213 250)) (= petal-width (/ 3 200))) (and (= sepal-length (/ 57 250)) (= sepal-width (/ 3 50)) (= petal-length (/ 129 200)) (= petal-width (/ 33 1000))) (and (= sepal-length (/ 47 500)) (= sepal-width (/ 177 1000)) (= petal-length (/ 903 1000)) (= petal-width (/ 251 1000))) (and (= sepal-length (/ 487 500)) (= sepal-width (/ 3 125)) (= petal-length (/ 68 125)) (= petal-width (/ 549 1000))) (and (= sepal-length (/ 173 200)) (= sepal-width (/ 57 1000)) (= petal-length (/ 29 40)) (= petal-width (/ 43 1000))) (and (= sepal-length (/ 7 250)) (= sepal-width (/ 191 1000)) (= petal-length (/ 873 1000)) (= petal-width (/ 709 1000))) (and (= sepal-length (/ 493 1000)) (= sepal-width (/ 167 500)) (= petal-length (/ 353 500)) (= petal-width (/ 249 1000))) (and (= sepal-length (/ 599 1000)) (= sepal-width (/ 389 1000)) (= petal-length (/ 849 1000)) (= petal-width (/ 141 500))) (and (= sepal-length (/ 82 125)) (= sepal-width (/ 49 100)) (= petal-length (/ 739 1000)) (= petal-width (/ 149 500))) (and (= sepal-length (/ 201 500)) (= sepal-width (/ 9 100)) (= petal-length (/ 369 500)) (= petal-width (/ 667 1000))) (and (= sepal-length (/ 17 125)) (= sepal-width (/ 7 250)) (= petal-length (/ 261 500)) (= petal-width (/ 279 1000))) (and (= sepal-length (/ 66 125)) (= sepal-width (/ 57 125)) (= petal-length (/ 363 500)) (= petal-width (/ 17 250))) (and (= sepal-length (/ 33 200)) (= sepal-width (/ 411 1000)) (= petal-length (/ 813 1000)) (= petal-width (/ 103 250))) (and (= sepal-length (/ 107 1000)) (= sepal-width (/ 97 500)) (= petal-length (/ 399 1000)) (= petal-width (/ 359 1000))) (and (= sepal-length (/ 701 1000)) (= sepal-width (/ 48 125)) (= petal-length (/ 157 200)) (= petal-width (/ 89 1000))) (and (= sepal-length (/ 53 250)) (= sepal-width (/ 67 500)) (= petal-length (/ 119 250)) (= petal-width (/ 3 500))) (and (= sepal-length (/ 86 125)) (= sepal-width (/ 39 200)) (= petal-length (/ 229 250)) (= petal-width (/ 323 1000))) (and (= sepal-length (/ 17 50)) (= sepal-width (/ 163 500)) (= petal-length (/ 51 100)) (= petal-width (/ 66 125))) (and _let_0 _let_1 (= petal-length (/ 969 1000)) (= petal-width (/ 537 1000))) (and (= sepal-length (/ 114 125)) (= sepal-width (/ 63 200)) (= petal-length (/ 233 1000)) (= petal-width (/ 51 125))) (and (= sepal-length (/ 67 250)) (= sepal-width (/ 113 250)) (= petal-length (/ 749 1000)) (= petal-width (/ 237 1000))) (and (= sepal-length (/ 179 500)) (= sepal-width (/ 11 1000)) (= petal-length (/ 143 250)) (= petal-width (/ 111 200))) (and (= sepal-length (/ 763 1000)) (= sepal-width (/ 29 1000)) (= petal-length (/ 431 500)) (= petal-width (/ 353 1000))) (and (= sepal-length (/ 149 500)) (= sepal-width (/ 163 1000)) (= petal-length (/ 257 1000)) (= petal-width (/ 97 200))) (and (= sepal-length (/ 23 100)) (= sepal-width (/ 8 25)) (= petal-length (/ 143 200)) (= petal-width (/ 103 500))) (and (= sepal-length (/ 33 40)) (= sepal-width (/ 23 200)) (= petal-length (/ 777 1000)) (= petal-width (/ 147 250))) (and (= sepal-length (/ 441 1000)) (= sepal-width (/ 1 125)) (= petal-length (/ 139 500)) (= petal-width (/ 129 500))) (and (= sepal-length (/ 89 500)) (= sepal-width (/ 18 125)) (= petal-length (/ 659 1000)) (= petal-width (/ 63 125))) (and (= sepal-length (/ 739 1000)) (= sepal-width (/ 79 125)) (= petal-length (/ 99 100)) (= petal-width (/ 23 100))) (and (= sepal-length (/ 459 1000)) (= sepal-width (/ 1 250)) (= petal-length (/ 71 100)) (= petal-width (/ 439 1000))) (and (= sepal-length (/ 123 200)) (= sepal-width (/ 187 1000)) (= petal-length (/ 359 500)) (= petal-width (/ 449 1000))) (and (= sepal-length (/ 11 20)) (= sepal-width (/ 7 200)) (= petal-length (/ 17 125)) (= petal-width (/ 47 500))) (and (= sepal-length (/ 159 1000)) (= sepal-width (/ 131 1000)) (= petal-length (/ 119 125)) (= petal-width (/ 529 1000))) (and (= sepal-length (/ 263 1000)) (= sepal-width (/ 36 125)) (= petal-length (/ 181 250)) (= petal-width (/ 7 200))) (and (= sepal-length (/ 393 1000)) (= sepal-width (/ 281 1000)) (= petal-length (/ 483 1000)) (= petal-width (/ 1 8))) (and (= sepal-length (/ 381 500)) (= sepal-width (/ 101 250)) (= petal-length (/ 77 200)) (= petal-width (/ 27 250))) (and (= sepal-length (/ 118 125)) (= sepal-width (/ 137 500)) (= petal-length (/ 253 500)) (= petal-width (/ 357 1000))) (and (= sepal-length (/ 97 1000)) (= sepal-width (/ 13 250)) (= petal-length (/ 283 500)) (= petal-width (/ 479 1000))) (and (= sepal-length (/ 149 1000)) (= sepal-width (/ 63 1000)) (= petal-length (/ 423 500)) (= petal-width (/ 79 1000))) (and (= sepal-length (/ 941 1000)) (= sepal-width (/ 2 25)) (= petal-length (/ 869 1000)) (= petal-width (/ 29 500))) (and (= sepal-length (/ 79 200)) (= sepal-width (/ 6 125)) (= petal-length (/ 599 1000)) (= petal-width (/ 117 250))) (and (= sepal-length (/ 151 500)) (= sepal-width (/ 249 1000)) (= petal-length (/ 989 1000)) (= petal-width (/ 159 250))) (and (= sepal-length (/ 291 1000)) (= sepal-width (/ 91 250)) (= petal-length (/ 3 4)) (= petal-width (/ 111 250))) (and (= sepal-length (/ 21 40)) (= sepal-width (/ 161 1000)) (= petal-length (/ 107 250)) (= petal-width (/ 23 200))) (and (= sepal-length (/ 367 500)) (= sepal-width (/ 479 1000)) (= petal-length (/ 241 500)) (= petal-width (/ 127 1000))) (and (= sepal-length (/ 59 1000)) (= sepal-width (/ 79 500)) (= petal-length (/ 67 100)) (= petal-width (/ 43 100))) (and (= sepal-length (/ 719 1000)) (= sepal-width (/ 91 1000)) (= petal-length (/ 879 1000)) (= petal-width (/ 247 500))) (and (= sepal-length (/ 553 1000)) (= sepal-width (/ 19 40)) (= petal-length (/ 11 20)) (= petal-width (/ 113 500))) (and (= sepal-length (/ 243 500)) (= sepal-width (/ 19 250)) (= petal-length (/ 31 125)) (= petal-width (/ 669 1000))) (and _let_4 (= sepal-width (/ 187 500)) (= petal-length (/ 877 1000)) (= petal-width (/ 2 125))) (and (= sepal-length (/ 981 1000)) (= sepal-width (/ 31 200)) (= petal-length (/ 197 200)) (= petal-width (/ 41 100))) (and (= sepal-length (/ 593 1000)) (= sepal-width (/ 319 1000)) (= petal-length (/ 433 500)) (= petal-width (/ 407 1000))) (and (= sepal-length 0.0) (= sepal-width (/ 419 1000)) (= petal-length (/ 831 1000)) (= petal-width (/ 327 1000))) (and (= sepal-length (/ 413 500)) (= sepal-width (/ 4 125)) (= petal-length (/ 87 250)) (= petal-width (/ 303 500))) (and (= sepal-length (/ 291 500)) (= sepal-width (/ 21 125)) (= petal-length (/ 561 1000)) (= petal-width (/ 6 25))) (and _let_8 (= sepal-width (/ 13 1000)) (= petal-length (/ 1 1000)) (= petal-width (/ 11 100))) (and (= sepal-length (/ 877 1000)) (= sepal-width (/ 391 1000)) (= petal-length (/ 191 500)) (= petal-width (/ 399 1000))) (and (= sepal-length (/ 37 40)) (= sepal-width (/ 183 1000)) (= petal-length (/ 139 200)) (= petal-width (/ 37 100))) (and (= sepal-length (/ 249 1000)) (= sepal-width (/ 41 1000)) (= petal-length (/ 967 1000)) (= petal-width (/ 71 125))) (and (= sepal-length (/ 127 1000)) (= sepal-width (/ 333 1000)) (= petal-length (/ 499 1000)) (= petal-width (/ 179 1000))) (and _let_6 (= sepal-length (/ 29 50)) (= sepal-width (/ 111 500)) (= petal-width (/ 519 1000))) (and (= sepal-length (/ 467 1000)) (= sepal-width (/ 73 1000)) (= petal-length (/ 667 1000)) (= petal-width (/ 719 1000))) (and (= petal-width (/ 157 500)) (or (and (= sepal-length (/ 91 250)) (= sepal-width (/ 1 40)) (= petal-length (/ 313 1000))) (and (= sepal-length (/ 9 40)) (= sepal-width (/ 143 1000)) (= petal-length (/ 88 125))) (and (= sepal-length (/ 619 1000)) (= sepal-width (/ 21 200)) (= petal-length (/ 437 1000))))) (and (= petal-width (/ 131 250)) (or (and (= sepal-length (/ 133 200)) (= sepal-width (/ 51 1000)) (= petal-length (/ 433 1000))) (and (= sepal-length (/ 123 125)) (= sepal-width (/ 87 1000)) (= petal-length (/ 6 125))) (and _let_0 (= sepal-width (/ 33 250)) (= petal-length (/ 121 250))))) (and (= petal-width (/ 111 500)) (or (and (= sepal-length (/ 923 1000)) (= sepal-width (/ 277 1000)) (= petal-length (/ 193 200))) (and (= sepal-length (/ 261 1000)) (= sepal-width (/ 253 1000)) (= petal-length (/ 419 500))) (and _let_2 (= sepal-length (/ 3 5)) (= sepal-width (/ 149 500))))) (and (= sepal-length (/ 122 125)) (or (and (= sepal-width (/ 299 1000)) (= petal-length (/ 83 100)) (= petal-width (/ 21 500))) (and _let_3 (= sepal-width (/ 351 1000)) (= petal-length (/ 54 125))))) (and (= sepal-width (/ 121 500)) (or (and (= sepal-length (/ 213 250)) (= petal-length (/ 399 500)) (= petal-width (/ 69 1000))) (and _let_8 (= petal-length (/ 57 500)) (= petal-width (/ 431 1000))))) (and (= petal-length (/ 469 1000)) (or (and (= sepal-length (/ 221 500)) (= sepal-width (/ 271 1000)) (= petal-width (/ 199 1000))) (and _let_1 (= sepal-length (/ 119 1000)) (= petal-width (/ 273 1000))))) (and (= petal-width (/ 1 50)) (or (and (= sepal-length (/ 39 40)) (= sepal-width (/ 9 250)) (= petal-length (/ 116 125))) (and (= sepal-length (/ 539 1000)) (= sepal-width (/ 617 1000)) _let_2))) (and (= sepal-width (/ 569 1000)) (or (and (= sepal-length (/ 761 1000)) (= petal-length (/ 241 250)) (= petal-width (/ 39 100))) (and (= sepal-length (/ 673 1000)) (= petal-length (/ 191 200)) _let_7))) (and (= sepal-length (/ 423 500)) (or (and (= sepal-width (/ 307 1000)) (= petal-length (/ 141 250)) (= petal-width (/ 419 1000))) (and (= sepal-width (/ 46 125)) (= petal-length (/ 19 20)) (= petal-width (/ 41 200))))) (and (= sepal-length (/ 7 8)) (or (and (= sepal-width (/ 62 125)) (= petal-length (/ 509 1000)) (= petal-width (/ 7 125))) (and _let_5 _let_7 (= sepal-width (/ 11 40))))) (and (= sepal-width (/ 9 500)) (or (and (= sepal-length (/ 129 250)) (= petal-length (/ 29 200)) (= petal-width (/ 531 1000))) (and _let_4 _let_5 (= petal-width (/ 121 1000))))) (and (= petal-length (/ 963 1000)) (or (and (= sepal-length (/ 463 500)) (= sepal-width (/ 33 125)) _let_3) (and (= sepal-length (/ 571 1000)) (= sepal-width (/ 127 500)) (= petal-width (/ 81 125))))) (and (= sepal-width (/ 99 500)) (or (and (= sepal-length (/ 803 1000)) _let_6 (= petal-width (/ 463 1000))) (and (= sepal-length (/ 159 200)) (= petal-length (/ 491 500)) (= petal-width (/ 609 1000))))) (and (= petal-width (/ 707 1000)) (or (and (= sepal-length (/ 3 250)) (= sepal-width (/ 81 1000)) (= petal-length (/ 457 1000))) (and (= sepal-length (/ 63 1000)) (= sepal-width (/ 63 500)) (= petal-length (/ 379 1000)))))))))))))))
+-explanation size: 481
+
+
+
+-is learning complete? False
+-it took 303.38747358322144 seconds
+-learner time: 70.2238941192627
+-verifier time: 232.10132884979248
+correct:  12 out of  15 examples. Percentage:  0.8
+random words checked 70187
+Filtered by querys: 350
+Total counterexamples: 116
+percentage of positive counterexamples for the learner: 0.8189655172413793
+
+'accuracy', 'blackbox', 'dataset', 'explainer', 'explanation', 'explanation size', 'positive counterexamples', 'query', 'random words checked', 'syntactic grammar', 'terminate', 'time', 'time learner', 'time verifier', 'total counterexamples'

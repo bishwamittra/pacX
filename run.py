@@ -334,6 +334,7 @@ for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
                     print("-verifier time:", t.time_verifier)
                     print("correct: ", cnt, "out of ", total, "examples. Percentage: ", acc)
                     print('random words checked', t.verifier.number_of_examples_checked)
+                    print("Filtered by querys:", t.verifier.filtered_by_query)
                     print("Total counterexamples:", len(l.y))
                     print("percentage of positive counterexamples for the learner:", np.array(l.y).mean())
                     print()
