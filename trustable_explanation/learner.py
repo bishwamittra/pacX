@@ -32,7 +32,7 @@ class Learner():
         try:
             return self._predict_function(examples)
         except Exception as e:
-            # print(e)
+            print(e)
             return None
 
 
@@ -40,6 +40,6 @@ class Learner():
     def fit(self, queue):
         try:
             self._train_function(self.X, self.y)
-        except Exception as e:
+        except:
             pass
         queue.put([self])

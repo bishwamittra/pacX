@@ -6,15 +6,17 @@ from nnf import And, Or, Var
 
 class SyGuS_IF():
 
-    def __init__(self, feature_names = None, feature_data_type = None, function_return_type = None, workdir = None, verbose = False, syntactic_grammar = True):
+    def __init__(self, feature_names = None, rule_type="CNF", k = -1, feature_data_type = None, function_return_type = None, workdir = None, verbose = False, syntactic_grammar = True):
         self._num_features = None
         self._num_examples = None
         self._synth_func_name = "func"
         self._logic = "LRA"
+        self.rule_bound_k = k
         self._feature_data_type = feature_data_type
         self._default_feature_data_type = "Real"
         self.verbose = verbose
         self.syntactic_grammar = syntactic_grammar
+        self.rule_type = rule_type
         if(function_return_type is None):
             self._return_type = "Bool"
         else:
@@ -45,6 +47,7 @@ class SyGuS_IF():
     def get_formula_size(self):
 
         if(self._function_snippet is None):
+            print("Function snippet is None")
             return 0
 
         if(self._function_snippet.strip() == "false" or self._function_snippet.strip() == "true" or self._function_snippet.strip()[0] != "("):
@@ -100,7 +103,7 @@ class SyGuS_IF():
                         print(formula)
                         print(len_)
 
-                        raise ValueError
+                        raise ValueError                
             
             # elif(len_ == 2):
             #     op, arg = formula[0], formula[1]
@@ -187,7 +190,8 @@ class SyGuS_IF():
             self.synthesized_function =  lines[1]
             self._function_snippet = self.synthesized_function[:-1].replace(self.get_function_signature(),"")
         
-
+        if(self.solver_output == "unknown"):
+            raise RuntimeError("No formula can distinguish given counterexamples")
         assert self.solver_output == "sat" or self.solver_output == "unsat", "Error in parsing solver output"
 
         # remove aux files
@@ -248,6 +252,29 @@ class SyGuS_IF():
         return s
 
     def _add_context_free_grammar(self):
+        
+        dic_operator = {
+            "CNF" : {
+                "outer" : "and",
+                "inner" : "or"
+            },
+            "DNF" : {
+                "outer" : "or",
+                "inner" : "and"
+            }
+
+        }
+
+        dic_clause_bound = {
+
+            -1 : "B (" + dic_operator[self.rule_type]["inner"] + " B Clause)",
+            self.rule_bound_k : "(" + dic_operator[self.rule_type]["inner"] + " " + (" ").join(["B" for _ in self.rule_bound_k]) + ")"
+        }
+
+        
+        bool_features_str = (" ").join([ _feature + " (not " + _feature + ")" for _feature in list(self._feature_data_type.keys()) if self._feature_data_type[_feature] == "Bool"])
+
+
         if("Real" in list(self._feature_data_type.values()) and "Bool" in list(self._feature_data_type.values())):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
@@ -258,27 +285,25 @@ class SyGuS_IF():
                     (
                         Formula Bool (
                             Clause
-                            (or Clause Formula)
+                            ({} Clause Formula)
                         )
                     )
                     (
                         Clause Bool (
-                            B
-                            (and B Clause)
+                            {}
                         )
                     )
                     (
                         B Bool (
                             (Constant Bool)
                             Var_Bool
-                            (not Var_Bool)
                             (> Var_Real Const_Real)
                             (< Var_Real Const_Real)
                             )
                     )
                     (
                         Var_Bool Bool (
-                            (Variable Bool)
+                            {}
                         )
                     )
                     (
@@ -294,7 +319,7 @@ class SyGuS_IF():
                     
                 )
 
-            """
+            """.format(dic_operator[self.rule_type]["outer"], dic_clause_bound[self.rule_bound_k], bool_features_str)
         elif("Bool" in list(self._feature_data_type.values())):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
@@ -304,26 +329,24 @@ class SyGuS_IF():
                 (
                     (
                         Formula Bool (
-                            false true
-                            (or Clause Clause)
-                            (or Clause Formula)
+                            Clause
+                            ({} Clause Formula)
                         )
                     )
                     (
                         Clause Bool (
-                            (and B B)
-                            (and B Clause)
+                            {}
                         )
                     )
                     (
                         B Bool (
-                            (Variable Bool)
-                            (not B)
+                            {}
+                            (Constant Bool)
                             )
                     )
                     
                 )
-            """
+             """.format(dic_operator[self.rule_type]["outer"], dic_clause_bound[self.rule_bound_k], bool_features_str)
         elif("Real" in list(self._feature_data_type.values())):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
@@ -334,13 +357,12 @@ class SyGuS_IF():
                     (
                         Formula Bool (
                             Clause
-                            (or Clause Formula)
+                            ({} Clause Formula)
                         )
                     )
                     (
                         Clause Bool (
-                            B
-                            (and B Clause)
+                            {}
                         )
                     )
                     (
@@ -363,9 +385,11 @@ class SyGuS_IF():
                     
                 )
 
-            """
+            """.format(dic_operator[self.rule_type]["outer"], dic_clause_bound[self.rule_bound_k])
         else:
             raise ValueError("Syntactic constraint cannot be constructed")
+            
+        print(s)
         
         # no syntactic costraints added
         if(not self.syntactic_grammar):
@@ -441,7 +465,7 @@ class SyGuS_IF():
         """
         Learns a first order logic formula from given dataset
         """
-
+        
         
 
 
