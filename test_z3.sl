@@ -16,7 +16,7 @@
 (declare-const tail Bool)
 (declare-const domestic Bool)
 (declare-const catsize Bool)
-(assert (=  (and (not breathes) fins) true) )
+(assert (=  (and true true (not breathes)) true) )
 (push)
 (assert (= hair false))
 (assert (= feathers true))

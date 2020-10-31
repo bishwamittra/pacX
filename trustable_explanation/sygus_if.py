@@ -105,25 +105,23 @@ class SyGuS_IF():
 
                         raise ValueError                
             
-            # elif(len_ == 2):
-            #     op, arg = formula[0], formula[1]
-            #     if(op == 'not'):
-            #         return ~dic_vars[arg]
-            #     else:
-            #         raise ValueError
-            # else:
-            #     raise ValueError
+            
 
 
         formula = recurse(tokens)
+        
+        if("false" in self._function_snippet):
+                formula = formula.condition({"false": False})
+        if("true" in self._function_snippet):
+            formula = formula.condition({"true": True})
+        
         formula = formula.simplify()
-        # print(dic_vars)
-        # print(formula)
 
 
         if(self.verbose):
             print("Simplified formula")
             print(formula)
+
         
         return formula.size()
 
@@ -252,6 +250,8 @@ class SyGuS_IF():
         return s
 
     def _add_context_free_grammar(self):
+
+        
         
         dic_operator = {
             "CNF" : {
@@ -265,16 +265,18 @@ class SyGuS_IF():
 
         }
 
-        dic_clause_bound = {
 
-            -1 : "B (" + dic_operator[self.rule_type]["inner"] + " B Clause)",
-            self.rule_bound_k : "(" + dic_operator[self.rule_type]["inner"] + " " + (" ").join(["B" for _ in self.rule_bound_k]) + ")"
-        }
-
+        clause_constraints = None
+        if(self.rule_bound_k == -1):
+            clause_constraints = "B (" + dic_operator[self.rule_type]["inner"] + " B Clause)"
+        else:
+            clause_constraints = "(" + dic_operator[self.rule_type]["inner"] + " " + (" ").join(["B" for _ in range(self.rule_bound_k)]) + ")" 
+        
         
         bool_features_str = (" ").join([ _feature + " (not " + _feature + ")" for _feature in list(self._feature_data_type.keys()) if self._feature_data_type[_feature] == "Bool"])
 
-
+        s = ""
+        
         if("Real" in list(self._feature_data_type.values()) and "Bool" in list(self._feature_data_type.values())):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
@@ -319,7 +321,7 @@ class SyGuS_IF():
                     
                 )
 
-            """.format(dic_operator[self.rule_type]["outer"], dic_clause_bound[self.rule_bound_k], bool_features_str)
+            """.format(dic_operator[self.rule_type]["outer"], clause_constraints, bool_features_str)
         elif("Bool" in list(self._feature_data_type.values())):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
@@ -346,7 +348,7 @@ class SyGuS_IF():
                     )
                     
                 )
-             """.format(dic_operator[self.rule_type]["outer"], dic_clause_bound[self.rule_bound_k], bool_features_str)
+             """.format(dic_operator[self.rule_type]["outer"], clause_constraints, bool_features_str)
         elif("Real" in list(self._feature_data_type.values())):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
@@ -385,11 +387,10 @@ class SyGuS_IF():
                     
                 )
 
-            """.format(dic_operator[self.rule_type]["outer"], dic_clause_bound[self.rule_bound_k])
+            """.format(dic_operator[self.rule_type]["outer"], clause_constraints)
         else:
             raise ValueError("Syntactic constraint cannot be constructed")
-            
-        print(s)
+
         
         # no syntactic costraints added
         if(not self.syntactic_grammar):
