@@ -1,11 +1,11 @@
 from sklearn.preprocessing import MinMaxScaler
-from  trustable_explanation import helper_functions
+from  pac_explanation import utils
 
 
 def prepare(dataset_object, df):
     # one-hot-encode categorical features:
     if(len(dataset_object.categorical_attributes)>0):
-        df = helper_functions.get_one_hot_encoded_df(df, columns_to_one_hot=dataset_object.categorical_attributes, verbose = True)
+        df = utils.get_one_hot_encoded_df(df, columns_to_one_hot=dataset_object.categorical_attributes, verbose = True)
     
     # scale dataset
     if(len(dataset_object.continuous_attributes)>0):
@@ -18,6 +18,7 @@ def prepare(dataset_object, df):
         
         if(attribute in dataset_object.continuous_attributes):
             dataset_object.attribute_type[attribute] = "Real"
+            dataset_object.real_attribute_domain_info[attribute] = (df[attribute].max(), df[attribute].min())
         elif(attribute in dataset_object.categorical_attributes):
             dataset_object.attribute_type[attribute] = "Bool"
         elif("_" in attribute and attribute.split("_")[0] in dataset_object.categorical_attributes):

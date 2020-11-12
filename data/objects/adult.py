@@ -9,11 +9,12 @@ class Adult():
         # only a limited number of columns are considered
         self.keep_columns = ['race', 'sex', 'age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week','target'] 
         self.categorical_attributes = [ 'race', 'sex', 'workclass', 'education', 'marital-status', 'occupation', 
-                                      'relationship', 'native-country', 'target' ]
+                                      'relationship', 'native-country' ]
         self.continuous_attributes = ['age','capital-loss', 'education-num' ,'capital-gain','hours-per-week' ]
         self.target="target"
         self.verbose = verbose
         self.attribute_type = {}
+        self.real_attribute_domain_info = {}
         self.attributes = None
 
     def get_df(self):

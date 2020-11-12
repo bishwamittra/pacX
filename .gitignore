@@ -5,3 +5,11 @@ backup_output/*
 data/output/dt/*
 data/output/output.tar.gz
 python-nnf-master/*
+lore/*
+lore_backup/*
+xplainer/*
+temp*/*
+anchor_test/*
+.ipynb_checkpoints/*
+
+

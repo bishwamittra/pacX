@@ -9,13 +9,13 @@ from sklearn import metrics
 from IPython.display import Markdown, display
 import pickle
 import os.path
-from trustable_explanation import helper_functions
-from  trustable_explanation.query import Query
+from pac_explanation import utils
+from  pac_explanation.query import Query
 import operator
-from trustable_explanation import example_queries
-from trustable_explanation.teacher import Teacher
-from trustable_explanation.learner import Learner
-from trustable_explanation.sygus_if import SyGuS_IF
+from pac_explanation import example_queries
+from pac_explanation.teacher import Teacher
+from pac_explanation.learner import Learner
+from pac_explanation.sygus_if import SyGuS_IF
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
@@ -24,10 +24,10 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn import tree
 from sklearn.metrics import roc_auc_score
-from trustable_explanation.blackbox import BlackBox
+from pac_explanation.blackbox import BlackBox
 import matplotlib.pyplot as plt
 from data.objects import zoo, iris, adult
-from trustable_explanation.example_queries import DistanceQuery
+from pac_explanation.example_queries import DistanceQuery
 import datetime
 import argparse
 
@@ -219,7 +219,7 @@ if __name__ ==  '__main__':
                 for idx in range(args.iterations):
 
                     if(selected_learner == "sygus"):
-                        sgf = SyGuS_IF(feature_names=dataObj.attributes, feature_data_type=dataObj.attribute_type, function_return_type= "Bool", verbose=False, workdir="temp"+ str(args.thread), syntactic_grammar = syntactic_grammar)
+                        sgf = SyGuS_IF(feature_names=dataObj.attributes, feature_data_type=dataObj.attribute_type, function_return_type= "Bool", real_attribute_domain_info=dataObj.real_attribute_domain_info, verbose=False, workdir="temp"+ str(args.thread), syntactic_grammar = syntactic_grammar)
                         l = Learner(model = sgf, prediction_function = sgf.predict_z3, train_function = sgf.fit, X = X, y=y )
                     elif(selected_learner == "dt"):
                         dt_classifier = tree.DecisionTreeClassifier()
@@ -234,9 +234,9 @@ if __name__ ==  '__main__':
                     print("starting teaching")
 
 
-                    t = Teacher(max_iterations=100000,epsilon=0.05, delta=0.05, timeout=args.timeout)
+                    t = Teacher(max_iterations=200, epsilon=0.05, delta=0.05, timeout=args.timeout)
                     _teach_start = time.time()
-                    l, flag = t.teach(blackbox = bb, learner = l, query = q, random_example_generator = helper_functions.random_generator, params_generator = (X_train,dataObj.attribute_type), verbose=False)
+                    l, flag = t.teach(blackbox = bb, learner = l, query = q, random_example_generator = utils.random_generator, params_generator = (X_train,dataObj.attribute_type), verbose=False)
 
                     _teach_end = time.time()
 
@@ -312,7 +312,7 @@ if __name__ ==  '__main__':
                             print("Learned explanation =>", l.model._function_snippet)
                             print("-explanation size:", l.model.get_formula_size())
                         elif(selected_learner == "decision tree"):
-                            print("Learned explanation =>", helper_functions.tree_to_code(l.model,X_train.columns.to_list()), "\n\n")
+                            print("Learned explanation =>", utils.tree_to_code(l.model,X_train.columns.to_list()), "\n\n")
                         elif(selected_learner == "logistic regression"):
                             feature_importance = l.model.coef_[0]
                             feature_importance = 100.0 * (feature_importance / (abs(feature_importance).max()))

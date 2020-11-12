@@ -9,8 +9,8 @@ args = parser.parse_args()
 os.system("./clean.sh")
 
 # if(args.mpi):
-path="bghosh@contact.mpi-sws.org:/home/bghosh/Desktop/trustable_explanation/"
-os.system("tar -czvf file_to_send.tar.gz trustable_explanation/* data/model/* data/objects/* data/raw/* *txt *md *.py *sh *.ipynb")
+path="bghosh@contact.mpi-sws.org:/home/bghosh/Desktop/pac_explanation/"
+os.system("tar -czvf file_to_send.tar.gz pac_explanation/* data/model/* data/objects/* data/raw/* *txt *md *.py *sh *.ipynb")
 os.system("rsync -vaP file_to_send.tar.gz "+path)
 
 

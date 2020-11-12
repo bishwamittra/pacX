@@ -7,7 +7,7 @@ args = parser.parse_args()
 
 
 # if(args.mpi):
-path="bghosh@contact.mpi-sws.org:/home/bghosh/Desktop/trustable_explanation/data/output/" 
+path="bghosh@contact.mpi-sws.org:/home/bghosh/Desktop/pac_explanation/data/output/" 
 os.system("mkdir -p backup_output")
 if(os.path.isdir("backup_output.mpi")):
     os.system("rm backup_output/mpi" +args.token+"/")

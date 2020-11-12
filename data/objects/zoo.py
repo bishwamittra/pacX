@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
-from  trustable_explanation import helper_functions
+from  pac_explanation import utils
 
 class Zoo():
 
@@ -12,6 +12,7 @@ class Zoo():
         self.target = 'class_type'
         self.verbose = verbose
         self.attribute_type = {}
+        self.real_attribute_domain_info = {}
 
     def get_df(self):
         
@@ -19,7 +20,7 @@ class Zoo():
         df = df.drop(self.ignore_attributes, axis = 1)
         
         # one-hot-encode categorical features:
-        df = helper_functions.get_one_hot_encoded_df(df, columns_to_one_hot=self.categorical_attributes, verbose = True)
+        df = utils.get_one_hot_encoded_df(df, columns_to_one_hot=self.categorical_attributes, verbose = self.verbose)
         
         # scale dataset
         if(len(self.continuous_attributes)>0):
@@ -33,6 +34,7 @@ class Zoo():
             
             if(attribute in self.continuous_attributes):
                 self.attribute_type[attribute] = "Real"
+                self.real_attribute_domain_info[attribute] = (df[attribute].max(), df[attribute].min())
             elif(attribute in self.categorical_attributes):
                 self.attribute_type[attribute] = "Bool"
             elif("_" in attribute and attribute.split("_")[0] in self.categorical_attributes):
