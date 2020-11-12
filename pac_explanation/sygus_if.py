@@ -45,7 +45,7 @@ class SyGuS_IF():
     
     
 
-    def get_formula_size(self):
+    def get_formula_size(self, verbose=False):
         # to derive formula size, we take help from NNF library. 
         # Process:
             # 1. SyGuS synthesized function is a NNF formula, so we parse and encode the string as a NNF instance.
@@ -120,7 +120,7 @@ class SyGuS_IF():
         formula = formula.simplify()
 
 
-        if(self.verbose):
+        if(self.verbose or verbose):
             print("Simplified formula")
             print(formula)
 
