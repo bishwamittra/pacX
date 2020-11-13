@@ -147,7 +147,13 @@ class SyGuS_IF():
             self._function_snippet = self.synthesized_function[:-1].replace(self._get_function_signature(),"")
         
         if(self.solver_output == "unknown"):
+            self._function_snippet = self.solver_output
             raise RuntimeError("No formula can distinguish given counterexamples")
+
+        
+
+
+        
         assert self.solver_output == "sat" or self.solver_output == "unsat", "Error in parsing solver output"
 
         # remove aux files

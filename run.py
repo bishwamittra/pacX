@@ -26,14 +26,14 @@ from sklearn import tree
 from sklearn.metrics import roc_auc_score
 from pac_explanation.blackbox import BlackBox
 import matplotlib.pyplot as plt
-from data.objects import zoo, iris, adult
+from data.objects import zoo, iris, adult, anchor_dataset_wrap
 from pac_explanation.example_queries import DistanceQuery
 import datetime
 import argparse
 
 if __name__ ==  '__main__':
 
-    dataset_choices = ['iris', 'adult', 'zoo']
+    dataset_choices = ['iris', 'adult', 'zoo', "anchor_adult"]
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--thread", help="index of thread/query", default=-1, type=int)
@@ -72,6 +72,9 @@ if __name__ ==  '__main__':
     elif(dataset == "iris"):
         dataObj = iris.Iris()
         df = dataObj.get_df()
+    elif(dataset == "anchor_adult"):
+        dataObj = anchor_dataset_wrap.Anchor(dataset_name="adult")
+        df = dataObj.get_df()
 
 
 
@@ -84,8 +87,7 @@ if __name__ ==  '__main__':
     # Split dataset into training set and test set
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, shuffle = True, random_state=2) # 70% training and 30% test
 
-    display(Markdown("# Train the blackbox"))
-
+    
     model_name = None
     if(select_blackbox == 'dt'):
         model_name = 'data/model/dt_' + dataset + '.pkl'
@@ -185,7 +187,7 @@ if __name__ ==  '__main__':
 
 
 
-    select_query = ['dt', 'specific input'][0]
+    select_query = ['dt', 'specific input'][1]
 
     for selected_learner  in ["dt", "logistic regression", "sygus"][2:]:
         for _query in queries[:1]:
@@ -199,7 +201,7 @@ if __name__ ==  '__main__':
                 y = []
             elif(select_query == "specific input"):        
                 specific_input = X_test.iloc[0].tolist()
-                query_class = example_queries.DistanceQuery(specific_input=specific_input, threshold=0.5, features = X_train.columns.tolist())
+                query_class = example_queries.DistanceQuery(specific_input=specific_input, threshold=.7, features = X_train.columns.tolist())
                 X = [specific_input]
                 y = [clf.predict([specific_input])[0]]
                 print("Class (black-box)", y)
@@ -207,7 +209,6 @@ if __name__ ==  '__main__':
             else:
 
                 raise ValueError(select_query +" is not a defined query.")
-            display(Markdown("### Query"))
             print(query_class)
 
             q = Query(model = None, prediction_function = query_class.predict_function_query)
@@ -262,7 +263,7 @@ if __name__ ==  '__main__':
                             acc = None
                         else:
                             acc = cnt/total
-                    except:
+                    except Exception as e:
                         cnt = None
                         acc = None
 
@@ -307,7 +308,6 @@ if __name__ ==  '__main__':
 
 
                     if(idx == args.iterations - 1):
-                        display(Markdown("### Result for " + selected_learner))
                         if(selected_learner == "sygus"):
                             print("Learned explanation =>", l.model._function_snippet)
                             print("-explanation size:", l.model.get_formula_size())
@@ -334,11 +334,11 @@ if __name__ ==  '__main__':
                         print("-it took", _teach_end - _teach_start, "seconds")
                         print("-learner time:", t.time_learner)
                         print("-verifier time:", t.time_verifier)
-                        print("correct: ", cnt, "out of ", total, "examples. Percentage: ", acc)
-                        print('random words checked', t.verifier.number_of_examples_checked)
-                        print("Filtered by querys:", t.verifier.filtered_by_query)
-                        print("Total counterexamples:", len(l.y))
-                        print("percentage of positive counterexamples for the learner:", np.array(l.y).mean())
+                        print("-correct: ", cnt, "out of ", total, "examples. Percentage: ", acc)
+                        print('-random words checked', t.verifier.number_of_examples_checked)
+                        print("-filtered by querys:", t.verifier.filtered_by_query)
+                        print("-total counterexamples:", len(l.y))
+                        print("-percentage of positive counterexamples for the learner:", np.array(l.y).mean())
                         print()
                         print(", ".join(["\'" + column + "\'" for column in result.columns.tolist()]))
 

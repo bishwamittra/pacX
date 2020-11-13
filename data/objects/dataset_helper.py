@@ -2,11 +2,24 @@ from sklearn.preprocessing import MinMaxScaler
 from  pac_explanation import utils
 
 
+def revise_attribute_names(df):
+    columns = []
+    # remove unsupported character from columns
+    for attribute in df.columns:
+        attribute = attribute.replace(" ", "").replace("(", "_lpar_").replace(")", "_rpar_")
+        columns.append(attribute)
+    df.columns = columns
+    return df
+
 def prepare(dataset_object, df):
+
+    df = revise_attribute_names(df)
     # one-hot-encode categorical features:
     if(len(dataset_object.categorical_attributes)>0):
         df = utils.get_one_hot_encoded_df(df, columns_to_one_hot=dataset_object.categorical_attributes, verbose = True)
     
+    df = revise_attribute_names(df)
+
     # scale dataset
     if(len(dataset_object.continuous_attributes)>0):
         scaler = MinMaxScaler()
@@ -37,7 +50,8 @@ def prepare(dataset_object, df):
     if(dataset_object.verbose):
         print("-number of samples: (after dropping nan rows)", len(df))
         print(dataset_object.attribute_type)
-    
+
+        
     dataset_object.attributes = df.columns.tolist()
     dataset_object.attributes.remove(dataset_object.target)
 

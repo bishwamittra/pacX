@@ -1,12 +1,12 @@
 import sys
 sys.path.append("..")
 from pac_explanation.sygus_if import SyGuS_IF
-from data.objects import zoo, iris, adult
+from data.objects import zoo, iris, adult, anchor_dataset_wrap
 from sklearn.model_selection import train_test_split
 
 
 
-dataset = ['zoo', 'adult', 'iris'][1]
+dataset = ['zoo', 'adult', 'iris', 'anchor_adult'][3]
 
 df = None
 
@@ -28,6 +28,9 @@ elif(dataset == "adult"):
 elif(dataset == "iris"):
     dataObj = iris.Iris()
     df = dataObj.get_df()
+elif(dataset == "anchor_adult"):
+    dataObj = anchor_dataset_wrap.Anchor(dataset_name="adult")
+    df = dataObj.get_df()
 
 # declaration of classifier, X and y
 X = df.drop([dataObj.target], axis=1)
@@ -36,7 +39,7 @@ y = df[dataObj.target]
 # Split dataset into training set and test set
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, shuffle = True, random_state=2) # 70% training and 30% test
 
-sgf = SyGuS_IF(rule_type="DNF", k = -1, feature_names=dataObj.attributes, feature_data_type=dataObj.attribute_type, function_return_type= "Bool", real_attribute_domain_info=dataObj.real_attribute_domain_info, verbose=False, syntactic_grammar = True)
+sgf = SyGuS_IF(rule_type="DNF", k = -1, feature_names=dataObj.attributes, feature_data_type=dataObj.attribute_type, function_return_type= "Bool", real_attribute_domain_info=dataObj.real_attribute_domain_info, verbose=False, syntactic_grammar = True, workdir="temp")
 sgf.fit(X_test, y_test)
 print(sgf._function_snippet)
 print(sgf.get_formula_size())

@@ -73,7 +73,10 @@ class Teacher():
                     time.sleep(1)
                 if p.exitcode == 0:
                     [learner] = q.get()
-                    pass
+                    if(learner.model.solver_output == "unknown"):
+                        if(verbose):    
+                            print("Non-separable counterexamples")
+                        return learner, False
                 else:
                     if(verbose):
                         print("\nTerminating due to timeout (Python multiprocessing timeout)")
