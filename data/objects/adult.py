@@ -8,13 +8,18 @@ class Adult():
         self.filename = "adult"
         # only a limited number of columns are considered
         self.keep_columns = ['race', 'sex', 'age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week','target'] 
-        self.categorical_attributes = [ 'race', 'sex', 'workclass', 'education', 'marital-status', 'occupation', 
+        categorical_attributes = [ 'race', 'sex', 'workclass', 'education', 'marital-status', 'occupation', 
                                       'relationship', 'native-country' ]
+        self.categorical_attributes = []
+        for attribute in categorical_attributes:
+            if(attribute in self.keep_columns) :
+                self.categorical_attributes.append(attribute)
         self.continuous_attributes = ['age','capital-loss', 'education-num' ,'capital-gain','hours-per-week' ]
         self.target="target"
         self.verbose = verbose
         self.attribute_type = {}
         self.real_attribute_domain_info = {}
+        self.categorical_attribute_domain_info = {}        
         self.attributes = None
 
     def get_df(self):

@@ -13,11 +13,23 @@ class Zoo():
         self.verbose = verbose
         self.attribute_type = {}
         self.real_attribute_domain_info = {}
+        self.categorical_attribute_domain_info = {}
 
     def get_df(self):
         
         df = pd.read_csv(self.filename)
         df = df.drop(self.ignore_attributes, axis = 1)
+
+        # revise categorical and Boolean attributes
+        _categorical_attributes = []
+        self.Boolean_attributes = []
+        for attribute in self.categorical_attributes:
+            if(len(df[attribute].unique()) <= 2):
+                self.Boolean_attributes.append(attribute)
+            else:
+                _categorical_attributes.append(attribute)
+        self.categorical_attributes = _categorical_attributes
+
         
         # one-hot-encode categorical features:
         df = utils.get_one_hot_encoded_df(df, columns_to_one_hot=self.categorical_attributes, verbose = self.verbose)
@@ -36,6 +48,9 @@ class Zoo():
                 self.attribute_type[attribute] = "Real"
                 self.real_attribute_domain_info[attribute] = (df[attribute].max(), df[attribute].min())
             elif(attribute in self.categorical_attributes):
+                self.categorical_attribute_domain_info = df[attribute].unique()
+                self.attribute_type[attribute] = "Categorical"
+            elif(attribute in self.Boolean_attributes):
                 self.attribute_type[attribute] = "Bool"
             elif("_" in attribute and attribute.split("_")[0] in self.categorical_attributes):
                 self.attribute_type[attribute] = "Bool"

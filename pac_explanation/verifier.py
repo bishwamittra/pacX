@@ -27,14 +27,23 @@ class Verifier():
         
         _found_a_counterexample = None
         examples = []
-        while(len(examples) < self._number_of_samples):
+        for i in range(self._number_of_samples):
             example = self._get_random_example(X=self._params_generator[0], feature_type=self._params_generator[1])
+
+            # when the example is filtered out by the query, it is not considered for further analysis
+            query_verdict = query.classify_example(example)
+            if(not query_verdict):
+                self.filtered_by_query += 1
+                continue
+
             examples.append(example)
 
-        learner_verdicts = learner.classify_examples(examples)
-        blackbox_verdicts = blackbox.classify_examples(examples)
+        # get classification from learner and blackbox
+        if(len(examples) > 0):
+            learner_verdicts = learner.classify_examples(examples)
+            blackbox_verdicts = blackbox.classify_examples(examples)
         
-        for i in range(self._number_of_samples):
+        for i in range(len(examples)):
 
             
         
@@ -48,10 +57,7 @@ class Verifier():
             
             self.number_of_examples_checked += 1
 
-            query_verdict = query.classify_example(examples[i])
-            if(not query_verdict):
-                self.filtered_by_query += 1
-                continue
+            
             
             
             if(learner_verdict == None or (learner_verdict != blackbox_verdict)):

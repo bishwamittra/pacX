@@ -35,6 +35,7 @@ def parse_parentheses(s):
             raise ValueError('Parentheses mismatch')
 
         if depth > 0:
+            # print(s)
             raise ValueError('Parentheses mismatch')
         else:
             return groups[0], blocks 
@@ -50,7 +51,7 @@ def eval(exp):
         return str(eval(m.group(4)))
 
 
-def add_context_free_grammar(rule_bound_k, rule_type, _feature_data_type, _real_attribute_domain_info, syntactic_grammar):
+def add_context_free_grammar(rule_bound_k, rule_type, _feature_data_type, _real_attribute_domain_info, _categorical_attribute_domain_info, syntactic_grammar):
 
         
         dic_operator = {
@@ -78,12 +79,19 @@ def add_context_free_grammar(rule_bound_k, rule_type, _feature_data_type, _real_
 
         bool_features_str = (" ").join([ _feature + " (not " + _feature + ")" for _feature in list(_feature_data_type.keys()) if _feature_data_type[_feature] == "Bool"])
         real_feature_header_str = (" ").join(["(Const_" + _feature + " Real)" for _feature in _real_attribute_domain_info])
+        categorical_feature_header_str = (" ").join(["(Const_" + _feature + " Real)" for _feature in _categorical_attribute_domain_info])
         real_feature_syntactic_constraints = (" ").join(["(> " + _feature + " Const_" + _feature + ") (< " + _feature + " Const_" + _feature + ")" for _feature in _real_attribute_domain_info])
+        categorical_feature_syntactic_constraints = (" ").join(["(= " + _feature + " Const_" + _feature + ") (not (= " + _feature + " Const_" + _feature + "))" for _feature in _categorical_attribute_domain_info])        
         bins = 6 
         real_feature_constant_str = ("\n").join(
                 ["(Const_" + _feature + " Real (" 
                     + (" ").join(map(str, list(np.linspace(_real_attribute_domain_info[_feature][1], _real_attribute_domain_info[_feature][0], bins))))
                     + "))" for _feature in _real_attribute_domain_info])
+        categorical_feature_constant_str = ("\n").join(
+                ["(Const_" + _feature + " Real (" 
+                    + (" ").join(map(str, _categorical_attribute_domain_info[_feature]))
+                    + "))" for _feature in _categorical_attribute_domain_info])
+
         
         # print(real_feature_header_str)
         # print(real_feature_syntactic_constraints) 
@@ -91,10 +99,11 @@ def add_context_free_grammar(rule_bound_k, rule_type, _feature_data_type, _real_
 
         s = ""
         
-        if("Real" in list(_feature_data_type.values()) and "Bool" in list(_feature_data_type.values())):
+        # Bool and either of Real and categorical or both
+        if("Bool" in list(_feature_data_type.values()) and ("Real" in list(_feature_data_type.values()) or "Categorical" in list(_feature_data_type.values()))):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
-                ((Formula Bool) (Clause Bool) (B Bool) (Var_Bool Bool) {})
+                ((Formula Bool) (Clause Bool) (B Bool) (Var_Bool Bool) {} {})
 
                 ;; Define the grammar for allowed implementations
                 (
@@ -114,6 +123,7 @@ def add_context_free_grammar(rule_bound_k, rule_type, _feature_data_type, _real_
                             (Constant Bool)
                             Var_Bool
                             {}
+                            {}
                             )
                     )
                     (
@@ -122,10 +132,44 @@ def add_context_free_grammar(rule_bound_k, rule_type, _feature_data_type, _real_
                         )
                     )
                     {}
+                    {}
                     
                 )
 
-            """.format(real_feature_header_str, dic_operator[rule_type]["outer"], clause_constraints, real_feature_syntactic_constraints, bool_features_str, real_feature_constant_str)
+            """.format(real_feature_header_str, categorical_feature_header_str, dic_operator[rule_type]["outer"], clause_constraints, real_feature_syntactic_constraints, categorical_feature_syntactic_constraints, bool_features_str, real_feature_constant_str, categorical_feature_constant_str)
+        elif("Real" in list(_feature_data_type.values()) or "Categorical" in list(_feature_data_type.values())):
+            s = """
+                ;; Declare the non-terminals that would be used in the grammar
+                ((Formula Bool) (Clause Bool) (B Bool) {} {})
+
+                ;; Define the grammar for allowed implementations
+                (
+                    (
+                        Formula Bool (
+                            Clause
+                            ({} Clause Formula)
+                        )
+                    )
+                    (
+                        Clause Bool (
+                            {}
+                        )
+                    )
+                    (
+                        B Bool (
+                            (Constant Bool)
+                            {}
+                            {}
+                            )
+                    )
+                    {}
+                    {}
+                    
+                )
+
+            """.format(real_feature_header_str, categorical_feature_header_str, dic_operator[rule_type]["outer"], clause_constraints, real_feature_syntactic_constraints, categorical_feature_syntactic_constraints, real_feature_constant_str, categorical_feature_constant_str)
+        
+        # only Bool
         elif("Bool" in list(_feature_data_type.values())):
             s = """
                 ;; Declare the non-terminals that would be used in the grammar
@@ -153,35 +197,7 @@ def add_context_free_grammar(rule_bound_k, rule_type, _feature_data_type, _real_
                     
                 )
              """.format(dic_operator[rule_type]["outer"], clause_constraints, bool_features_str)
-        elif("Real" in list(_feature_data_type.values())):
-            s = """
-                ;; Declare the non-terminals that would be used in the grammar
-                ((Formula Bool) (Clause Bool) (B Bool) {})
-
-                ;; Define the grammar for allowed implementations
-                (
-                    (
-                        Formula Bool (
-                            Clause
-                            ({} Clause Formula)
-                        )
-                    )
-                    (
-                        Clause Bool (
-                            {}
-                        )
-                    )
-                    (
-                        B Bool (
-                            (Constant Bool)
-                            {}
-                            )
-                    )
-                    {}
-                    
-                )
-
-            """.format(real_feature_header_str, dic_operator[rule_type]["outer"], clause_constraints, real_feature_syntactic_constraints, real_feature_constant_str)
+        
         else:
             raise ValueError("Syntactic constraint cannot be constructed")
 

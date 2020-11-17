@@ -220,7 +220,7 @@ if __name__ ==  '__main__':
                 for idx in range(args.iterations):
 
                     if(selected_learner == "sygus"):
-                        sgf = SyGuS_IF(feature_names=dataObj.attributes, feature_data_type=dataObj.attribute_type, function_return_type= "Bool", real_attribute_domain_info=dataObj.real_attribute_domain_info, verbose=False, workdir="temp"+ str(args.thread), syntactic_grammar = syntactic_grammar)
+                        sgf = SyGuS_IF(feature_names=dataObj.attributes, feature_data_type=dataObj.attribute_type, function_return_type= "Bool", real_attribute_domain_info=dataObj.real_attribute_domain_info, categorical_attribute_domain_info=dataObj.categorical_attribute_domain_info, verbose=False, workdir="temp"+ str(args.thread), syntactic_grammar = syntactic_grammar)
                         l = Learner(model = sgf, prediction_function = sgf.predict_z3, train_function = sgf.fit, X = X, y=y )
                     elif(selected_learner == "dt"):
                         dt_classifier = tree.DecisionTreeClassifier()

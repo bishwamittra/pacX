@@ -1,6 +1,8 @@
 import operator
 from scipy import spatial
 import math
+import numpy as np
+import pandas as pd
 
 class ExampleQueries():
 
@@ -89,4 +91,12 @@ class DistanceQuery():
             return True
         else:
             return False
+
+        
+
+        
+
+        
+
+        
         

@@ -10,6 +10,20 @@ import random
 from sklearn.tree import _tree
 from scipy import spatial
 import math
+from scipy import spatial
+
+def learn_threshold(specific_input, data, quantile_val=0.1, verbose=True):
+    distances = []
+    for example in data:
+        distance = spatial.distance.cosine(example, specific_input)
+        distances.append(distance)
+
+    df = pd.DataFrame(data=distances, columns=["distance"])
+    threshold = df['distance'].quantile(q=quantile_val)
+    if(verbose):
+        print("Learned threshold:", threshold)
+    return threshold
+
 
 def random_generator(X, feature_type):
     """

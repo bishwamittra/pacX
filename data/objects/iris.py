@@ -12,6 +12,7 @@ class Iris():
         self.verbose = verbose
         self.attribute_type = {}
         self.real_attribute_domain_info = {}
+        self.categorical_attribute_domain_info = {}
         self.attributes = None
 
     def get_df(self):

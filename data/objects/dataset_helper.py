@@ -14,12 +14,25 @@ def revise_attribute_names(df):
 def prepare(dataset_object, df):
 
     df = revise_attribute_names(df)
+
+    # revise categorical and Boolean attributes
+    _categorical_attributes = []
+    dataset_object.Boolean_attributes = []
+    for attribute in dataset_object.categorical_attributes:
+        if(len(df[attribute].unique()) <= 2):
+            dataset_object.Boolean_attributes.append(attribute)
+        else:
+            _categorical_attributes.append(attribute)
+    dataset_object.categorical_attributes = _categorical_attributes
+
     # one-hot-encode categorical features:
     if(len(dataset_object.categorical_attributes)>0):
         df = utils.get_one_hot_encoded_df(df, columns_to_one_hot=dataset_object.categorical_attributes, verbose = True)
-    
+
     df = revise_attribute_names(df)
 
+    
+    
     # scale dataset
     if(len(dataset_object.continuous_attributes)>0):
         scaler = MinMaxScaler()
@@ -33,9 +46,14 @@ def prepare(dataset_object, df):
             dataset_object.attribute_type[attribute] = "Real"
             dataset_object.real_attribute_domain_info[attribute] = (df[attribute].max(), df[attribute].min())
         elif(attribute in dataset_object.categorical_attributes):
+            dataset_object.categorical_attribute_domain_info[attribute] = df[attribute].unique()
+            dataset_object.attribute_type[attribute] = "Categorical"
+        elif(attribute in dataset_object.Boolean_attributes):
             dataset_object.attribute_type[attribute] = "Bool"
         elif("_" in attribute and attribute.split("_")[0] in dataset_object.categorical_attributes):
             dataset_object.attribute_type[attribute] = "Bool"
+            if(attribute not in dataset_object.Boolean_attributes):
+                dataset_object.Boolean_attributes.append(attribute)
         elif(attribute == dataset_object.target):
             continue
         else:

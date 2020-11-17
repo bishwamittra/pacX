@@ -7,7 +7,7 @@ from pac_explanation import sygus_utils
 
 class SyGuS_IF():
 
-    def __init__(self, feature_names = None, rule_type="CNF", k = -1, in_model_discretizer = False, feature_data_type = None, function_return_type = None, real_attribute_domain_info = {}, workdir = None, verbose = False, syntactic_grammar = True):
+    def __init__(self, feature_names = None, rule_type="CNF", k = -1, in_model_discretizer = False, feature_data_type = None, function_return_type = None, real_attribute_domain_info = {}, categorical_attribute_domain_info = {}, workdir = None, verbose = False, syntactic_grammar = True):
         self._num_features = None
         self._num_examples = None
         self._synth_func_name = "func"
@@ -15,6 +15,7 @@ class SyGuS_IF():
         self.rule_bound_k = k
         self._feature_data_type = feature_data_type
         self._real_attribute_domain_info = real_attribute_domain_info
+        self._categorical_attribute_domain_info = categorical_attribute_domain_info
         self._default_feature_data_type = "Real"
         self.verbose = verbose
         self.syntactic_grammar = syntactic_grammar
@@ -78,6 +79,11 @@ class SyGuS_IF():
             elif(len_ == 2):
                 op, arg = formula[0], formula[1]
                 if(op == 'not'):
+                    # special case: categorical
+                    if(isinstance(arg, list) and arg[0] == "=" and len(arg) == 3):
+                        arg = str(arg[1]) + str(arg[0]) + str(arg[2])
+                        dic_vars[arg] = Var(arg)  
+                            
                     return ~dic_vars[arg]
                 else:
                     raise ValueError
@@ -159,11 +165,21 @@ class SyGuS_IF():
         # remove aux files
         # os.system("rm " + self._workdir + "/" +  filename)
 
-    def _add_constraint(self, X_i, y_i):
-        s = "(constraint (= (" + self._synth_func_name +" "
+    def _add_constraint(self, X_i, y_i, tau=None):
+        if(tau == None):
+            s = "(constraint (= (" + self._synth_func_name +" "
+
+        # inconsistent learning
+        elif(isinstance(tau, float)):
+            s = "(ite (= (" + self._synth_func_name +" "
+        else:
+            raise ValueError
+
         for idx in range(self._num_features):
             attribute_value = X_i[idx]
-            if(self._feature_data_type[self._feature_names[idx]] == "Real"):
+
+            # Treat both Real and Categorical attributes in similar fashion
+            if(self._feature_data_type[self._feature_names[idx]] == "Real" or self._feature_data_type[self._feature_names[idx]] == "Categorical"):
                 if(attribute_value >= 0):
                     s += str(attribute_value) + " "
                 else:
@@ -180,11 +196,21 @@ class SyGuS_IF():
         s += ") "
         if(self._return_type == "Bool"):
             if(y_i == 1):
-                s += "true" + "))\n"  
+                s += "true" + ")"  
             else:
-                s += "false" + "))\n"      
+                s += "false" + ")"      
         else:
-            s += str(y_i) + "))\n"  
+            s += str(y_i) + ")"  
+        
+        if(tau == None):
+            s += ")\n"
+
+        # inconsistent learning
+        elif(isinstance(tau, float)):
+            s += " 1 0)\n"
+        else:
+            raise ValueError
+
 
         return s
 
@@ -194,7 +220,10 @@ class SyGuS_IF():
     def _add_signature_of_function(self):
         s = "(synth-fun " + self._synth_func_name + " ("
         for idx in range(self._num_features):
-            s += "(" + self._feature_names[idx] + " " + self._feature_data_type[self._feature_names[idx]] +") "
+            if(self._feature_data_type[self._feature_names[idx]] == "Categorical"):
+                s += "(" + self._feature_names[idx] + " Real) "
+            else:
+                s += "(" + self._feature_names[idx] + " " + self._feature_data_type[self._feature_names[idx]] +") "
 
             
         s += ") " 
@@ -205,6 +234,9 @@ class SyGuS_IF():
     def _get_function_signature(self):
         s = "(define-fun " + self._synth_func_name + " ("
         for idx in range(self._num_features):
+            if(self._feature_data_type[self._feature_names[idx]] == "Categorical"):
+                s += "(" + self._feature_names[idx] + " Real) "
+            else:
                 s += "(" + self._feature_names[idx] + " " + self._feature_data_type[self._feature_names[idx]] +") "
 
         s = s[:-1]    
@@ -270,10 +302,12 @@ class SyGuS_IF():
                     self._feature_names.append("x_" + str(idx))
                     self._feature_data_type[self._feature_names[-1]] = self._default_feature_data_type
 
-        # if self._real_attribute_domain_info is not provided or incomplete
+        # if self._real_attribute_domain_info or self._categorical_attribute_domain_info is not provided or incomplete
         for _feature in self._feature_names:
             if(self._feature_data_type[_feature] == "Real" and _feature not in self._real_attribute_domain_info):
                 self._real_attribute_domain_info[_feature] = (1,0)
+            if(self._feature_data_type[_feature] == "Categorical" and _feature not in self._categorical_attribute_domain_info):
+                self._categorical_attribute_domain_info[_feature] = [0,1] # Considering as Bool
 
         """
         Apply a discretization here for real-valued features. 
@@ -318,10 +352,14 @@ class SyGuS_IF():
         return y
         
 
-    def fit(self, X,y):
+    def fit(self, X,y,tau = None):
         """
         Learns a first order logic formula from given dataset
         """
+
+        if(tau is not None):
+            assert 0 <= tau <= 1
+            tau = float(tau)
         
         
 
@@ -340,12 +378,19 @@ class SyGuS_IF():
         self.sygus_if_learn = ""
         self.sygus_if_learn += self._add_bachground_theory()
         self.sygus_if_learn += self._add_signature_of_function()
-        self.sygus_if_learn += sygus_utils.add_context_free_grammar(self.rule_bound_k, self.rule_type, self._feature_data_type, self._real_attribute_domain_info, self.syntactic_grammar)
+        self.sygus_if_learn += sygus_utils.add_context_free_grammar(self.rule_bound_k, self.rule_type, self._feature_data_type, self._real_attribute_domain_info, self._categorical_attribute_domain_info, self.syntactic_grammar)
         self.sygus_if_learn += self._add_function_closing()
         
+        # inconsistent learning
+        if(isinstance(tau, float)):
+            self.sygus_if_learn += "(constraint (>= (+\n"
+
         for idx in range(self._num_examples):    
-            self.sygus_if_learn += self._add_constraint(X[idx], y[idx])
+            self.sygus_if_learn += self._add_constraint(X[idx], y[idx], tau)
         
+        if(isinstance(tau, float)):
+            self.sygus_if_learn += ") " +str(tau * self._num_examples) + " ))"
+
         self.sygus_if_learn += "\n\n"
         self.sygus_if_learn += self._add_solver_call()
 
@@ -387,73 +432,6 @@ class SyGuS_IF():
         return y_predict
 
 
-    def predict_z3_old(self, X, filename = "test_z3.sl"):
-        X = self._preprocess_X(X)
-        if(self.synthesized_function is None):
-            # cannot predict before training
-            raise ValueError("SyGuS model is not fit yet")
-
-
-        _z3_expression = "(set-option :smt.mbqi true)\n(set-logic QF_LRA)\n"
-        for _feature in self._feature_names:
-            _z3_expression += "(declare-const " + _feature + " " + self._feature_data_type[_feature] +")\n"
-
-        y_pred = []
-        for i in range(self._num_examples):
-            _example_specific_ = _z3_expression
-            for j in range(self._num_features):
-                if(self._feature_data_type[self._feature_names[j]] == "Real"):
-                    _example_specific_ += "(assert (= " + self._feature_names[j] + " " + str(X[i][j]) + "))\n"
-                elif(self._feature_data_type[self._feature_names[j]] == "Bool"):
-                    if(X[i][j] > 0 ):
-                        _example_specific_ += "(assert (= " + self._feature_names[j] + " true))\n"
-                    else:
-                        _example_specific_ += "(assert (= " + self._feature_names[j] + " false))\n"
-            
-            
-            f = open(self._workdir + "/" + filename, 'w')
-            f.write(_example_specific_ + "(check-sat)\n" + "(eval " + self._function_snippet + ")\n")
-            f.close()
-
-
-            cmd = "z3 " + self._workdir + "/" + filename
-            cmd_output = subprocess.check_output(
-                cmd, shell=True, stderr=subprocess.STDOUT)
-            lines = cmd_output.decode('utf-8').split("\n")
-            assert len(lines) >= 2, "Unknown error in z3 output"
-            assert lines[0] == "sat", "Error in z3 formula"
-
-            if(self._return_type == "Real"):
-                try:
-                    y_pred.append(int(float(lines[1])))
-                except:
-                    try:
-                        if(lines[1][1] == "-"): # a negative number
-                            y_pred.append(-1 * int(float(_eval(lines[1][3:-1]))))
-                        else:
-                            y_pred.append(int(float(_eval(lines[1]))))
-                    except:
-                        print(self._function_snippet)
-                        print(X[i])
-                        print(lines[1], "can not be processed")
-                        raise ArithmeticError
-            elif(self._return_type == "Bool"):
-                if(lines[1] == "true"):
-                    y_pred.append(1)
-                elif(lines[1] == "false"):
-                    y_pred.append(0)
-                else:
-                    print(lines[1], "is not recognized as predicted label")
-                    raise ValueError
-            else:
-                print(self._return_type, "is not recognized")
-                raise ValueError
-
-        # os.system("rm "+ self._workdir + "/" + filename)
-                    
-
-        return y_pred
-
     def predict_z3(self, X, filename = "test_z3.sl"):
         X = self._preprocess_X(X)
 
@@ -472,13 +450,15 @@ class SyGuS_IF():
         for i in range(self._num_examples):
             _example_specific_ += "(push)\n"
             for j in range(self._num_features):
-                if(self._feature_data_type[self._feature_names[j]] == "Real"):
+                if(self._feature_data_type[self._feature_names[j]] == "Real" or self._feature_data_type[self._feature_names[j]] == "Categorical"):
                     _example_specific_ += "(assert (= " + self._feature_names[j] + " " + str(X[i][j]) + "))\n"
                 elif(self._feature_data_type[self._feature_names[j]] == "Bool"):
                     if(X[i][j] > 0 ):
                         _example_specific_ += "(assert (= " + self._feature_names[j] + " true))\n"
                     else:
                         _example_specific_ += "(assert (= " + self._feature_names[j] + " false))\n"
+                else:
+                    raise ValueError
             _example_specific_ += "(check-sat)\n(pop)\n"
 
         f = open(self._workdir + "/" + filename, 'w')

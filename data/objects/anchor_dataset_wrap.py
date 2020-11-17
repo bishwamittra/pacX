@@ -20,6 +20,7 @@ class Anchor():
         self.verbose = verbose
         self.attribute_type = {}
         self.real_attribute_domain_info = {}
+        self.categorical_attribute_domain_info = {}
         self.attributes = None
 
     def get_df(self):
@@ -29,13 +30,13 @@ class Anchor():
         df[self.target] = np.concatenate((self.anchor_dataset.labels_train, self.anchor_dataset.labels_test))
 
         
-        for feature_idx in self.anchor_dataset.categorical_names:
-            mapping_dictionary = {}
-            cnt = 0
-            for indiv_attribute_value in self.anchor_dataset.categorical_names[feature_idx]:
-                mapping_dictionary[cnt] = indiv_attribute_value
-                cnt += 1
-            df[self.anchor_dataset.feature_names[feature_idx]].replace(mapping_dictionary, inplace=True)
+        # for feature_idx in self.anchor_dataset.categorical_names:
+        #     mapping_dictionary = {}
+        #     cnt = 0
+        #     for indiv_attribute_value in self.anchor_dataset.categorical_names[feature_idx]:
+        #         mapping_dictionary[cnt] = indiv_attribute_value
+        #         cnt += 1
+        #     df[self.anchor_dataset.feature_names[feature_idx]].replace(mapping_dictionary, inplace=True)
             
         df = prepare(self, df)
         return df
