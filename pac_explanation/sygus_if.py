@@ -352,7 +352,7 @@ class SyGuS_IF():
         return y
         
 
-    def fit(self, X,y,tau = None):
+    def fit(self, X,y,tau = .8):
         """
         Learns a first order logic formula from given dataset
         """
