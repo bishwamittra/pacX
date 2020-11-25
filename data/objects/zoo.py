@@ -70,6 +70,8 @@ class Zoo():
         
         self.attributes = df.columns.tolist()
         self.attributes.remove(self.target)
+        df = df[self.attributes + [self.target]]
+
         df.to_csv("data/raw/reduced_zoo.csv", index=False)
         return df
 

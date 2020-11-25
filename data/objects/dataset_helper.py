@@ -38,7 +38,8 @@ def prepare(dataset_object, df):
         scaler = MinMaxScaler()
         df[dataset_object.continuous_attributes] = scaler.fit_transform(df[dataset_object.continuous_attributes])
 
-    
+    del_columns_from_categorical_attributes = []
+
     # type-cast attributes:
     for attribute in df.columns.tolist():
         
@@ -54,11 +55,18 @@ def prepare(dataset_object, df):
             dataset_object.attribute_type[attribute] = "Bool"
             if(attribute not in dataset_object.Boolean_attributes):
                 dataset_object.Boolean_attributes.append(attribute)
+
+            # this column is deleted during one-hot encoding
+            if(attribute.split("_")[0] not in del_columns_from_categorical_attributes):
+                del_columns_from_categorical_attributes.append(attribute.split("_")[0])
         elif(attribute == dataset_object.target):
             continue
         else:
             print("ERROR: cannot cast", attribute, "to known data-type")
             raise ValueError
+    
+    for column in del_columns_from_categorical_attributes:
+        dataset_object.categorical_attributes.remove(column)
 
     if(dataset_object.verbose):
         print("-number of samples: (before dropping nan rows)", len(df))
@@ -72,5 +80,8 @@ def prepare(dataset_object, df):
         
     dataset_object.attributes = df.columns.tolist()
     dataset_object.attributes.remove(dataset_object.target)
+
+    # reorder
+    df = df[dataset_object.attributes + [dataset_object.target]]
 
     return df
