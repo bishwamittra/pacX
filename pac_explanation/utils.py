@@ -31,11 +31,13 @@ def random_generator(X, feature_type):
     feature_type is a python dictionary where the key is the feature and the value is the data-type (real, int, bool) of the feature.
     """
     x=[]
-    for _feature in X.columns.tolist():
-        if(feature_type[_feature] == "Bool"):
+    for feature in X.columns.tolist():
+        if(feature_type[feature] == "Bool"):
             x.append(random.randint(0,1))
-        elif(feature_type[_feature] == "Real"):
-            x.append(round(random.uniform(X[_feature].min(),X[_feature].max()),3))
+        elif(feature_type[feature] == "Real"):
+            x.append(round(random.uniform(X[feature].min(),X[feature].max()),3))
+        elif(feature_type[feature] == "Categorical"):
+            x.append(random.choice(X[feature].unique()))
         else:
             print("Error: feature type is either Bool or Real")
             raise ValueError

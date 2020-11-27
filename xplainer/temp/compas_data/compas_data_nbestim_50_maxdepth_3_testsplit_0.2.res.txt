@@ -1,0 +1,2 @@
+compas-data.csv & 0.63 & 0.46 &50  &3 & 0.2 \\ 
+ \hline 

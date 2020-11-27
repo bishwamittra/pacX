@@ -442,7 +442,10 @@ class SyGuS_IF():
 
         _z3_expression = "(set-option :smt.mbqi true)\n(set-logic QF_LRA)\n"
         for _feature in self._feature_names:
-            _z3_expression += "(declare-const " + _feature + " " + self._feature_data_type[_feature] +")\n"
+            if(self._feature_data_type[_feature] != "Categorical"):
+                _z3_expression += "(declare-const " + _feature + " " + self._feature_data_type[_feature] +")\n"
+            else:
+                _z3_expression += "(declare-const " + _feature + " Real)\n"
 
         y_pred = []
         _example_specific_ = _z3_expression
