@@ -27,8 +27,46 @@ class Teacher():
 
             if(verbose):
                 print("\n-iteration:", i + 1)
+                print("-Process: learning ")
+
+            """
+            Learning
+            """
+            # keep track of learner's fitting time
+            _start_time_learner = time.time()
             
+            # Use python timeout
+            q = Queue()
+            p = Process(target=learner.fit, args=(q,))
+            p.start()
+            p.join(timeout=max(0.5, self.timeout - (_start_time_learner - _start_time)))
+            _end_time_learner = time.time()
+            self.time_learner += _end_time_learner - _start_time_learner
+            p.terminate()
+
+            while p.exitcode == None:
+                time.sleep(1)
+            if p.exitcode == 0:
+                [learner] = q.get()
+                if(verbose):
+                    print("-Process: learning complete")
+                if(learner.model.solver_output == "unknown"):
+                    if(verbose):    
+                        print("Non-separable counterexamples")
+                    return learner, False
+            else:
+                if(verbose):
+                    print("\nTerminating due to timeout (Python multiprocessing timeout)")
+                return learner, False
             
+
+            """
+            Verification
+            """
+            if(verbose):
+                print("-Process: verification ")
+
+
             _start_time_verifier = time.time()
         
             # keep track of verifier time
@@ -55,32 +93,7 @@ class Teacher():
                 learner.add_example(counterexample, label)
             
 
-                # keep track of learner's fitting time
-                _start_time_learner = time.time()
                 
-                """
-                Use python timeout
-                """
-                q = Queue()
-                p = Process(target=learner.fit, args=(q,))
-                p.start()
-                p.join(timeout=max(0.5, self.timeout - (_start_time_learner - _start_time)))
-                _end_time_learner = time.time()
-                self.time_learner += _end_time_learner - _start_time_learner
-                p.terminate()
-
-                while p.exitcode == None:
-                    time.sleep(1)
-                if p.exitcode == 0:
-                    [learner] = q.get()
-                    if(learner.model.solver_output == "unknown"):
-                        if(verbose):    
-                            print("Non-separable counterexamples")
-                        return learner, False
-                else:
-                    if(verbose):
-                        print("\nTerminating due to timeout (Python multiprocessing timeout)")
-                    return learner, False
 
 
                 

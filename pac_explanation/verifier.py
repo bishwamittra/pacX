@@ -26,13 +26,17 @@ class Verifier():
             math.ceil((self._num_equivalence_asked*0.693147-self._log_delta)/self.epsilon))
         
         _found_a_counterexample = None
+
+        # generator
+        generator = self._get_random_example(X=self._params_generator[0], feature_type=self._params_generator[1], size=self._number_of_samples)
+
+        # typically it is ideal to get a random sample and then process it,
+        # but SyGuS works better (its prediction function) when given a set of examples for classification
         examples = []
-        for i in range(self._number_of_samples):
-            example = self._get_random_example(X=self._params_generator[0], feature_type=self._params_generator[1])
+        for example in generator:
 
             # when the example is filtered out by the query, it is not considered for further analysis
-            query_verdict = query.classify_example(example)
-            if(not query_verdict):
+            if(not query.classify_example(example)):
                 self.filtered_by_query += 1
                 continue
 
@@ -48,7 +52,6 @@ class Verifier():
             
         
             
-            blackbox_verdict = blackbox_verdicts[i]
             if(learner_verdicts != None):
                 learner_verdict = learner_verdicts[i]
             else:
@@ -60,23 +63,23 @@ class Verifier():
             
             
             
-            if(learner_verdict == None or (learner_verdict != blackbox_verdict)):
+            if(learner_verdict == None or (learner_verdict != blackbox_verdicts[i])):
 
                 _found_a_counterexample = True
 
                 # toggle between positive and negative counterexamples
-                if(blackbox_verdict == self._last_counterexample_positive):
+                if(blackbox_verdicts[i] == self._last_counterexample_positive):
                     self._last_counterexample_positive =  not self._last_counterexample_positive
                 else:
                     # store one counterexample in case toggle does not work
-                    _found_a_counterexample = (examples[i], blackbox_verdict)
+                    _found_a_counterexample = (examples[i], blackbox_verdicts[i])
                     continue
 
                 if(verbose):
-                    print("-found", blackbox_verdict == True, "counterexample")
+                    print("-found", blackbox_verdicts[i] == True, "counterexample")
 
                 # print(learner_verdict, blackbox_verdict, query_verdict, 1 - learner_verdict)
-                return examples[i], blackbox_verdict
+                return examples[i], blackbox_verdicts[i]
         
         if(_found_a_counterexample is not None):
             example, label = _found_a_counterexample

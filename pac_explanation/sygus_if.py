@@ -383,7 +383,7 @@ class SyGuS_IF():
         
         # inconsistent learning
         if(isinstance(tau, float)):
-            self.sygus_if_learn += "(constraint (>= (+\n"
+            self.sygus_if_learn += "(constraint (>= (+ 0 \n"
 
         for idx in range(self._num_examples):    
             self.sygus_if_learn += self._add_constraint(X[idx], y[idx], tau)

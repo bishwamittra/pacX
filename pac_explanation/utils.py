@@ -12,10 +12,12 @@ from scipy import spatial
 import math
 from scipy import spatial
 
-def learn_threshold(specific_input, data, quantile_val=0.1, verbose=True):
+def learn_threshold(specific_input, data, quantile_val=0.1, verbose=True, distance_fn = spatial.distance.cosine):
+    # output the maximum distance from "specific_input" to nearnest "quantile_val" data points in the "data"
+
     distances = []
     for example in data:
-        distance = spatial.distance.cosine(example, specific_input)
+        distance = distance_fn(example, specific_input)
         distances.append(distance)
 
     df = pd.DataFrame(data=distances, columns=["distance"])
@@ -25,23 +27,32 @@ def learn_threshold(specific_input, data, quantile_val=0.1, verbose=True):
     return threshold
 
 
-def random_generator(X, feature_type):
+def random_generator(X, feature_type, size = 100000):
     """
     X is the dataframe (original)
     feature_type is a python dictionary where the key is the feature and the value is the data-type (real, int, bool) of the feature.
     """
-    x=[]
-    for feature in X.columns.tolist():
+    feature_info = {}
+    features = X.columns.tolist()
+    for feature in features:
         if(feature_type[feature] == "Bool"):
-            x.append(random.randint(0,1))
+            feature_info[feature] = [0,1]
         elif(feature_type[feature] == "Real"):
-            x.append(round(random.uniform(X[feature].min(),X[feature].max()),3))
+            feature_info[feature] = (X[feature].min(), X[feature].max())
         elif(feature_type[feature] == "Categorical"):
-            x.append(random.choice(X[feature].unique()))
+            feature_info[feature] = X[feature].unique()
         else:
             print("Error: feature type is either Bool or Real")
             raise ValueError
-    return x
+
+    for i in range(size):
+        x=[]
+        for feature in features:
+            if(feature_type[feature] == "Bool" or feature_type[feature] == "Categorical"):
+                x.append(random.choice(feature_info[feature]))
+            else:
+                x.append(round(random.uniform(feature_info[feature][0], feature_info[feature][1]),3))
+        yield x
 
 def get_scaled_df(X):
     # scale the feature values 
